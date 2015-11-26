@@ -31,4 +31,5 @@ The application has login and sign up screens, so different users can login from
 6. Google Calendar import screen
 7. Task editor screen
 
+![Applications diagram](https://cloud.githubusercontent.com/assets/11299836/11431570/c2972a98-94a3-11e5-9221-01d27d91aa63.jpg "Applications diagram")
 
