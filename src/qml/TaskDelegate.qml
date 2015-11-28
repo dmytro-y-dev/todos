@@ -6,8 +6,15 @@ Rectangle {
     id: mainRectangle
     x: 0
     y: 0
-    width: Consts.ScreenWidth
-    height: 350
+
+    // For designer (480 x 800)
+    //width:  480
+    //height: 350
+    width: screenManager.width
+    height: screenManager.height / 2.3
+
+    property int showContantHeight: screenManager.height / 2.3
+    property int hideContantHeight: screenManager.height / 8
 
     state : "HideContant"
 
@@ -15,44 +22,41 @@ Rectangle {
         id: titleRectangle
         color: "#3670f7"
         width: parent.width
-        height: 100
+        height: hideContantHeight
 
         Text {
             id: titleText
-            y: 27
-            height: 66
+            height: parent.height / 1.5
             color: "#ffffff"
-            text: title
-            style: Text.Normal
+
             anchors.right: parent.right
-            anchors.rightMargin: 101
+            anchors.rightMargin: parent.width / 4.8
             anchors.left: parent.left
-            anchors.leftMargin: 24
+            anchors.leftMargin: parent.width / 20
             anchors.verticalCenterOffset: 0
             anchors.verticalCenter: parent.verticalCenter
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignLeft
 
+            text: title
+            style: Text.Normal
             font.family: "Verdana"
             font.bold: true
-            font.pixelSize: 23
+            font.pixelSize: parent.height / 5
         }
 
         Image {
             id: brImage
-            x: 362
-            y: 12
-            width: 50
-            height: 50
+            width: parent.width / 12
+            height: parent.width / 12
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: parent.width / 24
             source: "qrc:/icons/br_down_icon.png"
         }
 
         MouseArea {
-
             anchors.fill: parent
             onClicked: {
                 if (mainRectangle.state == "HideContant") {
@@ -133,7 +137,7 @@ Rectangle {
 
             PropertyChanges {
                 target: mainRectangle
-                height: 100
+                height: hideContantHeight
             }
 
             PropertyChanges {
@@ -174,7 +178,16 @@ Rectangle {
         },
         State {
             name: "ShowContant"
-            PropertyChanges { target: brImage; rotation: 180 }
+
+            PropertyChanges {
+                target: brImage;
+                rotation: 180
+            }
+
+            PropertyChanges {
+                target: mainRectangle
+                height: showContantHeight
+            }
         }
     ]
 
@@ -184,13 +197,13 @@ Rectangle {
             to: "HideContant"
             RotationAnimation {
                 target: brImage;
-                duration: 100
+                duration: Consts.AnimationDuration
             }
             PropertyAnimation {
                 target: mainRectangle;
                 property: "height";
-                to: 100;
-                duration: 100
+                to: hideContantHeight;
+                duration: Consts.AnimationDuration
             }
         },
         Transition {
@@ -198,13 +211,13 @@ Rectangle {
             to: "ShowContant"
             RotationAnimation {
                 target: brImage;
-                duration: 100
+                duration: Consts.AnimationDuration
             }
             PropertyAnimation {
                 target: mainRectangle;
                 property: "height";
-                to: 350;
-                duration: 100
+                to: showContantHeight;
+                duration: Consts.AnimationDuration
             }
         }
     ]

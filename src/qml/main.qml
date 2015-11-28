@@ -1,21 +1,14 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
-import QtQuick.Window 2.2
 
-import "constants.js" as Consts
+import com.screenmanager 1.0
 
 ApplicationWindow {
     visible: true
+    ScreenResolutionManager{id: screenManager}
 
-    // for mobile screen (full screen)
-    /*
-    width: Screen.width
-    height: Screen.height
-    */
-
-    // for PC
-    width: Consts.ScreenWidth
-    height: Consts.ScreenHeight
+    width: screenManager.width
+    height: screenManager.height
 
     ListView {
         id: mainDashboard
