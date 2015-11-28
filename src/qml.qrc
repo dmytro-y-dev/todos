@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>constants.js</file>
+        <file>qml/constants.js</file>
         <file>qml/main.qml</file>
+        <file>qml/TaskDelegate.qml</file>
+        <file>icons/br_down_icon.png</file>
+        <file>qml/TestTaskModel.qml</file>
     </qresource>
 </RCC>
