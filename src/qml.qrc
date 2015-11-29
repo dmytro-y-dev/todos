@@ -15,6 +15,7 @@
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
         <file>qml/TestSidebarModel.qml</file>
+        <file>qml/SidebarHeader.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>
