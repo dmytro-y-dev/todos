@@ -17,11 +17,11 @@ Rectangle {
     property int hideContantHeight: 100
 */
 
-    width: screenManager.width
-    height: screenManager.height / 2.3
+    width: applicationWindow.width
+    height: applicationWindow.height / 2.3
 
-    property int showContantHeight: screenManager.height / 2.3
-    property int hideContantHeight: screenManager.height / 8
+    property int showContantHeight: applicationWindow.height / 2.3
+    property int hideContantHeight: applicationWindow.height / 8
 
     state : "HideContant"
 

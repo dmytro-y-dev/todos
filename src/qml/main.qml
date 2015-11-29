@@ -4,7 +4,7 @@ import QtQuick.Controls 1.2
 import com.screenmanager 1.0
 
 ApplicationWindow {
-    id: applicationWindow1
+    id: applicationWindow
     visible: true
     ScreenResolutionManager{id: screenManager}
 
@@ -22,6 +22,7 @@ ApplicationWindow {
         id: mainDashboard
         width: parent.width
         height: parent.height
+        header: Component { TaskHeader{ id : taskHeader } }
         model: TestTaskModel{ id: textTaskModel }
         delegate: Component { TaskDelegate {} }
     }
