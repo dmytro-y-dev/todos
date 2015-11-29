@@ -48,9 +48,10 @@ Rectangle {
 
             text: title
             style: Text.Normal
-            font.family: "Verdana"
+            FontLoader {id: taskFont; source: "qrc:/fonts/GoodDog.otf"}
+            font.family: taskFont.name
             font.bold: true
-            font.pixelSize: parent.height / 5
+            font.pixelSize: parent.height / 2.5
         }
 
         Image {

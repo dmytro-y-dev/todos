@@ -6,5 +6,6 @@
         <file>icons/br_down_icon.png</file>
         <file>qml/TestTaskModel.qml</file>
         <file>qml/AddButton.qml</file>
+        <file>fonts/GoodDog.otf</file>
     </qresource>
 </RCC>

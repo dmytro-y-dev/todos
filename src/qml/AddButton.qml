@@ -3,7 +3,7 @@ import QtQuick 2.0
 import "constants.js" as Consts
 
 Rectangle{
-    width: screenManager.width / 8
+    width: screenManager.width / 4.8
     height: width
     color: Consts.MainColor
     radius: width / 2
