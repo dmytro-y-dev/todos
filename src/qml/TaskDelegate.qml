@@ -74,6 +74,9 @@ Rectangle {
                     mainRectangle.state = "HideContant"
                 }
             }
+            onPressAndHold:{
+             textTaskModel.remove(model.index)
+            }
         }
     }
 

@@ -22,14 +22,22 @@ ApplicationWindow {
         id: mainDashboard
         width: parent.width
         height: parent.height
-        model: TestTaskModel{}
+        model: TestTaskModel{ id: textTaskModel }
         delegate: Component { TaskDelegate {} }
     }
 
     AddButton {
+        id: addButton
         anchors.bottom: parent.bottom;
         anchors.bottomMargin: 20;
         anchors.right: parent.right;
         anchors.rightMargin: 20
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                textTaskModel.append({title: "NewTask" + textTaskModel.count, priority: 1, dueDate: "28-11-2015", commentaty: "My best task!!!" , status: "Not Completed"})
+            }
+        }
     }
 }
