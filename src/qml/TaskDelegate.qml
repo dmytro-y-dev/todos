@@ -48,7 +48,7 @@ Rectangle {
 
             text: title
             style: Text.Normal
-            FontLoader {id: taskFont; source: "qrc:/fonts/GoodDog.otf"}
+            FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
             font.family: taskFont.name
             font.bold: true
             font.pixelSize: parent.height / 2.5
@@ -61,7 +61,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: parent.width / 24
-            source: "qrc:/icons/br_down_icon.png"
+            source: "qrc:/icons/resources/icons/br_down_icon.png"
             antialiasing: true
         }
 

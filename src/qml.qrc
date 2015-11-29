@@ -1,14 +1,18 @@
 <RCC>
-    <qresource prefix="/">
-        <file>qml/constants.js</file>
+    <qresource prefix="/icons">
+        <file>resources/icons/align_just_icon.png</file>
+        <file>resources/icons/br_down_icon.png</file>
+        <file>resources/icons/zoom_icon.png</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file>qml/AddButton.qml</file>
         <file>qml/main.qml</file>
         <file>qml/TaskDelegate.qml</file>
-        <file>icons/br_down_icon.png</file>
-        <file>qml/TestTaskModel.qml</file>
-        <file>qml/AddButton.qml</file>
-        <file>fonts/GoodDog.otf</file>
         <file>qml/TaskHeader.qml</file>
-        <file>icons/align_just_icon.png</file>
-        <file>icons/zoom_icon.png</file>
+        <file>qml/TestTaskModel.qml</file>
+        <file>qml/constants.js</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>resources/fonts/GoodDog.otf</file>
     </qresource>
 </RCC>

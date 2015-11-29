@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 	qmlRegisterType<ScreenResolutionManager>("com.screenmanager", 1, 0, "ScreenResolutionManager");
 
 	QQmlApplicationEngine engine;
-	engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+	engine.load(QUrl(QStringLiteral("qrc:/qml/qml/main.qml")));
 
 	return app.exec();
 

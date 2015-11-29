@@ -16,7 +16,7 @@ Rectangle {
 
         Image {
             anchors.fill: parent
-            source: "qrc:/icons/align_just_icon.png"
+            source: "qrc:/icons/resources/icons/align_just_icon.png"
         }
     }
 
@@ -30,7 +30,7 @@ Rectangle {
 
         Image {
             anchors.fill: parent
-            source: "qrc:/icons/zoom_icon.png"
+            source: "qrc:/icons/resources/icons/zoom_icon.png"
         }
     }
 
