@@ -8,8 +8,15 @@ Rectangle {
     y: 0
 
     // For designer (480 x 800)
-    //width:  480
-    //height: 350
+    // Replace all screenManager vaules
+/*
+    width: 480
+    height: 350
+
+    property int showContantHeight: 350
+    property int hideContantHeight: 100
+*/
+
     width: screenManager.width
     height: screenManager.height / 2.3
 
@@ -20,7 +27,7 @@ Rectangle {
 
     Rectangle {
         id: titleRectangle
-        color: "#3670f7"
+        color: Consts.MainColor
         width: parent.width
         height: hideContantHeight
 
@@ -54,6 +61,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: parent.width / 24
             source: "qrc:/icons/br_down_icon.png"
+            antialiasing: true
         }
 
         MouseArea {
@@ -181,7 +189,7 @@ Rectangle {
 
             PropertyChanges {
                 target: brImage;
-                rotation: 180
+                rotation: -180
             }
 
             PropertyChanges {
