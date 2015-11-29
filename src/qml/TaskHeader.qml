@@ -18,6 +18,13 @@ Rectangle {
             anchors.fill: parent
             source: "qrc:/icons/resources/icons/align_just_icon.png"
         }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                sidebarRectangle.state = "Show"
+            }
+        }
     }
 
     Rectangle {

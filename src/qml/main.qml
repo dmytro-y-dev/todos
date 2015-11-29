@@ -27,6 +27,11 @@ ApplicationWindow {
         delegate: Component { TaskDelegate {} }
     }
 
+    Sidebar {
+        id: sidebarRectangle
+        z:1
+    }
+
     AddButton {
         id: addButton
         anchors.bottom: parent.bottom;

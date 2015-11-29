@@ -8,7 +8,7 @@ Rectangle {
     y: 0
 
     // For designer (480 x 800)
-    // Replace all screenManager vaules
+    // Replace all applicationWindow vaules
 /*
     width: 480
     height: 350
