@@ -11,14 +11,14 @@ Item {
         height: parent.height
 
         header: Component {
-            TaskHeader{
+            TaskHeader {
                 id : taskHeader
                 width: mainWindow.width
                 height: mainWindow.height / 6
             }
         }
 
-        model: TestTaskModel{ id: textTaskModel }
+        model: TestTaskModel { id: textTaskModel }
 
         delegate: Component {
             TaskDelegate {

@@ -8,9 +8,17 @@ ApplicationWindow {
     visible: true
     ScreenResolutionManager { id: screenManager }
 
+    StartWindow{
+        id: startWindow
+        width: screenManager.width
+        height: screenManager.height
+        z : 2
+    }
+
     MainWindow {
         id: mainWindow
         width: screenManager.width
         height: screenManager.height
+        z : 1
     }
 }

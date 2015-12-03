@@ -17,8 +17,10 @@
         <file>qml/TestSidebarModel.qml</file>
         <file>qml/SidebarHeader.qml</file>
         <file>qml/MainWindow.qml</file>
+        <file>qml/StartWindow.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>
+        <file>resources/fonts/Mona Shark.otf</file>
     </qresource>
 </RCC>
