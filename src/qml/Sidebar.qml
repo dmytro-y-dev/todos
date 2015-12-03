@@ -4,19 +4,11 @@ import "constants.js" as Consts
 
 Rectangle {
     id: sidebarRectangle
-    // For designer (480 x 800)
-    // Replace all applicationWindow vaules
-    /*
+
     property int maxWidth: 480
     property int minWidth: 0
 
     height: 800
-    width: minWidth
-*/
-    property int maxWidth: applicationWindow.width
-    property int minWidth: 0
-
-    height: applicationWindow.height
     width: minWidth
 
     state: "Hide"

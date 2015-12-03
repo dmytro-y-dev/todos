@@ -29,6 +29,8 @@ ApplicationWindow {
 
     Sidebar {
         id: sidebarRectangle
+        maxWidth:  applicationWindow.width
+        height: applicationWindow.height
         z:1
     }
 
