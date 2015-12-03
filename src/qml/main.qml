@@ -24,7 +24,12 @@ ApplicationWindow {
         height: parent.height
         header: Component { TaskHeader{ id : taskHeader } }
         model: TestTaskModel{ id: textTaskModel }
-        delegate: Component { TaskDelegate {} }
+        delegate: Component { TaskDelegate {
+                id : taskDelegate
+                width: applicationWindow.width
+                showContantHeight: applicationWindow.height / 2.3
+                hideContantHeight: applicationWindow.height / 8
+            } }
     }
 
     Sidebar {

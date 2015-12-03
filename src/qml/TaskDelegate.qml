@@ -7,21 +7,12 @@ Rectangle {
     x: 0
     y: 0
 
-    // For designer (480 x 800)
-    // Replace all applicationWindow vaules
-/*
-    width: 480
-    height: 350
-
     property int showContantHeight: 350
     property int hideContantHeight: 100
-*/
 
-    width: applicationWindow.width
-    height: applicationWindow.height / 2.3
 
-    property int showContantHeight: applicationWindow.height / 2.3
-    property int hideContantHeight: applicationWindow.height / 8
+    width: 480
+    height: showContantHeight
 
     state : "HideContant"
 
