@@ -1,9 +1,11 @@
 import QtQuick 2.0
 
+import "constants.js" as Consts
+
 Rectangle {
     id: taskHeader
-    width: 480
-    height: 800 / 6
+    width: Consts.ScreenWidth
+    height: Consts.ScreenHeight / 6
 
     color: "#1924d8"
 

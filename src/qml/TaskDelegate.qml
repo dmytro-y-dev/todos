@@ -7,11 +7,11 @@ Rectangle {
     x: 0
     y: 0
 
-    property int showContantHeight: 350
-    property int hideContantHeight: 100
+    property int showContantHeight: Consts.ScreenHeight / 2.3
+    property int hideContantHeight: Consts.ScreenHeight / 8
 
 
-    width: 480
+    width: Consts.ScreenWidth
     height: showContantHeight
 
     state : "HideContant"

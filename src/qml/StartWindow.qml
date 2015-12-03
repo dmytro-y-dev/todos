@@ -1,9 +1,11 @@
 import QtQuick 2.0
 
+import "constants.js" as Consts
+
 Rectangle {
     id: rectangle1
-    width: 480
-    height: 800
+    width: Consts.ScreenWidth
+    height: Consts.ScreenHeight
     color: "#292b52"
     Text {
         text: qsTr("TODOS")

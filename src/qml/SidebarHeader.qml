@@ -1,9 +1,11 @@
 import QtQuick 2.0
 
+import "constants.js" as Consts
+
 Rectangle {
     id: sidebarHeader
-    width: 480
-    height: 160
+    width: Consts.ScreenWidth
+    height: Consts.ScreenHeight / 5
     x: 0
     y: 0
     color: "#10156a"

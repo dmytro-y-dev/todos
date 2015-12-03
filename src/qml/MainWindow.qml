@@ -1,9 +1,11 @@
 import QtQuick 2.0
 
+import "constants.js" as Consts
+
 Item {
     id: mainWindow
-    width: 480
-    height: 800
+    width: Consts.ScreenWidth
+    height: Consts.ScreenHeight
 
     ListView {
         id: dashboard

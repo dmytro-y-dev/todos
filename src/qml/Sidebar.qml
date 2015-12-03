@@ -5,10 +5,10 @@ import "constants.js" as Consts
 Rectangle {
     id: sidebarRectangle
 
-    property int maxWidth: 480
+    property int maxWidth: Consts.ScreenWidth
     property int minWidth: 0
 
-    height: 800
+    height: Consts.ScreenHeight
     width: minWidth
 
     state: "Hide"
