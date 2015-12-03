@@ -1,22 +1,17 @@
 import QtQuick 2.0
 
-import "constants.js" as Consts
-
 Rectangle{
     id: addButton
-    // For designer (480 x 800)
-    // Replace all screenManager vaules
 
-    //width: 100
+    property int diameter: 100
 
-    width: screenManager.width / 4.8
-
-    height: width
-    radius: width / 2
+    width:  diameter
+    height: diameter
+    radius: diameter / 2
     gradient: Gradient {
         GradientStop {
             position: 0.039
-            color: "#1543ae"
+            color: "#ffffff"
         }
 
         GradientStop {
@@ -28,7 +23,6 @@ Rectangle{
             position: 0.258
             color: "#1752da"
         }
-
 
         GradientStop {
             position: 0.712
