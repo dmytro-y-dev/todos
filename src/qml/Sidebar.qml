@@ -20,7 +20,11 @@ Rectangle {
         }
     }
 
-    SidebarHeader{ id: sidebarHeader }
+    SidebarHeader {
+        id: sidebarHeader
+        width: sidebarRectangle.width
+        height: sidebarRectangle.height / 5
+    }
 
     states: [
         State {

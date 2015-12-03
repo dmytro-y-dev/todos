@@ -2,8 +2,8 @@ import QtQuick 2.0
 
 Rectangle {
     id: sidebarHeader
-    width: sidebarRectangle.width
-    height: sidebarRectangle.height / 5
+    width: 480
+    height: 160
     x: 0
     y: 0
     color: "#10156a"
