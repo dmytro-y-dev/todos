@@ -22,7 +22,11 @@ ApplicationWindow {
         id: mainDashboard
         width: parent.width
         height: parent.height
-        header: Component { TaskHeader{ id : taskHeader } }
+        header: Component { TaskHeader{
+                id : taskHeader
+                width: applicationWindow.width
+                height: applicationWindow.height / 6
+            } }
         model: TestTaskModel{ id: textTaskModel }
         delegate: Component { TaskDelegate {
                 id : taskDelegate

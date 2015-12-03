@@ -2,8 +2,9 @@ import QtQuick 2.0
 
 Rectangle {
     id: taskHeader
-    width: applicationWindow.width
-    height: applicationWindow.height / 6
+    width: 480
+    height: 800 / 6
+
     color: "#1924d8"
 
     Rectangle {
