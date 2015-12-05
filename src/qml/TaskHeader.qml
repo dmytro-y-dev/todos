@@ -10,7 +10,7 @@ Rectangle {
     color: "#1924d8"
 
     Rectangle {
-        width: taskHeader.width / 25
+        width: taskHeader.width / 10
         height: width
         color: "#00000000"
         anchors.left: parent.left
@@ -18,7 +18,9 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
 
         Image {
-            anchors.fill: parent
+            width: taskHeader.width / 25
+            height: width
+
             source: "qrc:/icons/resources/icons/align_just_icon.png"
         }
 
@@ -31,7 +33,7 @@ Rectangle {
     }
 
     Rectangle {
-        width: 19.2
+        width: parent.width / 25
         height: width
         color: "#00000000"
         anchors.right: parent.right
