@@ -74,46 +74,16 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    GradientButton {
         id: logInButton
+        text: qsTr("Log in")
         width: parent.width / 2
         height: parent.height / 10
-        radius: 30
-        anchors.horizontalCenterOffset: 98
-        anchors.topMargin: 692
-        gradient: Gradient {
-            GradientStop {
-                position: 0
-                color: "#ffffff"
-            }
-
-            GradientStop {
-                position: 0.751
-                color: "#292b52"
-            }
-
-            GradientStop {
-                position: 0.337
-                color: "#4b4e96"
-            }
-
-            GradientStop {
-                position: 0.957
-                color: "#1f202e"
-            }
-        }
-
-        Text {
-            text: qsTr("Log In")
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            anchors.fill: parent
-            font.pointSize: 30
-            color: "#ffffff"
-        }
 
         anchors.top: parent.top
+        anchors.topMargin: 692
         anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenterOffset: 98
 
         MouseArea {
             anchors.fill: parent
