@@ -15,7 +15,6 @@
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
         <file>qml/TestSidebarModel.qml</file>
-        <file>qml/SidebarHeader.qml</file>
         <file>qml/MainWindow.qml</file>
         <file>qml/StartWindow.qml</file>
     </qresource>

@@ -5,37 +5,70 @@ import "constants.js" as Consts
 Rectangle {
     id: sidebar
 
-    property int maxWidth: Consts.ScreenWidth
-    property int minWidth: 0
-
     height: Consts.ScreenHeight
-    width: maxWidth
-    x : -maxWidth
+    width: Consts.ScreenWidth
 
+    x : -width
     state: "Hide"
 
-
-
     ListView {
-        id: view
+        id: sidebarView
         anchors.fill: parent
 
         signal sectionClicked(string name)
-        model: TestSidebarModel{id: model}
-        header: Component {
-            SidebarHeader {
-                id: sidebarHeader
-                width: sidebar.width
-                height: sidebar.height / 5
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        sidebar.state = "Hide"
-                    }
+        model: TestSidebarModel { id: model }
+
+        header: Rectangle {
+            width: sidebar.width
+            height: sidebar.height / 5
+            color: "#10156a"
+
+            Text {
+                anchors.left: parent.right
+                anchors.leftMargin: -sidebar.width / 1.45
+                anchors.verticalCenter: parent.verticalCenter
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+
+                text: qsTr("USER_NAME")
+                font.bold: true
+                font.family: "Arial"
+                font.pixelSize: 30
+                color: "#eeecec"
+            }
+
+            Image {
+                width: sidebar.width / 8
+                height: width
+
+                anchors.left: parent.right
+                anchors.leftMargin: -sidebar.width / 1.04
+                anchors.verticalCenter: parent.verticalCenter
+
+                source: "qrc:/icons/resources/icons/user_icon.gif"
+            }
+
+            Image {
+                width: sidebar.width / 16
+                height: width
+
+                anchors.left: parent.right
+                anchors.leftMargin: -sidebar.width / 6.86
+                anchors.verticalCenter: parent.verticalCenter
+
+                source: "qrc:/icons/resources/icons/logout_icon.png"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    sidebar.state = "Hide"
                 }
             }
         }
+
         delegate: section
         section.property: "type"
         section.criteria: ViewSection.FullString
@@ -58,7 +91,7 @@ Rectangle {
             }
             MouseArea {
                 anchors.fill: parent
-                onClicked: view.sectionClicked(section)
+                onClicked: sidebarView.sectionClicked(section)
             }
         }
     }
@@ -92,7 +125,7 @@ Rectangle {
             PropertyAnimation {
                 target: sidebar;
                 property: "x";
-                to: -maxWidth;
+                to: -sidebar.width;
                 duration: Consts.AnimationDuration
             }
         },

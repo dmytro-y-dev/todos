@@ -34,7 +34,7 @@ Item {
 
     Sidebar {
         id: sidebarRectangle
-        maxWidth: mainWindow.width
+        width: mainWindow.width
         height: mainWindow.height
         z:1
     }
