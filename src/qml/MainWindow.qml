@@ -42,7 +42,7 @@ Item {
     AddButton {
         id: addButton
 
-        diameter: screenManager.width / 4.8
+        diameter: mainWindow.width / 4.8
 
         anchors.bottom: parent.bottom;
         anchors.bottomMargin: 20;

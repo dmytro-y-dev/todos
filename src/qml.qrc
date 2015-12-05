@@ -17,6 +17,7 @@
         <file>qml/TestSidebarModel.qml</file>
         <file>qml/MainWindow.qml</file>
         <file>qml/StartWindow.qml</file>
+        <file>qml/LogInWindow.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>

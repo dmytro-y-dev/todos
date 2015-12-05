@@ -12,7 +12,7 @@ ApplicationWindow {
         id: startWindow
         width: screenManager.width
         height: screenManager.height
-        z : 2
+        z : 3
     }
 
     MainWindow {
@@ -20,5 +20,12 @@ ApplicationWindow {
         width: screenManager.width
         height: screenManager.height
         z : 1
+    }
+
+    LogInWindow {
+        id: loginWindow
+        width: screenManager.width
+        height: screenManager.height
+        z : 2
     }
 }
