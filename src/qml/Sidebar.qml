@@ -19,7 +19,18 @@ Rectangle {
 
         model: TestSidebarModel { id: model }
 
-        header: Rectangle {
+        header: sidebarHeader
+
+        delegate: section
+        section.property: "type"
+        section.criteria: ViewSection.FullString
+        section.delegate: sectionHeading
+
+    }
+
+    Component {
+        id: sidebarHeader
+        Rectangle {
             width: sidebar.width
             height: sidebar.height / 5
             color: "#10156a"
@@ -68,12 +79,6 @@ Rectangle {
                 }
             }
         }
-
-        delegate: section
-        section.property: "type"
-        section.criteria: ViewSection.FullString
-        section.delegate: sectionHeading
-
     }
 
     Component {
@@ -103,7 +108,7 @@ Rectangle {
             width: sidebar.width
             height: shown ? mainText.height : 0
             visible: shown
-            property bool shown: true
+            property bool shown: false
 
             Text { id: mainText; text: name; font.pixelSize: 18 }
             Connections {
@@ -114,8 +119,20 @@ Rectangle {
     }
 
     states: [
-        State { name: "Show" },
-        State { name: "Hide" }
+        State {
+            name: "Show"
+            PropertyChanges {
+                target: sidebar
+                x: 0
+            }
+        },
+        State {
+            name: "Hide"
+            PropertyChanges {
+                target: sidebar
+                x: -sidebar.width
+            }
+        }
     ]
 
     transitions: [
