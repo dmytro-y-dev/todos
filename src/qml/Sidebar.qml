@@ -83,16 +83,43 @@ Rectangle {
 
     Component {
         id: sectionHeading
+
         Rectangle {
             id: sectionHeadingRectangle
             width: sidebar.width
-            height: childrenRect.height
-            color: "lightsteelblue"
+            height: 100
+            color: Consts.MainColor
 
             Text {
+                id: sectionText
+                anchors.right: parent.right
+                anchors.rightMargin: parent.width / 4.8
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width / 20
+                anchors.verticalCenterOffset: 0
+                anchors.verticalCenter: parent.verticalCenter
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignLeft
+
                 text: section
                 font.bold: true
-                font.pixelSize: 20;
+                color: "#ffffff"
+                style: Text.Normal
+                FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
+                font.family: taskFont.name
+                font.pixelSize: parent.height / 2.5
+            }
+
+            Image {
+                id: brImage
+                width: parent.width / 12
+                height: parent.width / 12
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: parent.width / 24
+                source: "qrc:/icons/resources/icons/br_down_icon.png"
+                antialiasing: true
             }
             MouseArea {
                 anchors.fill: parent
@@ -110,7 +137,13 @@ Rectangle {
             visible: shown
             property bool shown: false
 
-            Text { id: mainText; text: name; font.pixelSize: 18 }
+            Text {
+                id: mainText;
+                text: name;
+                FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
+                font.family: taskFont.name
+                font.pixelSize: sidebar.height / 20
+            }
             Connections {
                 target: rect.ListView.view
                 onSectionClicked: if (rect.ListView.section === name) shown = !shown;
