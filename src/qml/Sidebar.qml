@@ -3,44 +3,86 @@ import QtQuick 2.0
 import "constants.js" as Consts
 
 Rectangle {
-    id: sidebarRectangle
+    id: sidebar
 
     property int maxWidth: Consts.ScreenWidth
     property int minWidth: 0
 
     height: Consts.ScreenHeight
-    width: minWidth
+    width: maxWidth
+    x : -maxWidth
 
     state: "Hide"
 
-    MouseArea {
+
+
+    ListView {
+        id: view
         anchors.fill: parent
-        onClicked: {
-            parent.state = "Hide"
+
+        signal sectionClicked(string name)
+        model: TestSidebarModel{id: model}
+        header: Component {
+            SidebarHeader {
+                id: sidebarHeader
+                width: sidebar.width
+                height: sidebar.height / 5
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        sidebar.state = "Hide"
+                    }
+                }
+            }
+        }
+        delegate: section
+        section.property: "type"
+        section.criteria: ViewSection.FullString
+        section.delegate: sectionHeading
+
+    }
+
+    Component {
+        id: sectionHeading
+        Rectangle {
+            id: sectionHeadingRectangle
+            width: sidebar.width
+            height: childrenRect.height
+            color: "lightsteelblue"
+
+            Text {
+                text: section
+                font.bold: true
+                font.pixelSize: 20;
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: view.sectionClicked(section)
+            }
         }
     }
 
-    SidebarHeader {
-        id: sidebarHeader
-        width: sidebarRectangle.width
-        height: sidebarRectangle.height / 5
+    Component {
+        id: section
+        Rectangle {
+            id: rect
+            width: sidebar.width
+            height: shown ? mainText.height : 0
+            visible: shown
+            property bool shown: true
+
+            Text { id: mainText; text: name; font.pixelSize: 18 }
+            Connections {
+                target: rect.ListView.view
+                onSectionClicked: if (rect.ListView.section === name) shown = !shown;
+            }
+        }
     }
 
     states: [
-        State {
-            name: "Show"
-            PropertyChanges {
-                target: sidebarRectangle
-                width: maxWidth
-            }
-        },
-        State {
-            name: "Hide"
-            PropertyChanges {
-                target: sidebarRectangle
-                width: minWidth
-            }
-        }
+        State { name: "Show" },
+        State { name: "Hide" }
     ]
 
     transitions: [
@@ -48,9 +90,9 @@ Rectangle {
             from: "Show"
             to: "Hide"
             PropertyAnimation {
-                target: sidebarRectangle;
-                property: "width";
-                to: minWidth;
+                target: sidebar;
+                property: "x";
+                to: -maxWidth;
                 duration: Consts.AnimationDuration
             }
         },
@@ -58,9 +100,9 @@ Rectangle {
             from: "Hide"
             to: "Show"
             PropertyAnimation {
-                target: sidebarRectangle;
-                property: "width";
-                to: maxWidth;
+                target: sidebar;
+                property: "x";
+                to: 0;
                 duration: Consts.AnimationDuration
             }
         }
