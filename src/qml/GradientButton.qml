@@ -17,11 +17,13 @@ Rectangle {
     }
 
     Text {
-        text: gradientButton.text
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
         anchors.fill: parent
+
+        text: gradientButton.text
         font.pointSize: parent.height / 2.67
         color: "#ffffff"
+
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
     }
 }

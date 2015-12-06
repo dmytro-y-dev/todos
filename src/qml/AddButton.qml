@@ -23,11 +23,12 @@ Rectangle{
 
     Text {
         anchors.fill: parent
-        color: "#f9f8f8"
 
         text: qsTr("+")
         font.family: "Arial"
         font.pixelSize: height
+        color: "#f9f8f8"
+
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }

@@ -8,7 +8,6 @@ Rectangle {
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
 
-    x : -width
     state: "Hide"
 
     ListView {
@@ -154,17 +153,11 @@ Rectangle {
     states: [
         State {
             name: "Show"
-            PropertyChanges {
-                target: sidebar
-                x: 0
-            }
+            PropertyChanges { target: sidebar; x: 0 }
         },
         State {
             name: "Hide"
-            PropertyChanges {
-                target: sidebar
-                x: -sidebar.width
-            }
+            PropertyChanges { target: sidebar; x: -sidebar.width }
         }
     ]
 
