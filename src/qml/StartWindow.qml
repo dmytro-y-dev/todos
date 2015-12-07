@@ -37,7 +37,7 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: { startWindow.visible = false }
+            onClicked: { startWindow.visible = false ; loginWindow.visible = true}
         }
     }
 
@@ -55,7 +55,7 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: { startWindow.visible = false }
+            onClicked: { startWindow.visible = false ; signUpWindow.visible = true}
         }
 
     }

@@ -19,6 +19,7 @@
         <file>qml/StartWindow.qml</file>
         <file>qml/LogInWindow.qml</file>
         <file>qml/GradientButton.qml</file>
+        <file>qml/SignUpWindow.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>

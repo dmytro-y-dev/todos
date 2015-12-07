@@ -26,6 +26,15 @@ ApplicationWindow {
         id: loginWindow
         width: screenManager.width
         height: screenManager.height
+        visible: false
+        z : 2
+    }
+
+    SignUpWindow {
+        id: signUpWindow
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
         z : 2
     }
 }

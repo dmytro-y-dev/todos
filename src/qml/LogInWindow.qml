@@ -50,7 +50,7 @@ Rectangle {
         height: logInWindow.height / 13
 
         color: "#2b2e59"
-        radius: logInWindow / 160
+        radius: logInWindow.height / 160
 
         TextInput {
             anchors.fill: parent
