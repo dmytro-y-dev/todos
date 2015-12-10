@@ -12,14 +12,21 @@ ApplicationWindow {
         id: startWindow
         width: screenManager.width
         height: screenManager.height
-        z : 3
+        z : 4
     }
 
-    MainWindow {
-        id: mainWindow
+    Dashboard{
+        id: dashboard
         width: screenManager.width
         height: screenManager.height
         z : 1
+    }
+
+    Sidebar {
+        id: sidebarRectangle
+        width: screenManager.width
+        height: screenManager.height
+        z:2
     }
 
     LogInWindow {
@@ -27,7 +34,7 @@ ApplicationWindow {
         width: screenManager.width
         height: screenManager.height
         visible: false
-        z : 2
+        z : 3
     }
 
     SignUpWindow {
@@ -35,6 +42,6 @@ ApplicationWindow {
         width: screenManager.width
         height: screenManager.height
         visible: false
-        z : 2
+        z : 3
     }
 }

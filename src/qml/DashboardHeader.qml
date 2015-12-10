@@ -3,14 +3,15 @@ import QtQuick 2.0
 import "constants.js" as Consts
 
 Rectangle {
-    id: taskHeader
+    id: dashboardHeader
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight / 6
 
     color: "#1924d8"
 
     Rectangle {
-        width: taskHeader.width / 10
+        id: rectangle1
+        width: dashboardHeader.width / 10
         height: width
         color: "#00000000"
         anchors.left: parent.left
@@ -18,8 +19,11 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
 
         Image {
-            width: taskHeader.width / 25
+            width: dashboardHeader.width / 25
             height: width
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
 
             source: "qrc:/icons/resources/icons/align_just_icon.png"
         }
