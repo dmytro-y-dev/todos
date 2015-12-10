@@ -10,14 +10,16 @@
         <file>qml/AddButton.qml</file>
         <file>qml/main.qml</file>
         <file>qml/TaskDelegate.qml</file>
-        <file>qml/TaskHeader.qml</file>
+        <file>qml/DashboardHeader.qml</file>
         <file>qml/TestTaskModel.qml</file>
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
         <file>qml/TestSidebarModel.qml</file>
-        <file>qml/SidebarHeader.qml</file>
-        <file>qml/MainWindow.qml</file>
+        <file>qml/Dashboard.qml</file>
         <file>qml/StartWindow.qml</file>
+        <file>qml/LogInWindow.qml</file>
+        <file>qml/GradientButton.qml</file>
+        <file>qml/SignUpWindow.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>
