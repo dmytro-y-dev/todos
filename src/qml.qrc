@@ -7,17 +7,17 @@
         <file>resources/icons/logout_icon.png</file>
     </qresource>
     <qresource prefix="/qml">
-        <file>qml/AddButton.qml</file>
         <file>qml/main.qml</file>
         <file>qml/TaskDelegate.qml</file>
-        <file>qml/DashboardHeader.qml</file>
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
         <file>qml/Dashboard.qml</file>
         <file>qml/StartWindow.qml</file>
         <file>qml/LogInWindow.qml</file>
-        <file>qml/GradientButton.qml</file>
         <file>qml/SignUpWindow.qml</file>
+        <file>qml/components/AddButton.qml</file>
+        <file>qml/components/TileButton.qml</file>
+		<file>qml/components/CustomLineEdit.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>

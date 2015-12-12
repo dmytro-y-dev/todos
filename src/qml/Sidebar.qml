@@ -152,14 +152,8 @@ Rectangle {
     }
 
     states: [
-        State {
-            name: "Show"
-            PropertyChanges { target: sidebar; x: 0 }
-        },
-        State {
-            name: "Hide"
-            PropertyChanges { target: sidebar; x: -sidebar.width }
-        }
+        State { name: "Show"; PropertyChanges { target: sidebar; x: 0 } },
+        State { name: "Hide"; PropertyChanges { target: sidebar; x: -sidebar.width } }
     ]
 
     transitions: [

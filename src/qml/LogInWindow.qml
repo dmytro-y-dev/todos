@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import "constants.js" as Consts
+import "components"
 
 Rectangle {
     id: logInWindow
@@ -22,70 +23,41 @@ Rectangle {
         font.pixelSize: parent.height / 5
     }
 
-    Text {
-        id: emailText
-
+    Column {
         x: logInWindow.width / 9.6
         y: logInWindow.height / 2.42
 
-        text: qsTr("Email")
-        color: "#ffffff"
-        font.pixelSize: logInWindow.height / 32
-    }
+        spacing: logInWindow.height / 80
 
-    Text {
-        x: emailText.x
-        y: logInWindow.height / 1.67
-
-        text: qsTr("Password")
-        color: "#ffffff"
-        font: emailText.font
-    }
-
-    Rectangle {
-        x: emailText.x
-        y: logInWindow.height / 2.11
-
-        width: logInWindow.width / 2
-        height: logInWindow.height / 13
-
-        color: "#2b2e59"
-        radius: logInWindow.height / 160
-
-        TextInput {
-            anchors.fill: parent
-
-            text: qsTr("")
+        Text {
+            text: qsTr("Email")
             color: "#ffffff"
-            font: emailText.font
-            verticalAlignment: Text.AlignVCenter
-            clip: true
+            font.pixelSize: logInWindow.height / 32
+        }
+
+        CustomLineEdit {
+            id: email
+
+            width: logInWindow.width / 2
+            height: logInWindow.height / 13
+        }
+
+        Text {
+            text: qsTr("Password")
+            color: "#ffffff"
+            font.pixelSize: logInWindow.height / 32
+        }
+
+        CustomLineEdit {
+            id: password
+
+            width: logInWindow.width / 2
+            height: logInWindow.height / 13
+            hideCharacter: true
         }
     }
 
-    Rectangle {
-        x: emailText.x
-        y: logInWindow.height / 1.48
-
-        width: logInWindow.width / 2
-        height: logInWindow.height / 13
-
-        color: "#2b2e59"
-        radius: logInWindow / 160
-        TextInput {
-            anchors.fill: parent
-
-            text: qsTr("")
-            color: "#ffffff"
-            echoMode: TextInput.Password
-            passwordCharacter: qsTr("●")
-            font: emailText.font
-            verticalAlignment: Text.AlignVCenter
-            clip: true
-        }
-    }
-
-    GradientButton {
+    TileButton {
         width: parent.width / 2
         height: parent.height / 10
 
@@ -96,9 +68,10 @@ Rectangle {
 
         text: qsTr("Log in")
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: { logInWindow.visible = false }
+        onClicked: {
+            logInWindow.visible = false
+            // TODO
+            // login(email.text, password.text)
         }
     }
 }
