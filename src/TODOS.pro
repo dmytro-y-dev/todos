@@ -3,7 +3,11 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    ScreenResolutionManager.cpp
+    ScreenResolutionManager.cpp \
+    Engine.cpp \
+    Task.cpp \
+    lib/qobjectlistmodel.cpp \
+    SidebarItem.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,6 +18,11 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    ScreenResolutionManager.h
+    ScreenResolutionManager.h \
+    Engine.h \
+    Task.h \
+    lib/qobjectlistmodel.h \
+    lib/qquicklist.h \
+    SidebarItem.h
 
 CONFIG += c++11
