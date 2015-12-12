@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     ScreenResolutionManager.cpp \
     Engine.cpp \
     Task.cpp \
-    lib/qobjectlistmodel.cpp
+    lib/qobjectlistmodel.cpp \
+    SidebarItem.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,6 +22,7 @@ HEADERS += \
     Engine.h \
     Task.h \
     lib/qobjectlistmodel.h \
-    lib/qquicklist.h
+    lib/qquicklist.h \
+    SidebarItem.h
 
 CONFIG += c++11

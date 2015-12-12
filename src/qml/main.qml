@@ -28,6 +28,7 @@ ApplicationWindow {
         id: sidebarRectangle
         width: screenManager.width
         height: screenManager.height
+        model: coreEngine.sidebarModel
         z:2
     }
 

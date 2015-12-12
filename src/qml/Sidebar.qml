@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml.Models 2.1
 
 import "constants.js" as Consts
 
@@ -8,6 +9,8 @@ Rectangle {
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
 
+    property alias model: sidebarView.model
+
     state: "Hide"
 
     ListView {
@@ -15,8 +18,6 @@ Rectangle {
         anchors.fill: parent
 
         signal sectionClicked(string name)
-
-        model: TestSidebarModel { id: model }
 
         header: sidebarHeader
 
@@ -134,11 +135,11 @@ Rectangle {
             width: sidebar.width
             height: shown ? mainText.height : 0
             visible: shown
-            property bool shown: false
+            property bool shown: true
 
             Text {
                 id: mainText;
-                text: name;
+                text: display.name;
                 FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
                 font.family: taskFont.name
                 font.pixelSize: sidebar.height / 20

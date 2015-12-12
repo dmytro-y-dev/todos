@@ -13,7 +13,6 @@
         <file>qml/DashboardHeader.qml</file>
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
-        <file>qml/TestSidebarModel.qml</file>
         <file>qml/Dashboard.qml</file>
         <file>qml/StartWindow.qml</file>
         <file>qml/LogInWindow.qml</file>

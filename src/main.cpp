@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 	QQmlApplicationEngine qmlEngine;
 	qmlRegisterType<ScreenResolutionManager>("TodosEngine", 1, 0, "ScreenResolutionManager");
 	qmlRegisterType<Task>("TodosEngine", 1, 0, "Task");
+	qmlRegisterType<SidebarItem>("TodosEngine", 1, 0, "SidebarItem");
 	qmlRegisterType<QObjectListModel>("TodosEngine", 1, 0, "QObjectListModel");
 
 	Engine *coreEngine = new Engine();
