@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml.Models 2.1
 
 import "constants.js" as Consts
 
@@ -37,7 +38,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignLeft
 
-            text: title
+            text: display.title
             style: Text.Normal
             FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
             font.family: taskFont.name
@@ -89,7 +90,7 @@ Rectangle {
 
         Text {
             id: priorityValue
-            text: priority
+            text: display.priority
             anchors.left: parent.right
             anchors.leftMargin: -200
             anchors.verticalCenter: priorityText.verticalCenter
@@ -108,7 +109,7 @@ Rectangle {
 
         Text {
             id: reminderDateTextEdit
-            text: dueDate
+            text: display.dueDate
             anchors.verticalCenter: reminderDateText.verticalCenter
             anchors.left: parent.right
             anchors.leftMargin: -200
@@ -127,7 +128,7 @@ Rectangle {
 
         Text {
             id: dueDateTextEdit
-            text: dueDate
+            text: display.dueDate
             anchors.verticalCenter: dueDateText.verticalCenter
             anchors.left: parent.right
             anchors.leftMargin: -200

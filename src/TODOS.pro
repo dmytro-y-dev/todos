@@ -4,7 +4,9 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     ScreenResolutionManager.cpp \
-    TaskListModel.cpp
+    Engine.cpp \
+    Task.cpp \
+    lib/qobjectlistmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,6 +18,9 @@ include(deployment.pri)
 
 HEADERS += \
     ScreenResolutionManager.h \
-    TaskListModel.h
+    Engine.h \
+    Task.h \
+    lib/qobjectlistmodel.h \
+    lib/qquicklist.h
 
 CONFIG += c++11

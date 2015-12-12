@@ -1,12 +1,13 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 
-import com.screenmanager 1.0
+import TodosEngine 1.0
 
 ApplicationWindow {
-    id: applicationWindow
+    id: main
     visible: true
     ScreenResolutionManager { id: screenManager }
+
 
     StartWindow{
         id: startWindow
@@ -19,6 +20,7 @@ ApplicationWindow {
         id: dashboard
         width: screenManager.width
         height: screenManager.height
+        model: coreEngine.taskModel
         z : 1
     }
 

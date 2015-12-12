@@ -7,7 +7,10 @@ Item {
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight
 
+    property alias model: view.model
+
     ListView {
+        id: view
         width: parent.width
         height: parent.height
 
@@ -18,8 +21,6 @@ Item {
                 height: dashboard.height / 6
             }
         }
-
-        model: TestTaskModel { id: textTaskModel }
 
         delegate: Component {
             TaskDelegate {

@@ -11,7 +11,6 @@
         <file>qml/main.qml</file>
         <file>qml/TaskDelegate.qml</file>
         <file>qml/DashboardHeader.qml</file>
-        <file>qml/TestTaskModel.qml</file>
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
         <file>qml/TestSidebarModel.qml</file>
