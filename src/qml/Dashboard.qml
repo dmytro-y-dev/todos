@@ -121,7 +121,9 @@ Item {
         anchors.right: parent.right;
         anchors.rightMargin: 20
 
-        onClicked: {}
+        onClicked: {
+            coreEngine.addTask("NewTask", 1, "yesterday", "lol :D");
+        }
     }
 
     ContextMenu {
@@ -135,6 +137,11 @@ Item {
 
         onEditTaskClicked: {
             taskEditWindow.visible = true
+        }
+
+        onDeleteTaskClicked: {
+            coreEngine.removeTask(0)
+            dashboard.state = "Default"
         }
     }
 

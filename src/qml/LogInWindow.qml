@@ -69,9 +69,8 @@ Rectangle {
         text: qsTr("Log in")
 
         onClicked: {
-            logInWindow.visible = false
-            // TODO
-            // login(email.text, password.text)
+            if (coreEngine.logIn(email.text, password.text))
+                logInWindow.visible = false
         }
     }
 }

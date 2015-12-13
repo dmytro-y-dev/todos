@@ -1,4 +1,6 @@
- #include "Engine.h"
+#include "Engine.h"
+
+#include <QDebug>
 
 using SidebarItemType = SidebarItem::SidebarItemType;
 
@@ -28,5 +30,52 @@ Engine::Engine(QObject *parent)
 			<< new SidebarItem(SidebarItemType::SortName, "Sort3")
 			<< new SidebarItem(SidebarItemType::SortName, "Sort4");
 	m_sidebarList.append(testSidebarData);
+
+	m_userName = "Current User";
 }
 
+bool Engine::logIn(const QString &email, const QString &password)
+{
+	// TODO logIn
+	qDebug() << "User LogIn email=" << email << " password=" << password;
+	return true;
+}
+
+bool Engine::signUp(const QString &name, const QString &email, const QString &password)
+{
+	// TODO signUp
+	qDebug() << "User SignUp name=" << name << " email=" << email << " password=" << password;
+
+	if (m_userName != name) {
+		m_userName = name;
+		userNameChanged();
+	}
+
+	return true;
+}
+
+bool Engine::addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary)
+{
+	m_taskList.append(new Task(title, priority, dueDate, commentary, "NotDone"));
+
+	emit taskModelChanged();
+
+	return true;
+}
+
+bool Engine::removeTask(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	m_taskList.removeAt(index);
+
+	emit taskModelChanged();
+
+	return true;
+}
+
+QString Engine::userName() const
+{
+	return m_userName;
+}
