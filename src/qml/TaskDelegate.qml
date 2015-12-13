@@ -33,7 +33,6 @@ Rectangle {
             anchors.rightMargin: parent.width / 4.8
             anchors.left: parent.left
             anchors.leftMargin: parent.width / 20
-            anchors.verticalCenterOffset: 0
             anchors.verticalCenter: parent.verticalCenter
 
             verticalAlignment: Text.AlignVCenter

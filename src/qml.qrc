@@ -5,10 +5,14 @@
         <file>resources/icons/zoom_icon.png</file>
         <file>resources/icons/user_icon.gif</file>
         <file>resources/icons/logout_icon.png</file>
+        <file>resources/icons/checkmark_icon.png</file>
+        <file>resources/icons/delete_icon.png</file>
+        <file>resources/icons/pencil_icon.png</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/main.qml</file>
         <file>qml/TaskDelegate.qml</file>
+        <file>qml/TaskEditWindow.qml</file>
         <file>qml/constants.js</file>
         <file>qml/Sidebar.qml</file>
         <file>qml/Dashboard.qml</file>
@@ -17,7 +21,8 @@
         <file>qml/SignUpWindow.qml</file>
         <file>qml/components/AddButton.qml</file>
         <file>qml/components/TileButton.qml</file>
-		<file>qml/components/CustomLineEdit.qml</file>
+        <file>qml/components/CustomLineEdit.qml</file>
+        <file>qml/components/ContextMenu.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>
