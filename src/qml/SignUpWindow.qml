@@ -98,9 +98,9 @@ Rectangle {
         text: qsTr("Sign Up")
 
         onClicked: {
-            signUpWindow.visible = false
-            // TODO
-            // signUp
+            if (coreEngine.signUp(nickname.text, email.text, password.text)) {
+                signUpWindow.visible = false
+            }
         }
     }
 }

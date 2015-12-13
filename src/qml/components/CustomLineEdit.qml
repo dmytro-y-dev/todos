@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import "../constants.js" as Consts
+
 Rectangle {
     id: customLineEdit
 
@@ -9,7 +11,7 @@ Rectangle {
     width: 240
     height: 62
 
-    color: "#2b2e59"
+    color: Consts.MainColorLight
     radius: 5
 
     TextInput {

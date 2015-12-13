@@ -11,8 +11,8 @@ Rectangle {
 
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight / 10
+    color: Consts.MainColorLight
 
-    color: Consts.MainColor
     border.color: "white"
     border.width: Consts.ScreenWidth /96
 

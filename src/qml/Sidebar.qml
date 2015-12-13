@@ -43,7 +43,7 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
 
-                text: qsTr("USER_NAME")
+                text: coreEngine.userName
                 font.bold: true
                 font.family: "Arial"
                 font.pixelSize: 30
