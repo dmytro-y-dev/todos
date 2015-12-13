@@ -34,7 +34,7 @@ namespace todos_model_entity {
 
     void SetId(unsigned int id);
     void SetType(Type type);
-    void SetPublishedOne(const DateTime& publishedOn);
+    void SetPublishedOn(const DateTime& publishedOn);
     void SetContent(ContentPtr content);
   };
 }

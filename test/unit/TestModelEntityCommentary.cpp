@@ -52,7 +52,7 @@ TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
   EXPECT_TRUE(commentary.GetType() == newType);
 
   Commentary::DateTime newPublishedOn = QDateTime(QDate(2015, 12, 13), QTime(3, 59));
-  commentary.SetPublishedOne(newPublishedOn);
+  commentary.SetPublishedOn(newPublishedOn);
   EXPECT_TRUE(commentary.GetPublishedOn() == newPublishedOn);
 
   char* secondContentPtr = new char[100];

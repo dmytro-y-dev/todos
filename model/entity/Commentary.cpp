@@ -37,7 +37,7 @@ void Commentary::SetType(Commentary::Type type)
   m_type = type;
 }
 
-void Commentary::SetPublishedOne(const Commentary::DateTime &publishedOn)
+void Commentary::SetPublishedOn(const Commentary::DateTime &publishedOn)
 {
   m_publishedOn = publishedOn;
 }
