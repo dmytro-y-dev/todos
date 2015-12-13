@@ -28,17 +28,13 @@ TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
   unsigned int id = 1;
   Commentary::Type type = Commentary::Type::TEXT;
   Commentary::DateTime publishedOn = QDateTime(QDate(2015, 12, 31), QTime(23, 59));
-
-  std::string* firstContentPtr = new std::string;
-  *firstContentPtr = "first";
-  Commentary::ContentPtr content(firstContentPtr);
-
+  Commentary::Content content("first");
   Commentary commentary(id, type, publishedOn, content);
 
   ASSERT_TRUE(commentary.GetId() == id);
   ASSERT_TRUE(commentary.GetType() == type);
   ASSERT_TRUE(commentary.GetPublishedOn() == publishedOn);
-  ASSERT_TRUE(*(commentary.GetContent()) == *firstContentPtr);
+  ASSERT_TRUE(commentary.GetContent() == content);
 
   unsigned int newId = 2;
   commentary.SetId(newId);
@@ -52,10 +48,7 @@ TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
   commentary.SetPublishedOn(newPublishedOn);
   EXPECT_TRUE(commentary.GetPublishedOn() == newPublishedOn);
 
-  std::string* secondContentPtr = new std::string;
-  *secondContentPtr = "second";
-  Commentary::ContentPtr newContent(secondContentPtr);
-
+  Commentary::Content newContent("second");
   commentary.SetContent(newContent);
-  EXPECT_TRUE(*(commentary.GetContent()) == *secondContentPtr);
+  EXPECT_TRUE(commentary.GetContent() == newContent);
 }

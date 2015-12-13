@@ -2,7 +2,7 @@
 
 using todos_model_entity::Commentary;
 
-Commentary::Commentary(unsigned long id, Commentary::Type type, const Commentary::DateTime &publishedOn, Commentary::ContentPtr content):
+Commentary::Commentary(unsigned long id, Commentary::Type type, const Commentary::DateTime &publishedOn, const Commentary::Content& content):
   m_id(id), m_type(type), m_publishedOn(publishedOn), m_content(content)
 {
 }
@@ -22,7 +22,7 @@ Commentary::DateTime Commentary::GetPublishedOn() const
   return m_publishedOn;
 }
 
-Commentary::ContentPtr Commentary::GetContent() const
+Commentary::Content Commentary::GetContent() const
 {
   return m_content;
 }
@@ -42,7 +42,7 @@ void Commentary::SetPublishedOn(const Commentary::DateTime &publishedOn)
   m_publishedOn = publishedOn;
 }
 
-void Commentary::SetContent(Commentary::ContentPtr content)
+void Commentary::SetContent(const Commentary::Content& content)
 {
   m_content = content;
 }

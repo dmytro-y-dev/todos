@@ -16,28 +16,27 @@ namespace todos_model_entity {
       IMAGE_PNG = 2
     };
 
-    typedef std::string BLOBContentItem;
     typedef QDateTime DateTime;
-    typedef std::shared_ptr<std::string> ContentPtr;
+    typedef std::string Content;
 
   private:
     unsigned long m_id;
     Type m_type;
     DateTime m_publishedOn;
-    ContentPtr m_content;
+    Content m_content;
 
   public:
-    Commentary(unsigned long id, Type type, const DateTime& publishedOn, ContentPtr content);
+    Commentary(unsigned long id, Type type, const DateTime& publishedOn, const Content& content);
 
     unsigned long GetId() const;
     Type GetType() const;
     DateTime GetPublishedOn() const;
-    ContentPtr GetContent() const;
+    Content GetContent() const;
 
     void SetId(unsigned int id);
     void SetType(Type type);
     void SetPublishedOn(const DateTime& publishedOn);
-    void SetContent(ContentPtr content);
+    void SetContent(const Content& content);
   };
 }
 
