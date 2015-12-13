@@ -1,14 +1,20 @@
 import QtQuick 2.0
 
+import "../constants.js" as Consts
+
 Rectangle {
     id: contextMenu
 
-    signal completeTask()
-    signal editTask()
-    signal deleteTask()
+    signal completeTaskClicked()
+    signal editTaskClicked()
+    signal deleteTaskClicked()
 
-    width: 480
-    height: 40
+    width: Consts.ScreenWidth
+    height: Consts.ScreenHeight / 10
+
+    color: Consts.MainColor
+    border.color: "white"
+    border.width: Consts.ScreenWidth /96
 
     Row {
         anchors.fill: parent
@@ -20,7 +26,7 @@ Rectangle {
                 anchors.centerIn: parent
                 source: "qrc:/icons/resources/icons/checkmark_icon.png"
             }
-            onClicked: { completeTask() }
+            onClicked: { completeTaskClicked() }
         }
 
         MouseArea {
@@ -30,7 +36,7 @@ Rectangle {
                 anchors.centerIn: parent
                 source: "qrc:/icons/resources/icons/pencil_icon.png"
             }
-            onClicked: { editTask() }
+            onClicked: { editTaskClicked() }
         }
 
         MouseArea {
@@ -40,7 +46,7 @@ Rectangle {
                 anchors.centerIn: parent
                 source: "qrc:/icons/resources/icons/delete_icon.png"
             }
-            onClicked: { deleteTask() }
+            onClicked: { deleteTaskClicked() }
         }
     }
 }

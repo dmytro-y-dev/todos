@@ -12,6 +12,8 @@ Rectangle {
     property int hideContantHeight: Consts.ScreenHeight / 8
     property int defaultnFontPixelSize: hideContantHeight / 4
 
+    signal taskClicked()
+    signal taskPressedAndHold()
 
     width: Consts.ScreenWidth
     height: showContantHeight
@@ -59,7 +61,14 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: { task.state = task.state == "HideContant" ? "ShowContant" : "HideContant" }
+            onClicked: {
+                if (dashboard.state == "Default")
+                    task.state = task.state == "HideContant" ? "ShowContant" : "HideContant"
+                taskClicked()
+            }
+            onPressAndHold: {
+                taskPressedAndHold()
+            }
         }
     }
 

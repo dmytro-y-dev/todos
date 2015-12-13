@@ -11,6 +11,21 @@ Item {
 
     property alias model: dashboardView.model
 
+    state: "Default"
+
+    states: [
+        State {
+            name: "Default"
+            PropertyChanges { target: addButton; visible: true }
+            PropertyChanges { target: taskContext; visible: false }
+        },
+        State {
+            name: "Context"
+            PropertyChanges { target: addButton; visible: false }
+            PropertyChanges { target: taskContext; visible: true }
+        }
+    ]
+
     ListView {
         id: dashboardView
 
@@ -83,11 +98,22 @@ Item {
                 width: dashboard.width
                 showContantHeight: dashboard.height / 2.3
                 hideContantHeight: dashboard.height / 8
+
+                onTaskClicked: {
+                    if(dashboard.state != "Default")
+                        dashboard.state = "Default"
+
+                }
+
+                onTaskPressedAndHold: {
+                    dashboard.state = "Context"
+                }
             }
         }
     }
 
     AddButton {
+        id: addButton
         diameter: dashboard.width / 4.8
 
         anchors.bottom: parent.bottom;
@@ -97,5 +123,20 @@ Item {
 
         onClicked: {}
     }
+
+    ContextMenu {
+        id: taskContext
+
+        width: dashboard.width
+        height: dashboard.height / 8
+
+        anchors.bottom: parent.bottom;
+        anchors.bottomMargin: 20;
+
+        onEditTaskClicked: {
+            taskEditWindow.visible = true
+        }
+    }
+
 }
 

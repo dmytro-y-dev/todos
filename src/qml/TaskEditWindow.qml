@@ -29,7 +29,7 @@ Rectangle {
         color: "#ffffff"
         FontLoader { id: taskFont; source: "qrc:/fonts/resources/fonts/Mona Shark.otf" }
         font.family: taskFont.name
-        font.pixelSize: taskEditWindow.height / 5
+        font.pixelSize: taskEditWindow.height / 10
     }
 
     Grid {
@@ -46,6 +46,7 @@ Rectangle {
 
         Text {
             text: qsTr("Name")
+            color: "white"
             font.pixelSize: parent.labelFontSize
         }
 
@@ -58,6 +59,7 @@ Rectangle {
 
         Text {
             text: qsTr("Priority")
+            color: "white"
             font.pixelSize: parent.labelFontSize
         }
 
@@ -70,6 +72,7 @@ Rectangle {
 
         Text {
             text: qsTr("Reminder date")
+            color: "white"
             font.pixelSize: parent.labelFontSize
         }
 
@@ -82,6 +85,7 @@ Rectangle {
 
         Text {
             text: qsTr("Due date")
+            color: "white"
             font.pixelSize: parent.labelFontSize
         }
 
@@ -107,7 +111,7 @@ Rectangle {
 
             text: qsTr("Cancel")
 
-            onClicked: { logInWindow.visible = false }
+            onClicked: { taskEditWindow.visible = false }
         }
 
         TileButton {
@@ -117,7 +121,7 @@ Rectangle {
             text: qsTr("OK")
 
             onClicked: {
-                logInWindow.visible = false
+                taskEditWindow.visible = false
                 taskEdited(taskName, taskPriority, taskRemainderDate, taskDueDate)
             }
         }
