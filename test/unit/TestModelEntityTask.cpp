@@ -27,16 +27,14 @@ TEST_F(TestModelEntityTask, TaskGettersSetters)
   Task::String title = "task";
   Task::Priority priority = Task::Priority::LOW;
   Task::DateTime dueDate = QDateTime(QDate(2015, 12, 13), QTime(20, 14));
-  Task::String commentary = "comment";
   Task::DateTime reminderDate = QDateTime(QDate(2015, 12, 14), QTime(21, 14));
   Task::Status status = Task::Status::UNCOMPLETED;
-  Task task(id, title, priority, dueDate, commentary, reminderDate, status);
+  Task task(id, title, priority, dueDate, reminderDate, status);
 
   ASSERT_TRUE(task.GetId() == id);
   ASSERT_TRUE(task.GetTitle() == title);
   ASSERT_TRUE(task.GetPriority() == priority);
   ASSERT_TRUE(task.GetDueDate() == dueDate);
-  ASSERT_TRUE(task.GetCommentary() == commentary);
   ASSERT_TRUE(task.GetReminderDate() == reminderDate);
   ASSERT_TRUE(task.GetStatus() == status);
 
@@ -55,10 +53,6 @@ TEST_F(TestModelEntityTask, TaskGettersSetters)
   Task::DateTime newDueDate = QDateTime(QDate(2015, 10, 13), QTime(20, 24));
   task.SetDueDate(newDueDate);
   EXPECT_TRUE(task.GetDueDate() == newDueDate);
-
-  Task::String newCommentary = "comment-updated";
-  task.SetCommentary(newCommentary);
-  EXPECT_TRUE(task.GetCommentary() == newCommentary);
 
   Task::DateTime newReminderDate = QDateTime(QDate(2015, 9, 13), QTime(20, 14));
   task.SetReminderDate(newReminderDate);

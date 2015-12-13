@@ -66,7 +66,7 @@ void Schema::CreateTables()
     "`task_id` INT NOT NULL REFERENCES `Task`(`task_id`) ON UPDATE CASCADE ON DELETE CASCADE, "
     "`published_on` DATETIME NOT NULL, "
     "`type` VARCHAR(255) NOT NULL, "
-    "`commentary` BLOB NOT NULL "
+    "`content` BLOB NOT NULL "
     "); ";
 
   sqlite3_exec(m_db, query, nullptr, nullptr, nullptr);

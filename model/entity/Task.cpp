@@ -3,10 +3,10 @@
 using todos_model_entity::Task;
 
 Task::Task(unsigned long id, const Task::String &title,
-  Task::Priority priority, const Task::DateTime &dueDate, const Task::String &commentary,
+  Task::Priority priority, const Task::DateTime &dueDate,
   const Task::DateTime &reminderDate, Task::Status status) :
   m_id(id), m_title(title), m_priority(priority), m_dueDate(dueDate),
-  m_commentary(commentary), m_reminderDate(reminderDate), m_status(status)
+  m_reminderDate(reminderDate), m_status(status)
 {
 }
 
@@ -28,11 +28,6 @@ Task::Priority Task::GetPriority() const
 Task::DateTime Task::GetDueDate() const
 {
   return m_dueDate;
-}
-
-Task::String Task::GetCommentary() const
-{
-  return m_commentary;
 }
 
 Task::DateTime Task::GetReminderDate() const
@@ -63,11 +58,6 @@ void Task::SetPriority(Task::Priority priority)
 void Task::SetDueDate(const Task::DateTime &dueDate)
 {
   m_dueDate = dueDate;
-}
-
-void Task::SetCommentary(const Task::String &commentary)
-{
-  m_commentary = commentary;
 }
 
 void Task::SetReminderDate(const Task::DateTime &reminderDate)

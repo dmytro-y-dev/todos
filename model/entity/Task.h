@@ -31,19 +31,17 @@ namespace todos_model_entity {
     String m_title;
     Priority m_priority;
     DateTime m_dueDate;
-    String m_commentary;
     DateTime m_reminderDate;
     Status m_status;
 
   public:
     Task(unsigned long id, const String& title, Priority priority, const DateTime& dueDate,
-         const String& commentary, const DateTime& reminderDate, Status status);
+         const DateTime& reminderDate, Status status);
 
     unsigned long GetId() const;
     String GetTitle() const;
     Priority GetPriority() const;
     DateTime GetDueDate() const;
-    String GetCommentary() const;
     DateTime GetReminderDate() const;
     Status GetStatus() const;
 
@@ -51,7 +49,6 @@ namespace todos_model_entity {
     void SetTitle(const String& title);
     void SetPriority(Priority priority);
     void SetDueDate(const DateTime& dueDate);
-    void SetCommentary(const String& commentary);
     void SetReminderDate(const DateTime& reminderDate);
     void SetStatus(Status status);
   };

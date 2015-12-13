@@ -24,11 +24,14 @@ SOURCES += main.cpp \
     ../../test/unit/TestModelSchemaSchema.cpp \
     ../../test/unit/TestModelEntityCategory.cpp \
     ../../test/unit/TestModelEntityTask.cpp \
-    ../../test/unit/TestModelEntityUser.cpp
+    ../../test/unit/TestModelEntityUser.cpp \
+    ../../model/entity/Commentary.cpp \
+    ../../test/unit/TestModelEntityCommentary.cpp
 
 HEADERS += \
     ../../model/entity/Category.h \
     ../../model/entity/Task.h \
     ../../model/entity/User.h \
-    ../../model/schema/Schema.h
+    ../../model/schema/Schema.h \
+    ../../model/entity/Commentary.h
 
