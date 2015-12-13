@@ -1,8 +1,9 @@
+#include <gtest/gtest.h>
+
 #include <set>
 #include <string>
 #include <cstdio>
 
-#include <gtest/gtest.h>
 #include <model/schema/Schema.h>
 
 using std::remove;
@@ -52,6 +53,17 @@ static int checkIfSchemaIsCreated(void *ptrTablesNames, int argc, char **argv, c
   return 0;
 }
 
+TEST_F(TestModelSchemaSchema, SchemaCreation)
+{
+  const char *queryGetTablesNames = "SELECT name FROM sqlite_master WHERE type='table';";
+  set<string> expectedTablesNames({"Category", "User", "Task", "Commentary"});
+
+  m_db.CreateTables();
+  sqlite3_exec(m_db.GetDatabaseHandle(), queryGetTablesNames, checkIfSchemaIsCreated, &expectedTablesNames, nullptr);
+
+  EXPECT_TRUE(expectedTablesNames.empty() == true);
+}
+
 static int checkIfSchemaIsDestroyed(void *ptrSchemaDestroyed, int argc, char **argv, char **azColName)
 {
   bool& schemaDestroyed = *(static_cast<bool*>(ptrSchemaDestroyed));
@@ -63,17 +75,6 @@ static int checkIfSchemaIsDestroyed(void *ptrSchemaDestroyed, int argc, char **a
   }
 
   return 0;
-}
-
-TEST_F(TestModelSchemaSchema, SchemaCreation)
-{
-  const char *queryGetTablesNames = "SELECT name FROM sqlite_master WHERE type='table';";
-  set<string> expectedTablesNames({"Category", "User", "Task", "Commentary"});
-
-  m_db.CreateTables();
-  sqlite3_exec(m_db.GetDatabaseHandle(), queryGetTablesNames, checkIfSchemaIsCreated, &expectedTablesNames, nullptr);
-
-  EXPECT_TRUE(expectedTablesNames.empty() == true);
 }
 
 TEST_F(TestModelSchemaSchema, SchemaRemoval)

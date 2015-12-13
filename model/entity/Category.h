@@ -3,38 +3,24 @@
 
 #include <string>
 
-namespace todos_model_enity {
+namespace todos_model_entity {
   class Category
   {
+  public:
+    typedef std::string String;
+
   private:
     unsigned long m_id;
-    std::string m_name;
+    String m_name;
 
   public:
-    Category(unsigned long id, std::string name) :
-      m_id(id), m_name(name)
-    {
-    }
+    Category(unsigned long id, const String& name);
 
-    unsigned long GetId() const
-    {
-      return m_id;
-    }
+    unsigned long GetId() const;
+    String GetName() const;
 
-    std::string GetName() const
-    {
-      return m_name;
-    }
-
-    void SetId(unsigned int id)
-    {
-      m_id = id;
-    }
-
-    void SetName(const std::string& name)
-    {
-      m_name = name;
-    }
+    void SetId(unsigned int id);
+    void SetName(const String& name);
   };
 }
 
