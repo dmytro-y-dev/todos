@@ -5,21 +5,16 @@ Rectangle{
 
     property int diameter: 100
 
+    signal clicked();
+
     width:  diameter
     height: diameter
 
     radius: diameter / 2
 
-    gradient: Gradient {
-        GradientStop { position: 0.039; color: "#ffffff" }
-        GradientStop { position: 0.996; color: "#ffffff" }
-        GradientStop { position: 0.258; color: "#1752da" }
-        GradientStop { position: 0.712; color: "#6e8fda" }
-        GradientStop { position: 0.882; color: "#abc0ef" }
-    }
-
+    color: "#1752da"
     border.color: "#e7dddd"
-    border.width: 3
+    border.width: 5
 
     Text {
         anchors.fill: parent
@@ -31,6 +26,11 @@ Rectangle{
 
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: { addButton.clicked() }
     }
 }
 

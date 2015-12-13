@@ -4,13 +4,16 @@ import QtQml.Models 2.1
 import "constants.js" as Consts
 
 Rectangle {
-    id: mainRectangle
+    id: task
     x: 0
     y: 0
 
     property int showContantHeight: Consts.ScreenHeight / 2.3
     property int hideContantHeight: Consts.ScreenHeight / 8
+    property int defaultnFontPixelSize: hideContantHeight / 4
 
+    signal taskClicked()
+    signal taskPressedAndHold()
 
     width: Consts.ScreenWidth
     height: showContantHeight
@@ -32,7 +35,6 @@ Rectangle {
             anchors.rightMargin: parent.width / 4.8
             anchors.left: parent.left
             anchors.leftMargin: parent.width / 20
-            anchors.verticalCenterOffset: 0
             anchors.verticalCenter: parent.verticalCenter
 
             verticalAlignment: Text.AlignVCenter
@@ -60,138 +62,56 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if (mainRectangle.state == "HideContant") {
-                    mainRectangle.state = "ShowContant"
-                } else {
-                    mainRectangle.state = "HideContant"
-                }
+                if (dashboard.state == "Default")
+                    task.state = task.state == "HideContant" ? "ShowContant" : "HideContant"
+                taskClicked()
             }
-            onPressAndHold:{
-             textTaskModel.remove(model.index)
+            onPressAndHold: {
+                taskPressedAndHold()
             }
         }
     }
 
     Rectangle {
         id: taskContant
+
         x: 0
         y: titleRectangle.height
         width: parent.width
 
-        Text {
-            id: priorityText
-            text: qsTr("Priority")
+        property int fontSize: 1
+
+        Grid {
             anchors.top: parent.top
             anchors.topMargin: 35
             anchors.left: parent.left
             anchors.leftMargin: 30
-            font : titleText.font
-        }
 
-        Text {
-            id: priorityValue
-            text: display.priority
-            anchors.left: parent.right
-            anchors.leftMargin: -200
-            anchors.verticalCenter: priorityText.verticalCenter
-            font : titleText.font
-        }
+            columns: 2
 
-        Text {
-            id: reminderDateText
-            text: qsTr("Reminder date")
-            anchors.top: parent.top
-            anchors.topMargin: 100
-            anchors.left: parent.left
-            anchors.leftMargin: 30
-            font : titleText.font
-        }
+            spacing: 10
 
-        Text {
-            id: reminderDateTextEdit
-            text: display.dueDate
-            anchors.verticalCenter: reminderDateText.verticalCenter
-            anchors.left: parent.right
-            anchors.leftMargin: -200
-            font : titleText.font
-        }
-
-        Text {
-            id: dueDateText
-            text: qsTr("Due date")
-            anchors.top: parent.top
-            anchors.topMargin: 170
-            anchors.left: parent.left
-            anchors.leftMargin: 30
-            font : titleText.font
-        }
-
-        Text {
-            id: dueDateTextEdit
-            text: display.dueDate
-            anchors.verticalCenter: dueDateText.verticalCenter
-            anchors.left: parent.right
-            anchors.leftMargin: -200
-            font : titleText.font
+            Text { text: qsTr("Priority");      font.pixelSize: taskContant.fontSize }
+            Text { text: display.priority;      font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Reminder date"); font.pixelSize: taskContant.fontSize }
+            Text { text: display.dueDate;       font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Due date");      font.pixelSize: taskContant.fontSize }
+            Text { text: display.dueDate;       font.pixelSize: taskContant.fontSize }
         }
     }
     states: [
         State {
             name: "HideContant"
 
-            PropertyChanges {
-                target: mainRectangle
-                height: hideContantHeight
-            }
-
-            PropertyChanges {
-                target: priorityText
-                anchors.leftMargin: 30
-                anchors.topMargin: -67
-                visible: false
-            }
-
-            PropertyChanges {
-                target: dueDateTextEdit
-                visible: false
-            }
-
-            PropertyChanges {
-                target: reminderDateTextEdit
-                visible: false
-            }
-
-            PropertyChanges {
-                target: priorityValue
-                visible: false
-            }
-
-            PropertyChanges {
-                target: reminderDateText
-                anchors.leftMargin: 30
-                anchors.topMargin: -67
-                visible: false
-            }
-
-            PropertyChanges {
-                target: dueDateText
-                anchors.leftMargin: 30
-                anchors.topMargin: -67
-                visible: false
-            }
+            PropertyChanges { target: task; height: hideContantHeight }
+            PropertyChanges { target: taskContant; fontSize: 0 }
         },
         State {
             name: "ShowContant"
 
-            PropertyChanges {
-                target: brImage;
-                rotation: -180
-            }
-
-            PropertyChanges {
-                target: mainRectangle
-                height: showContantHeight
-            }
+            PropertyChanges { target: brImage; rotation: -180 }
+            PropertyChanges { target: task;    height: showContantHeight }
+            PropertyChanges { target: taskContant; fontSize: defaultnFontPixelSize }
         }
     ]
 
@@ -204,9 +124,15 @@ Rectangle {
                 duration: Consts.AnimationDuration
             }
             PropertyAnimation {
-                target: mainRectangle;
+                target: task;
                 property: "height";
                 to: hideContantHeight;
+                duration: Consts.AnimationDuration
+            }
+            PropertyAnimation {
+                target: taskContant
+                property: "fontSize"
+                to: 1
                 duration: Consts.AnimationDuration
             }
         },
@@ -218,9 +144,15 @@ Rectangle {
                 duration: Consts.AnimationDuration
             }
             PropertyAnimation {
-                target: mainRectangle;
+                target: task;
                 property: "height";
                 to: showContantHeight;
+                duration: Consts.AnimationDuration
+            }
+            PropertyAnimation {
+                target: taskContant
+                property: "fontSize"
+                to: defaultnFontPixelSize
                 duration: Consts.AnimationDuration
             }
         }

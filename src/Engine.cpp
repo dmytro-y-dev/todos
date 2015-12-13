@@ -1,4 +1,4 @@
-#include "Engine.h"
+ #include "Engine.h"
 
 using SidebarItemType = SidebarItem::SidebarItemType;
 
@@ -7,9 +7,9 @@ Engine::Engine(QObject *parent)
 {
 	auto testTaskData = QList<Task *>()
 			<< new Task("Title", 1, "10-10-2015", "Commentary", "Done")
-			<< new Task("Title2", 1, "10-10-2015", "Commentary", "Done")
-			<< new Task("Title3", 1, "10-10-2015", "Commentary", "Done")
-			<< new Task("Title4", 1, "10-10-2015", "Commentary", "Done");
+			<< new Task("Title2", 3, "10-12-2015", "Commentary", "Done")
+			<< new Task("Title3", 1, "10-12-2015", "Commentary", "Done")
+			<< new Task("Title4", 2, "10-11-2015", "Commentary", "Done");
 	m_taskList.append(testTaskData);
 
 	auto testSidebarData = QList<SidebarItem *>()

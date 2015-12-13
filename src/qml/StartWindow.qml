@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import "constants.js" as Consts
+import "components"
 
 Rectangle {
     id: startWindow
@@ -8,7 +9,7 @@ Rectangle {
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight
 
-    color: "#292b52"
+    color: Consts.MainColor
 
     Text {
         text: qsTr("TODOS")
@@ -16,48 +17,32 @@ Rectangle {
 
         FontLoader { id: taskFont; source: "qrc:/fonts/resources/fonts/Mona Shark.otf" }
         font.family: taskFont.name
-        font.pixelSize: parent.height / 5
+        font.pixelSize: startWindow.height / 5
 
-        anchors.top: parent.top
-        anchors.topMargin: parent.height / 4
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: startWindow.top
+        anchors.topMargin: startWindow.height / 4
+        anchors.horizontalCenter: startWindow.horizontalCenter
     }
 
-    GradientButton {
-        id: logInButton
+    Column {
+        anchors.top: startWindow.top
+        anchors.topMargin: startWindow.height / 2
+        anchors.horizontalCenter: startWindow.horizontalCenter
 
-        text: qsTr("Log In")
+        spacing: startWindow.height / 80
 
-        width: parent.width / 2
-        height: parent.height / 10
-
-        anchors.top: parent.top
-        anchors.topMargin: parent.height / 2
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: { startWindow.visible = false ; loginWindow.visible = true}
+        TileButton {
+            width: startWindow.width / 2
+            height: startWindow.height / 10
+            text: qsTr("Log In")
+            onClicked: { startWindow.visible = false; loginWindow.visible = true}
         }
-    }
-
-    GradientButton {
-        id: signUpButton
-
-        text: qsTr("Sing Up")
-
-        width: parent.width / 2
-        height: parent.height / 10
-
-        anchors.top: parent.top
-        anchors.topMargin: parent.height / 1.6
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: { startWindow.visible = false ; signUpWindow.visible = true}
+        TileButton {
+            width: startWindow.width / 2
+            height: startWindow.height / 10
+            text: qsTr("Sing Up")
+            onClicked: { startWindow.visible = false; signUpWindow.visible = true}
         }
-
     }
 }
 

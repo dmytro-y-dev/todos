@@ -47,4 +47,12 @@ ApplicationWindow {
         visible: false
         z : 3
     }
+
+    TaskEditWindow {
+        id: taskEditWindow
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 5
+    }
 }
