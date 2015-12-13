@@ -17,21 +17,21 @@ INCLUDEPATH += ../../ \
 SOURCES += main.cpp \
     ../../contrib/sqlite/source/sqlite3.c \
     ../../contrib/googletest/src/gtest-all.cc \
-    ../../model/entity/Category.cpp \
-    ../../model/entity/Task.cpp \
-    ../../model/entity/User.cpp \
+    ../../model/entity/category/Category.cpp \
+    ../../model/entity/task/Task.cpp \
+    ../../model/entity/user/User.cpp \
     ../../model/schema/Schema.cpp \
     ../../test/unit/TestModelSchemaSchema.cpp \
     ../../test/unit/TestModelEntityCategory.cpp \
     ../../test/unit/TestModelEntityTask.cpp \
     ../../test/unit/TestModelEntityUser.cpp \
-    ../../model/entity/Commentary.cpp \
+    ../../model/entity/commentary/Commentary.cpp \
     ../../test/unit/TestModelEntityCommentary.cpp
 
 HEADERS += \
-    ../../model/entity/Category.h \
-    ../../model/entity/Task.h \
-    ../../model/entity/User.h \
+    ../../model/entity/category/Category.h \
+    ../../model/entity/task/Task.h \
+    ../../model/entity/user/User.h \
     ../../model/schema/Schema.h \
-    ../../model/entity/Commentary.h
+    ../../model/entity/commentary/Commentary.h
 
