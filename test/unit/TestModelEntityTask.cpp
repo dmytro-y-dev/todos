@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <model/entity/Task.h>
+#include <model/entity/task/Task.h>
 
 using todos_model_entity::Task;
 

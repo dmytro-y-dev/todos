@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include <model/entity/Category.h>
+#include <model/entity/category/Category.h>
 
 using std::string;
 using todos_model_entity::Category;

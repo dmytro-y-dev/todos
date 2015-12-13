@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <model/entity/User.h>
+#include <model/entity/user/User.h>
 
 using todos_model_entity::User;
 

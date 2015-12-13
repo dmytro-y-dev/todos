@@ -1,12 +1,9 @@
 #include <gtest/gtest.h>
 
-#include <cstring>
+#include <string>
 
-#include <model/entity/Commentary.h>
+#include <model/entity/commentary/Commentary.h>
 
-using std::strcpy;
-using std::strcmp;
-using std::make_shared;
 using todos_model_entity::Commentary;
 
 class TestModelEntityCommentary: public ::testing::Test
@@ -32,16 +29,16 @@ TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
   Commentary::Type type = Commentary::Type::TEXT;
   Commentary::DateTime publishedOn = QDateTime(QDate(2015, 12, 31), QTime(23, 59));
 
-  char* firstContentPtr = new char[100];
-  strncpy(firstContentPtr, "first", 6);
-  Commentary::ContentPtr content = std::shared_ptr<char>(firstContentPtr);
+  std::string* firstContentPtr = new std::string;
+  *firstContentPtr = "first";
+  Commentary::ContentPtr content(firstContentPtr);
 
   Commentary commentary(id, type, publishedOn, content);
 
   ASSERT_TRUE(commentary.GetId() == id);
   ASSERT_TRUE(commentary.GetType() == type);
   ASSERT_TRUE(commentary.GetPublishedOn() == publishedOn);
-  ASSERT_TRUE(strcmp(commentary.GetContent().get(), firstContentPtr) == 0);
+  ASSERT_TRUE(*(commentary.GetContent()) == *firstContentPtr);
 
   unsigned int newId = 2;
   commentary.SetId(newId);
@@ -55,10 +52,10 @@ TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
   commentary.SetPublishedOn(newPublishedOn);
   EXPECT_TRUE(commentary.GetPublishedOn() == newPublishedOn);
 
-  char* secondContentPtr = new char[100];
-  strncpy(secondContentPtr, "second", 7);
-  Commentary::ContentPtr newContent = std::shared_ptr<char>(secondContentPtr);
+  std::string* secondContentPtr = new std::string;
+  *secondContentPtr = "second";
+  Commentary::ContentPtr newContent(secondContentPtr);
 
   commentary.SetContent(newContent);
-  EXPECT_TRUE(strcmp(commentary.GetContent().get(), secondContentPtr) == 0);
+  EXPECT_TRUE(*(commentary.GetContent()) == *secondContentPtr);
 }

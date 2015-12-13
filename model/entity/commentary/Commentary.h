@@ -1,6 +1,7 @@
 #ifndef TODOS_MODEL_ENTITY_COMMENTARY_H
 #define TODOS_MODEL_ENTITY_COMMENTARY_H
 
+#include <string>
 #include <memory>
 #include <QDateTime>
 
@@ -12,11 +13,12 @@ namespace todos_model_entity {
       UNKNOWN = 0,
 
       TEXT = 1,
-      IMAGE = 2
+      IMAGE_PNG = 2
     };
 
+    typedef std::string BLOBContentItem;
     typedef QDateTime DateTime;
-    typedef std::shared_ptr<char> ContentPtr;
+    typedef std::shared_ptr<std::string> ContentPtr;
 
   private:
     unsigned long m_id;
