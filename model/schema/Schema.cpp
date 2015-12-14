@@ -2,9 +2,16 @@
 
 using namespace todos_model_schema;
 
-Schema::Schema(const char *filename) : m_db(nullptr)
+Schema::Schema(const char *filename) : m_db(nullptr), m_referencesCounter(nullptr)
 {
   Open(filename);
+}
+
+Schema::Schema(const Schema &schema) : m_db(schema.m_db), m_referencesCounter(schema.m_referencesCounter)
+{
+  if (m_referencesCounter != nullptr) {
+    *m_referencesCounter += 1;
+  }
 }
 
 Schema::~Schema()
@@ -12,7 +19,7 @@ Schema::~Schema()
   Close();
 }
 
-sqlite3 *Schema::GetDatabaseHandle() const
+Schema::DatabaseHandle Schema::GetDatabaseHandle() const
 {
   return m_db;
 }
@@ -22,20 +29,47 @@ bool Schema::IsOpened() const
   return (m_db != nullptr);
 }
 
-void Schema::Open(const char *filename)
+bool Schema::Open(const char *filename)
 {
   if (m_db != nullptr) {
     Close();
   }
 
-  sqlite3_open(filename, &m_db);
+  if (sqlite3_open(filename, &m_db) != SQLITE_OK) {
+    return false;
+  }
+
+  m_referencesCounter = new CounterValue;
+  *m_referencesCounter = 1;
+
+  return true;
 }
 
 void Schema::Close()
 {
-  sqlite3_close(m_db);
+  if (m_db == nullptr) {
+    // No connection is present -- nothing to close
 
-  m_db = nullptr;
+    return;
+  }
+
+  *m_referencesCounter -= 1;
+
+  if (*m_referencesCounter == 0) {
+    // If no one references to connection, then close it and remove references counter ...
+
+    sqlite3_close(m_db);
+
+    m_db = nullptr;
+
+    delete m_referencesCounter;
+    m_referencesCounter = nullptr;
+  } else {
+    // ... otherwise detach from connection and references counter
+
+    m_db = nullptr;
+    m_referencesCounter = nullptr;
+  }
 }
 
 void Schema::CreateTables()
@@ -81,4 +115,20 @@ void Schema::DestroyTables()
     "DROP TABLE `User`; ";
 
   sqlite3_exec(m_db, query, nullptr, nullptr, nullptr);
+}
+
+Schema& Schema::operator=(const Schema &schema)
+{
+  if (this == &schema) {
+    return *this;
+  }
+
+  Close();
+
+  m_db = schema.m_db;
+
+  m_referencesCounter = schema.m_referencesCounter;
+  *m_referencesCounter += 1;
+
+  return *this;
 }

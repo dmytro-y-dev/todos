@@ -26,12 +26,20 @@ SOURCES += main.cpp \
     ../../test/unit/TestModelEntityTask.cpp \
     ../../test/unit/TestModelEntityUser.cpp \
     ../../model/entity/commentary/Commentary.cpp \
-    ../../test/unit/TestModelEntityCommentary.cpp
+    ../../test/unit/TestModelEntityCommentary.cpp \
+    ../../model/repository/category/CategoryRepository.cpp \
+    ../../model/repository/commentary/CommentaryRepository.cpp \
+    ../../model/repository/task/TaskRepository.cpp \
+    ../../model/repository/user/UserRepository.cpp
 
 HEADERS += \
     ../../model/entity/category/Category.h \
     ../../model/entity/task/Task.h \
     ../../model/entity/user/User.h \
     ../../model/schema/Schema.h \
-    ../../model/entity/commentary/Commentary.h
+    ../../model/entity/commentary/Commentary.h \
+    ../../model/repository/category/CategoryRepository.h \
+    ../../model/repository/commentary/CommentaryRepository.h \
+    ../../model/repository/task/TaskRepository.h \
+    ../../model/repository/user/UserRepository.h
 

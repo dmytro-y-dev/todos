@@ -87,3 +87,14 @@ TEST_F(TestModelSchemaSchema, SchemaRemoval)
 
   EXPECT_TRUE(schemaDestroyed == true);
 }
+
+TEST_F(TestModelSchemaSchema, SchemaCopying)
+{
+  Schema databaseTestCopyingConstructor(m_db);
+  Schema databaseTestAssignment("");
+
+  databaseTestAssignment = m_db;
+
+  EXPECT_TRUE(databaseTestCopyingConstructor.GetDatabaseHandle() == m_db.GetDatabaseHandle());
+  EXPECT_TRUE(databaseTestAssignment.GetDatabaseHandle() == m_db.GetDatabaseHandle());
+}
