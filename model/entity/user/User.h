@@ -4,8 +4,10 @@
 #include <string>
 #include <QDateTime>
 
+#include <model/entity/IEntity.h>
+
 namespace todos_model_entity {
-  class User
+  class User: public IEntity
   {
   public:
     typedef QDateTime DateTime;
@@ -29,6 +31,9 @@ namespace todos_model_entity {
     void SetLogin(const String& login);
     void SetPassword(const String& password);
     void SetSignedUpOn(const DateTime& signedUpOn);
+
+    virtual std::string SQLInsertScript() const override;
+    virtual std::string SQLUpdateScript() const override;
   };
 }
 

@@ -30,7 +30,10 @@ SOURCES += main.cpp \
     ../../model/repository/category/CategoryRepository.cpp \
     ../../model/repository/commentary/CommentaryRepository.cpp \
     ../../model/repository/task/TaskRepository.cpp \
-    ../../model/repository/user/UserRepository.cpp
+    ../../model/repository/user/UserRepository.cpp \
+    ../../model/repository/BaseRepository.cpp \
+    ../../model/entity/IEntity.cpp \
+    ../../test/unit/TestModelRepositoryUserRepository.cpp
 
 HEADERS += \
     ../../model/entity/category/Category.h \
@@ -41,5 +44,9 @@ HEADERS += \
     ../../model/repository/category/CategoryRepository.h \
     ../../model/repository/commentary/CommentaryRepository.h \
     ../../model/repository/task/TaskRepository.h \
-    ../../model/repository/user/UserRepository.h
+    ../../model/repository/user/UserRepository.h \
+    ../../model/repository/BaseRepository.h \
+    ../../model/entity/IEntity.h \
+    ../../model/repository/IRepository.h \
+    ../../model/repository/IRepositoryImpl.h
 

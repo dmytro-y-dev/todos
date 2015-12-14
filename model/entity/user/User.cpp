@@ -46,3 +46,17 @@ void User::SetSignedUpOn(const User::DateTime &signedUpOn)
 {
   m_signedUpOn = signedUpOn;
 }
+
+std::string User::SQLInsertScript() const
+{
+  std::string SQLScript;
+
+  return SQLScript;
+}
+
+std::string User::SQLUpdateScript() const
+{
+  std::string SQLScript;
+
+  return SQLScript;
+}
