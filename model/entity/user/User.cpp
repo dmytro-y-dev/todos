@@ -47,16 +47,39 @@ void User::SetSignedUpOn(const User::DateTime &signedUpOn)
   m_signedUpOn = signedUpOn;
 }
 
-std::string User::SQLInsertScript() const
+User::KeysValuesContainer User::GetPairsRepresentation() const
 {
-  std::string SQLScript;
+  KeysValuesContainer pairs;
 
-  return SQLScript;
+  pairs.insert(std::make_pair("user_id", std::to_string(GetId())));
+  pairs.insert(std::make_pair("login", GetLogin()));
+  pairs.insert(std::make_pair("password", GetPassword()));
+  pairs.insert(std::make_pair("signedup_on", GetSignedUpOn().toString("yyyy-M-d H:m:s").toStdString()));
+
+  return pairs;
 }
 
-std::string User::SQLUpdateScript() const
+const char *User::GetIdFieldName() const
 {
-  std::string SQLScript;
-
-  return SQLScript;
+  return "user_id";
 }
+
+User::FieldsContainer User::GetFieldsNames() const
+{
+  static FieldsContainer fields;
+
+  if (fields.empty()) {
+    fields.push_back("user_id");
+    fields.push_back("login");
+    fields.push_back("password");
+    fields.push_back("signedup_on");
+  }
+
+  return fields;
+}
+
+const char* User::GetTableName() const
+{
+  return "User";
+}
+

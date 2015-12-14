@@ -37,13 +37,13 @@ namespace todos_model_repository {
   }
 
   template <class IEntityDerivative>
-  typename IRepository<IEntityDerivative>::Id IRepository<IEntityDerivative>::Insert(IRepository<IEntityDerivative>::EntitySharedPtr entity)
+  typename IRepository<IEntityDerivative>::Id IRepository<IEntityDerivative>::Insert(IRepository<IEntityDerivative>::EntityWeakPtr entity)
   {
     return m_repository.Insert(entity);
   }
 
   template <class IEntityDerivative>
-  size_t IRepository<IEntityDerivative>::Update(IRepository::EntitySharedPtr entity)
+  size_t IRepository<IEntityDerivative>::Update(IRepository::EntityWeakPtr entity)
   {
     // TODO: Implement
 
@@ -56,22 +56,6 @@ namespace todos_model_repository {
     // TODO: Implement
 
     return 0;
-  }
-
-  template <class IEntityDerivative>
-  typename IRepository<IEntityDerivative>::EntitySharedPtrContainer IRepository<IEntityDerivative>::FindAll()
-  {
-    IRepository<IEntityDerivative>::EntitySharedPtrContainer entities;
-
-    // TODO: Implement
-
-    return entities;
-  }
-
-  template <class IEntityDerivative>
-  typename IRepository<IEntityDerivative>::EntitySharedPtr IRepository<IEntityDerivative>::FindOneById(IRepository<IEntityDerivative>::Id id)
-  {
-    return m_repository.FindOneById(id);
   }
 
   template <class IEntityDerivative>

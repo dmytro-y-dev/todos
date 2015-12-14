@@ -32,8 +32,10 @@ namespace todos_model_entity {
     void SetPassword(const String& password);
     void SetSignedUpOn(const DateTime& signedUpOn);
 
-    virtual std::string SQLInsertScript() const override;
-    virtual std::string SQLUpdateScript() const override;
+    virtual KeysValuesContainer GetPairsRepresentation() const override;
+    virtual FieldsContainer GetFieldsNames() const override;
+    virtual const char* GetTableName() const override;
+    virtual const char* GetIdFieldName() const override;
   };
 }
 

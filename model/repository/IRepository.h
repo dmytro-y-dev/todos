@@ -16,7 +16,6 @@ namespace todos_model_repository {
     typedef std::weak_ptr<IEntityDerivative> EntityWeakPtr;
     typedef std::vector<EntityWeakPtr> EntityWeakPtrContainer;
     typedef std::shared_ptr<IEntityDerivative> EntitySharedPtr;
-    typedef std::vector<EntitySharedPtr> EntitySharedPtrContainer;
 
     typedef unsigned long Id;
     typedef std::vector<Id> IdContainer;
@@ -33,12 +32,11 @@ namespace todos_model_repository {
     size_t Update(const EntityWeakPtrContainer& entities);
     size_t Delete(const IdContainer& ids);
 
-    Id Insert(EntitySharedPtr entity);
-    size_t Update(EntitySharedPtr entity);
+    Id Insert(EntityWeakPtr entity);
+    size_t Update(EntityWeakPtr entity);
     size_t Delete(Id id);
 
-    EntitySharedPtrContainer FindAll();
-    EntitySharedPtr FindOneById(Id id);
+    virtual EntitySharedPtr FindOneById(Id id) = 0;
 
     Schema GetSchema();
     void SetSchema(const Schema& schema);

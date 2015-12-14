@@ -9,79 +9,74 @@ BaseRepository::BaseRepository(const Schema &schema) :
 
 BaseRepository::IdContainer BaseRepository::Insert(const BaseRepository::EntityWeakPtrContainer &entities)
 {
-
+  // TODO : Implement
 }
 
 size_t BaseRepository::Update(const BaseRepository::EntityWeakPtrContainer &entities)
 {
-
+  // TODO : Implement
 }
 
 size_t BaseRepository::Delete(const BaseRepository::IdContainer &ids)
 {
-
+  // TODO : Implement
 }
 
-BaseRepository::Id BaseRepository::Insert(BaseRepository::EntitySharedPtr entity)
+BaseRepository::Id BaseRepository::Insert(BaseRepository::EntityWeakPtr entity)
 {
-  static const char* query =
-    "CREATE TABLE `User`( "
-    "`user_id` INT PRIMARY KEY NOT NULL, "
-    "`login` VARCHAR(255) UNIQUE NOT NULL, "
-    "`password` VARCHAR(255) NOT NULL, "
-    "`signedup_on` DATETIME NULL "
-    "); "
-    "CREATE TABLE `Category`( "
-    "`category_id` INT PRIMARY KEY NOT NULL, "
-    "`user_id` INT NOT NULL REFERENCES `User`(`user_id`) ON UPDATE CASCADE ON DELETE CASCADE, "
-    "`name` VARCHAR(255) UNIQUE NOT NULL "
-    "); "
-    "CREATE TABLE `Task`( "
-    "`task_id` INT PRIMARY KEY NOT NULL, "
-    "`category_id` INT NOT NULL REFERENCES `Category`(`category_id`) ON UPDATE CASCADE ON DELETE CASCADE, "
-    "`title` VARCHAR(255) NOT NULL, "
-    "`priority` INT NOT NULL, "
-    "`due_date` DATETIME NULL, "
-    "`reminder_date` DATETIME NULL, "
-    "`completed` BOOLEAN NOT NULL "
-    "); "
-    "CREATE TABLE `Commentary`( "
-    "`commentary_id` INT PRIMARY KEY NOT NULL, "
-    "`task_id` INT NOT NULL REFERENCES `Task`(`task_id`) ON UPDATE CASCADE ON DELETE CASCADE, "
-    "`published_on` DATETIME NOT NULL, "
-    "`type` VARCHAR(255) NOT NULL, "
-    "`content` BLOB NOT NULL "
-    "); ";
+  std::shared_ptr<Entity> lockedEntity = entity.lock();
 
-  sqlite3_exec(m_db.GetDatabaseHandle(), query, nullptr, nullptr, nullptr);
+  Entity::KeysValuesContainer&& values = lockedEntity->GetPairsRepresentation();
+  Entity::FieldsContainer&& fields = lockedEntity->GetFieldsNames();
+
+  if (values.empty()) {
+    return 0;
+  }
+
+  std::string valuesString = "";
+  std::string fieldsString = "";
+
+  for (auto i = fields.begin(), iend = fields.end(); i != iend; ++i) {
+    fieldsString += "`" + *i + "`";
+
+    if (lockedEntity->GetIdFieldName() == *i) { // Id field found
+      valuesString += "NULL";
+    } else {
+      // TODO: Make correct escape routine for values
+
+      valuesString += "'" + values[*i] + "'";
+    }
+
+    if ((i + 1) != iend) {
+      fieldsString += ", ";
+      valuesString += ", ";
+    }
+  }
+
+  std::string query = "INSERT INTO `" + std::string(lockedEntity->GetTableName()) + "` (" + fieldsString + ") VALUES (" + valuesString + "); ";
+  sqlite3_exec(m_db.GetDatabaseHandle(), query.c_str(), nullptr, nullptr, nullptr);
+
+  // TODO: Return autoincrement value
+
+  return 1;
 }
 
-size_t BaseRepository::Update(const BaseRepository::EntitySharedPtr entity)
+size_t BaseRepository::Update(const BaseRepository::EntityWeakPtr entity)
 {
-
+  // TODO : Implement
 }
 
 size_t BaseRepository::Delete(BaseRepository::Id id)
 {
-
-}
-
-BaseRepository::EntitySharedPtrContainer BaseRepository::FindAll()
-{
-
-}
-
-BaseRepository::EntitySharedPtr BaseRepository::FindOneById(BaseRepository::Id id)
-{
-
+  // TODO : Implement
 }
 
 BaseRepository::Schema BaseRepository::GetSchema()
 {
-
+  return m_db;
 }
 
 void BaseRepository::SetSchema(const BaseRepository::Schema &schema)
 {
-
+  m_db = schema;
 }
