@@ -7,27 +7,9 @@ BaseRepository::BaseRepository(const Schema &schema) :
 {
 }
 
-BaseRepository::IdContainer BaseRepository::Insert(const BaseRepository::EntityWeakPtrContainer &entities)
+BaseRepository::Id BaseRepository::Insert(const EntityTraits::FieldsValuesContainer& values, const EntityTraits& traits)
 {
-  // TODO : Implement
-}
-
-size_t BaseRepository::Update(const BaseRepository::EntityWeakPtrContainer &entities)
-{
-  // TODO : Implement
-}
-
-size_t BaseRepository::Delete(const BaseRepository::IdContainer &ids)
-{
-  // TODO : Implement
-}
-
-BaseRepository::Id BaseRepository::Insert(BaseRepository::EntityWeakPtr entity)
-{
-  std::shared_ptr<Entity> lockedEntity = entity.lock();
-
-  Entity::KeysValuesContainer&& values = lockedEntity->GetPairsRepresentation();
-  Entity::FieldsContainer&& fields = lockedEntity->GetFieldsNames();
+  EntityTraits::FieldsNamesContainer&& fields = traits.GetFieldsNames();
 
   if (values.empty()) {
     return 0;
@@ -39,12 +21,12 @@ BaseRepository::Id BaseRepository::Insert(BaseRepository::EntityWeakPtr entity)
   for (auto i = fields.begin(), iend = fields.end(); i != iend; ++i) {
     fieldsString += "`" + *i + "`";
 
-    if (lockedEntity->GetIdFieldName() == *i) { // Id field found
+    if (traits.GetIdFieldName() == *i) {
+      // Set NULL for id field
+
       valuesString += "NULL";
     } else {
-      // TODO: Make correct escape routine for values
-
-      valuesString += "'" + values[*i] + "'";
+      valuesString += "?";
     }
 
     if ((i + 1) != iend) {
@@ -53,22 +35,75 @@ BaseRepository::Id BaseRepository::Insert(BaseRepository::EntityWeakPtr entity)
     }
   }
 
-  std::string query = "INSERT INTO `" + std::string(lockedEntity->GetTableName()) + "` (" + fieldsString + ") VALUES (" + valuesString + "); ";
-  sqlite3_exec(m_db.GetDatabaseHandle(), query.c_str(), nullptr, nullptr, nullptr);
+  std::string query = "INSERT INTO `" + std::string(traits.GetTableName()) + "` (" + fieldsString + ") VALUES (" + valuesString + "); ";
 
-  // TODO: Return autoincrement value
+  sqlite3_stmt* stmt;
+  sqlite3_prepare_v2(m_db.GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
 
-  return 1;
+  {
+    int valueIndex = 1;
+
+    for (auto i = fields.begin(), iend = fields.end(); i != iend; ++i) {
+      if (traits.GetIdFieldName() == *i) {
+        // Skip id field -- it is already set to NULL
+
+        continue;
+      } else {
+        sqlite3_bind_text(stmt, valueIndex, values.at(*i).c_str(), -1, SQLITE_TRANSIENT);
+
+        ++valueIndex;
+      }
+    }
+  }
+
+  unsigned long lastRowId;
+
+  if (sqlite3_step(stmt) == SQLITE_DONE) {
+    lastRowId = sqlite3_last_insert_rowid(m_db.GetDatabaseHandle());
+  } else {
+    lastRowId = 0;
+  }
+
+  sqlite3_finalize(stmt);
+
+  return lastRowId;
 }
 
-size_t BaseRepository::Update(const BaseRepository::EntityWeakPtr entity)
+bool BaseRepository::Update(Id id, const EntityTraits::FieldsValuesContainer& values, const EntityTraits& traits)
 {
   // TODO : Implement
+
+  return false;
 }
 
-size_t BaseRepository::Delete(BaseRepository::Id id)
+bool BaseRepository::Delete(BaseRepository::Id id, const EntityTraits& traits)
 {
   // TODO : Implement
+
+  return false;
+}
+
+BaseRepository::EntityTraits::FieldsValuesContainer BaseRepository::FindOneById(BaseRepository::Id id, const EntityTraits& traits)
+{
+  EntityTraits::FieldsValuesContainer values;
+
+  std::string query = "SELECT * FROM `User` WHERE `user_id` = '" + std::to_string(id) + "'";
+
+  sqlite3_stmt* stmt;
+  sqlite3_prepare_v2(GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
+
+  if (sqlite3_step(stmt) == SQLITE_ROW) {
+    for (int i = 0, iend = sqlite3_column_count(stmt); i != iend; ++i) {
+      std::string key = sqlite3_column_name(stmt, i);
+      std::string value = reinterpret_cast<const char*>(sqlite3_column_text(stmt, i));
+
+      values.insert(std::make_pair(key, value));
+    }
+  }
+
+  sqlite3_finalize(stmt);
+
+  return values;
 }
 
 BaseRepository::Schema BaseRepository::GetSchema()

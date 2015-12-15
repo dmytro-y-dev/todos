@@ -1,26 +1,23 @@
 #ifndef TODOS_MODEL_REPOSITORY_IREPOSITORY_H
 #define TODOS_MODEL_REPOSITORY_IREPOSITORY_H
 
-#include <vector>
 #include <memory>
 
 #include <model/repository/BaseRepository.h>
-#include <model/schema/Schema.h>
-#include <model/entity/IEntity.h>
 
 namespace todos_model_repository {
-  template <class IEntityDerivative>
+  template <class Entity_, class EntityTraits_, class EntityFactory_>
   class IRepository
   {
   public:
-    typedef std::weak_ptr<IEntityDerivative> EntityWeakPtr;
-    typedef std::vector<EntityWeakPtr> EntityWeakPtrContainer;
-    typedef std::shared_ptr<IEntityDerivative> EntitySharedPtr;
-
-    typedef unsigned long Id;
-    typedef std::vector<Id> IdContainer;
+    typedef Entity_ Entity;
+    typedef EntityTraits_ EntityTraits;
+    typedef EntityFactory_ EntityFactory;
 
     typedef todos_model_schema::Schema Schema;
+    typedef unsigned long Id;
+
+    typedef std::shared_ptr<Entity> EntitySharedPtr;
 
   private:
     BaseRepository m_repository;
@@ -28,18 +25,14 @@ namespace todos_model_repository {
   public:
     IRepository(const Schema& schema);
 
-    IdContainer Insert(const EntityWeakPtrContainer& entities);
-    size_t Update(const EntityWeakPtrContainer& entities);
-    size_t Delete(const IdContainer& ids);
+    Id Insert(Entity& entity);
+    bool Update(Id id, const Entity& entity);
+    bool Delete(Id id);
 
-    Id Insert(EntityWeakPtr entity);
-    size_t Update(EntityWeakPtr entity);
-    size_t Delete(Id id);
+    EntitySharedPtr FindOneById(Id id);
 
-    virtual EntitySharedPtr FindOneById(Id id) = 0;
-
-    Schema GetSchema();
-    void SetSchema(const Schema& schema);
+  protected:
+    BaseRepository& GetBaseRepository();
   };
 }
 

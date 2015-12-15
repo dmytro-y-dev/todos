@@ -1,73 +1,49 @@
 #ifndef TODOS_MODEL_REPOSITORY_IREPOSITORYIMPL_H
 #define TODOS_MODEL_REPOSITORY_IREPOSITORYIMPL_H
 
-#include <model/schema/Schema.h>
-
 namespace todos_model_repository {
-
-  template <class IEntityDerivative>
-  IRepository<IEntityDerivative>::IRepository(const Schema& schema) : m_repository(schema)
+  template <class Entity, class EntityTraits, class EntityFactory>
+  IRepository<Entity, EntityTraits, EntityFactory>::IRepository(const Schema& schema) :
+    m_repository(schema)
   {
   }
 
-  template <class IEntityDerivative>
-  typename IRepository<IEntityDerivative>::IdContainer IRepository<IEntityDerivative>::Insert(const IRepository<IEntityDerivative>::EntityWeakPtrContainer& entities)
+  template <class Entity, class EntityTraits, class EntityFactory>
+  typename IRepository<Entity, EntityTraits, EntityFactory>::Id IRepository<Entity, EntityTraits, EntityFactory>::Insert(Entity& entity)
   {
-    IRepository<IEntityDerivative>::IdContainer ids;
+    Id entityId = m_repository.Insert(EntityFactory::GetInstance().RevertToFieldsValues(entity), EntityTraits());
+    entity.SetId(entityId);
 
-    // TODO: Implement
-
-    return ids;
+    return entityId;
   }
 
-  template <class IEntityDerivative>
-  size_t IRepository<IEntityDerivative>::Update(const IRepository<IEntityDerivative>::EntityWeakPtrContainer& entities)
+  template <class Entity, class EntityTraits, class EntityFactory>
+  bool IRepository<Entity, EntityTraits, EntityFactory>::Update(Id id, const Entity& entity)
   {
-    // TODO: Implement
-
-    return 0;
+    return m_repository.Update(id, EntityFactory::GetInstance().RevertToFieldsValues(entity), EntityTraits());
   }
 
-  template <class IEntityDerivative>
-  size_t IRepository<IEntityDerivative>::Delete(const IRepository<IEntityDerivative>::IdContainer& ids)
+  template <class Entity, class EntityTraits, class EntityFactory>
+  bool IRepository<Entity, EntityTraits, EntityFactory>::Delete(Id id)
   {
-    // TODO: Implement
-
-    return 0;
+    return m_repository.Delete(id, EntityTraits());
   }
 
-  template <class IEntityDerivative>
-  typename IRepository<IEntityDerivative>::Id IRepository<IEntityDerivative>::Insert(IRepository<IEntityDerivative>::EntityWeakPtr entity)
+  template <class Entity, class EntityTraits, class EntityFactory>
+  typename IRepository<Entity, EntityTraits, EntityFactory>::EntitySharedPtr IRepository<Entity, EntityTraits, EntityFactory>::FindOneById(Id id)
   {
-    return m_repository.Insert(entity);
+    //while (sqlite3_step(stmt) == SQLITE_ROW) {
+    //}
+
+    BaseRepository::EntityTraits::FieldsValuesContainer&& values = m_repository.FindOneById(id, EntityTraits());
+
+    return EntityFactory::GetInstance().CreateFromFieldsValues(values);
   }
 
-  template <class IEntityDerivative>
-  size_t IRepository<IEntityDerivative>::Update(IRepository::EntityWeakPtr entity)
+  template <class Entity, class EntityTraits, class EntityFactory>
+  BaseRepository& IRepository<Entity, EntityTraits, EntityFactory>::GetBaseRepository()
   {
-    // TODO: Implement
-
-    return 0;
-  }
-
-  template <class IEntityDerivative>
-  size_t IRepository<IEntityDerivative>::Delete(IRepository<IEntityDerivative>::Id id)
-  {
-    // TODO: Implement
-
-    return 0;
-  }
-
-  template <class IEntityDerivative>
-  typename IRepository<IEntityDerivative>::Schema IRepository<IEntityDerivative>::GetSchema()
-  {
-    return m_repository.GetSchema();
-  }
-
-  template <class IEntityDerivative>
-  void IRepository<IEntityDerivative>::SetSchema(const IRepository<IEntityDerivative>::Schema& schema)
-  {
-    return m_repository.SetSchema(schema);
+    return m_repository;
   }
 }
 

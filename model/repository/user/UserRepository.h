@@ -1,21 +1,17 @@
 #ifndef TODOS_MODEL_REPOSITORY_USERREPOSITORY_H
 #define TODOS_MODEL_REPOSITORY_USERREPOSITORY_H
 
-#include <memory>
-
 #include <model/repository/IRepository.h>
+
 #include <model/entity/user/User.h>
+#include <model/traits/user/UserTraits.h>
+#include <model/factory/user/UserFactory.h>
 
 namespace todos_model_repository {
-  class UserRepository: public IRepository<todos_model_entity::User>
+  class UserRepository: public IRepository<todos_model_entity::User, todos_model_traits::UserTraits, todos_model_factory::UserFactory>
   {
-  private:
-    typedef todos_model_entity::User Entity;
-
   public:
     UserRepository(const Schema& schema);
-
-    virtual EntitySharedPtr FindOneById(Id id) override;
   };
 }
 

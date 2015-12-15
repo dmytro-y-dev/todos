@@ -32,8 +32,11 @@ SOURCES += main.cpp \
     ../../model/repository/task/TaskRepository.cpp \
     ../../model/repository/user/UserRepository.cpp \
     ../../model/repository/BaseRepository.cpp \
+    ../../test/unit/TestModelRepositoryUserRepository.cpp \
+    ../../model/traits/user/UserTraits.cpp \
+    ../../model/traits/IEntityTraits.cpp \
     ../../model/entity/IEntity.cpp \
-    ../../test/unit/TestModelRepositoryUserRepository.cpp
+    ../../model/factory/user/UserFactory.cpp
 
 HEADERS += \
     ../../model/entity/category/Category.h \
@@ -46,7 +49,10 @@ HEADERS += \
     ../../model/repository/task/TaskRepository.h \
     ../../model/repository/user/UserRepository.h \
     ../../model/repository/BaseRepository.h \
-    ../../model/entity/IEntity.h \
     ../../model/repository/IRepository.h \
-    ../../model/repository/IRepositoryImpl.h
+    ../../model/repository/IRepositoryImpl.h \
+    ../../model/factory/user/UserFactory.h \
+    ../../model/traits/user/UserTraits.h \
+    ../../model/traits/IEntityTraits.h \
+    ../../model/entity/IEntity.h
 
