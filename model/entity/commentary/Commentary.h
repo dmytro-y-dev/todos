@@ -22,17 +22,20 @@ namespace todos_model_entity {
     typedef std::string Content;
 
   private:
+    unsigned long m_taskId;
     Type m_type;
     DateTime m_publishedOn;
     Content m_content;
 
   public:
-    Commentary(unsigned long id, Type type, const DateTime& publishedOn, const Content& content);
+    Commentary(unsigned long id, unsigned long taskId, Type type, const DateTime& publishedOn, const Content& content);
 
+    unsigned long GetTaskId() const;
     Type GetType() const;
     DateTime GetPublishedOn() const;
     Content GetContent() const;
 
+    void SetTaskId(unsigned long taskId);
     void SetType(Type type);
     void SetPublishedOn(const DateTime& publishedOn);
     void SetContent(const Content& content);

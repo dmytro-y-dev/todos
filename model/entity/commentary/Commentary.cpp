@@ -2,9 +2,14 @@
 
 using todos_model_entity::Commentary;
 
-Commentary::Commentary(unsigned long id, Commentary::Type type, const Commentary::DateTime &publishedOn, const Commentary::Content& content):
-  IEntity(id), m_type(type), m_publishedOn(publishedOn), m_content(content)
+Commentary::Commentary(unsigned long id, unsigned long taskId, Commentary::Type type, const Commentary::DateTime &publishedOn, const Commentary::Content& content):
+  IEntity(id), m_taskId(taskId), m_type(type), m_publishedOn(publishedOn), m_content(content)
 {
+}
+
+unsigned long Commentary::GetTaskId() const
+{
+  return m_taskId;
 }
 
 Commentary::Type Commentary::GetType() const
@@ -20,6 +25,11 @@ Commentary::DateTime Commentary::GetPublishedOn() const
 Commentary::Content Commentary::GetContent() const
 {
   return m_content;
+}
+
+void Commentary::SetTaskId(unsigned long taskId)
+{
+  m_taskId = taskId;
 }
 
 void Commentary::SetType(Commentary::Type type)

@@ -2,12 +2,17 @@
 
 using todos_model_entity::Task;
 
-Task::Task(unsigned long id, const Task::String &title,
+Task::Task(unsigned long id, unsigned long categoryId, const Task::String &title,
   Task::Priority priority, const Task::DateTime &dueDate,
   const Task::DateTime &reminderDate, Task::Status status) :
-  IEntity(id), m_title(title), m_priority(priority), m_dueDate(dueDate),
-  m_reminderDate(reminderDate), m_status(status)
+  IEntity(id), m_categoryId(categoryId), m_title(title), m_priority(priority),
+  m_dueDate(dueDate), m_reminderDate(reminderDate), m_status(status)
 {
+}
+
+unsigned long Task::GetCategoryId() const
+{
+  return m_categoryId;
 }
 
 Task::String Task::GetTitle() const
@@ -33,6 +38,11 @@ Task::DateTime Task::GetReminderDate() const
 Task::Status Task::GetStatus() const
 {
   return m_status;
+}
+
+void Task::SetCategoryId(unsigned long categoryId)
+{
+  m_categoryId = categoryId;
 }
 
 void Task::SetTitle(const Task::String &title)

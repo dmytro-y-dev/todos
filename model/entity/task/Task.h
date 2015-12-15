@@ -29,6 +29,7 @@ namespace todos_model_entity {
     typedef std::string String;
 
   private:
+    unsigned long m_categoryId;
     String m_title;
     Priority m_priority;
     DateTime m_dueDate;
@@ -36,15 +37,17 @@ namespace todos_model_entity {
     Status m_status;
 
   public:
-    Task(unsigned long id, const String& title, Priority priority, const DateTime& dueDate,
+    Task(unsigned long id, unsigned long categoryId, const String& title, Priority priority, const DateTime& dueDate,
          const DateTime& reminderDate, Status status);
 
+    unsigned long GetCategoryId() const;
     String GetTitle() const;
     Priority GetPriority() const;
     DateTime GetDueDate() const;
     DateTime GetReminderDate() const;
     Status GetStatus() const;
 
+    void SetCategoryId(unsigned long categoryId);
     void SetTitle(const String& title);
     void SetPriority(Priority priority);
     void SetDueDate(const DateTime& dueDate);
