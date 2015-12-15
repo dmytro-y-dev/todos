@@ -83,3 +83,20 @@ TEST_F(TestModelRepositoryCategoryRepository, CategoryRepositoryDeleteOneEntity)
   foundEntity = repository.FindOneById(insertId);
   EXPECT_TRUE(foundEntity == nullptr);
 }
+
+TEST_F(TestModelRepositoryCategoryRepository, CategoryRepositoryFindAll)
+{
+  CategoryRepository repository(m_db);
+
+  Category entity1(0, 1, "test2");
+  Category entity2(0, 1, "test1");
+  Category entity3(0, 1, "test3");
+
+  repository.Insert(entity1);
+  repository.Insert(entity2);
+  repository.Insert(entity3);
+
+  std::vector<std::shared_ptr<Category> > foundEntities = repository.FindAll(1);
+
+  EXPECT_TRUE(foundEntities.size() == 3);
+}

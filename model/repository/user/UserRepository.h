@@ -12,6 +12,8 @@ namespace todos_model_repository {
   {
   public:
     UserRepository(const Schema& schema);
+
+    EntitySharedPtr FindOneByLogin(const std::string& login);
   };
 }
 

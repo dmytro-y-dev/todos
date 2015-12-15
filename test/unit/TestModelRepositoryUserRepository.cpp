@@ -83,3 +83,17 @@ TEST_F(TestModelRepositoryUserRepository, UserRepositoryDeleteOneEntity)
   foundEntity = repository.FindOneById(insertId);
   EXPECT_TRUE(foundEntity == nullptr);
 }
+
+TEST_F(TestModelRepositoryUserRepository, UserRepositoryFindOneByLogin)
+{
+  UserRepository repository(m_db);
+  User entity(0, "test", "pass", QDateTime(QDate(2015, 12, 14), QTime(12, 12)));
+
+  unsigned long insertId = repository.Insert(entity);
+  ASSERT_TRUE(insertId != 0);
+
+  UserRepository::EntitySharedPtr foundEntity = repository.FindOneByLogin("test");
+
+  ASSERT_TRUE(foundEntity != nullptr);
+  EXPECT_TRUE(foundEntity->GetLogin() == "test");
+}

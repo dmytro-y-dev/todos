@@ -12,6 +12,8 @@ namespace todos_model_repository {
   {
   public:
     CategoryRepository(const Schema& schema);
+
+    std::vector<EntitySharedPtr> FindAll(unsigned long userId);
   };
 }
 

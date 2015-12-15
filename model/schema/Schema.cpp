@@ -74,6 +74,8 @@ void Schema::Close()
 
 void Schema::CreateTables()
 {
+  // TODO: Enable foreign key constraints
+
   static const char* query =
     "CREATE TABLE `User`( "
     "`user_id` INTEGER PRIMARY KEY, "
