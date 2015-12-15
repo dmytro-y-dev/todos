@@ -3,6 +3,7 @@
 using todos_model_entity::Task;
 using todos_model_factory::TaskFactory;
 using todos_model_repository::TaskRepository;
+using todos_model_repository::TaskFilterSettings;
 
 TaskRepository::TaskRepository(const Schema &schema) :
   IRepository<Entity, EntityTraits, EntityFactory>(schema)
@@ -37,7 +38,7 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAllByCategoryId
 }
 
 
-std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskRepository::TaskSortSettings sort, const TaskRepository::TaskFilterSettings &filters)
+std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskSortSettings sort, const TaskFilterSettings &filters)
 {
   // Prepare sorting part of SQL script
 
@@ -91,21 +92,7 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskReposit
     sqlite3_bind_text(stmt, 1, filters.GetCategory().c_str(), -1, SQLITE_TRANSIENT);
   }
 
-  std::vector<TaskRepository::EntitySharedPtr> entities;
-
-  while (sqlite3_step(stmt) == SQLITE_ROW) {
-    EntityTraits::FieldsValuesContainer values;
-
-    for (int i = 0, iend = sqlite3_column_count(stmt); i != iend; ++i) {
-      std::string key = sqlite3_column_name(stmt, i);
-      std::string value = reinterpret_cast<const char*>(sqlite3_column_text(stmt, i));
-
-      values.insert(std::make_pair(key, value));
-    }
-
-    EntitySharedPtr entity = EntityFactory::GetInstance().CreateFromFieldsValues(values);
-    entities.push_back(entity);
-  }
+  std::vector<EntitySharedPtr>&& entities = FindAllUsingSQLStatement(stmt);
 
   sqlite3_finalize(stmt);
 

@@ -2,6 +2,7 @@
 #define TODOS_MODEL_REPOSITORY_IREPOSITORY_H
 
 #include <memory>
+#include <vector>
 
 #include <model/repository/BaseRepository.h>
 
@@ -30,6 +31,9 @@ namespace todos_model_repository {
     bool Delete(Id id);
 
     EntitySharedPtr FindOneById(Id id);
+
+    EntitySharedPtr FindOneUsingSQLStatement(sqlite3_stmt* stmt);
+    std::vector<EntitySharedPtr> FindAllUsingSQLStatement(sqlite3_stmt* stmt);
 
   protected:
     BaseRepository& GetBaseRepository();
