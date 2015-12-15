@@ -24,14 +24,16 @@ protected:
 TEST_F(TestModelEntityTask, TaskGettersSetters)
 {
   unsigned int id = 1;
+  unsigned int categoryId = 2;
   Task::String title = "task";
   Task::Priority priority = Task::Priority::LOW;
   Task::DateTime dueDate = QDateTime(QDate(2015, 12, 13), QTime(20, 14));
   Task::DateTime reminderDate = QDateTime(QDate(2015, 12, 14), QTime(21, 14));
   Task::Status status = Task::Status::UNCOMPLETED;
-  Task task(id, title, priority, dueDate, reminderDate, status);
+  Task task(id, categoryId, title, priority, dueDate, reminderDate, status);
 
   ASSERT_TRUE(task.GetId() == id);
+  ASSERT_TRUE(task.GetCategoryId() == categoryId);
   ASSERT_TRUE(task.GetTitle() == title);
   ASSERT_TRUE(task.GetPriority() == priority);
   ASSERT_TRUE(task.GetDueDate() == dueDate);
@@ -41,6 +43,10 @@ TEST_F(TestModelEntityTask, TaskGettersSetters)
   unsigned int newId = 2;
   task.SetId(newId);
   EXPECT_TRUE(task.GetId() == newId);
+
+  unsigned int newCategoryId = 3;
+  task.SetCategoryId(newCategoryId);
+  EXPECT_TRUE(task.GetCategoryId() == newCategoryId);
 
   Task::String newTitle = "task-new-title";
   task.SetTitle(newTitle);

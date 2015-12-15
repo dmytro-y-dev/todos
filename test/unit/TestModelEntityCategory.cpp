@@ -26,16 +26,21 @@ protected:
 
 TEST_F(TestModelEntityCategory, CategoryGettersSetters)
 {
-  unsigned int id = 1;
+  unsigned int id = 1, userId = 2;
   string name = "my-category";
-  Category category(id, name);
+  Category category(id, userId, name);
 
   ASSERT_TRUE(category.GetId() == id);
+  ASSERT_TRUE(category.GetUserId() == userId);
   ASSERT_TRUE(category.GetName() == name);
 
   unsigned int newId = 2;
   category.SetId(newId);
   EXPECT_TRUE(category.GetId() == newId);
+
+  unsigned int newUserId = 1;
+  category.SetUserId(newUserId);
+  EXPECT_TRUE(category.GetUserId() == newUserId);
 
   string newName = "my-category-new-name";
   category.SetName(newName);

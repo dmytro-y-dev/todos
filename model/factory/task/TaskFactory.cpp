@@ -16,7 +16,7 @@ TaskFactory::EntitySharedPtr TaskFactory::CreateFromFieldsValues(const TaskFacto
     Task::Priority priority = StringToPriority(values.at("priority"));
     QDateTime dueDate = QDateTime::fromString(QString::fromStdString(values.at("due_date")));
     QDateTime reminderDate = QDateTime::fromString(QString::fromStdString(values.at("reminder_date")));
-    Task::Status status = StringToPriority(values.at("status"));
+    Task::Status status = StringToStatus(values.at("status"));
 
     ptrEntity.reset(new Task(id, categoryId, title, priority, dueDate, reminderDate, status));
   }

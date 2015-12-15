@@ -27,7 +27,7 @@ CommentaryFactory::FieldsValuesContainer CommentaryFactory::RevertToFieldsValues
   FieldsValuesContainer values;
 
   values.insert(std::make_pair(CommentaryTraits().GetIdFieldName(), std::to_string(entity.GetId())));
-  values.insert(std::make_pair("task_id", entity.GetTaskId()));
+  values.insert(std::make_pair("task_id", std::to_string(entity.GetTaskId())));
   values.insert(std::make_pair("content", entity.GetContent()));
   values.insert(std::make_pair("published_on", entity.GetPublishedOn().toString("yyyy-M-d H:m:s").toStdString()));
   values.insert(std::make_pair("type", CommentaryTypeToString(entity.GetType())));
@@ -37,8 +37,8 @@ CommentaryFactory::FieldsValuesContainer CommentaryFactory::RevertToFieldsValues
 
 CommentaryFactory::CommentaryFactory()
 {
-  commentaryTypeMapping.push_back(std::make_pair("text", Commentary::Type::TEXT));
-  commentaryTypeMapping.push_back(std::make_pair("image/png", Commentary::Type::IMAGE_PNG));
+  m_commentaryTypeMapping.push_back(std::make_pair("text", Commentary::Type::TEXT));
+  m_commentaryTypeMapping.push_back(std::make_pair("image/png", Commentary::Type::IMAGE_PNG));
 }
 
 std::string CommentaryFactory::CommentaryTypeToString(Commentary::Type type) const

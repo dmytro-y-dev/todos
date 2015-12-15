@@ -26,12 +26,14 @@ protected:
 TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
 {
   unsigned int id = 1;
+  unsigned int taskId = 2;
   Commentary::Type type = Commentary::Type::TEXT;
   Commentary::DateTime publishedOn = QDateTime(QDate(2015, 12, 31), QTime(23, 59));
   Commentary::Content content("first");
-  Commentary commentary(id, type, publishedOn, content);
+  Commentary commentary(id,taskId, type, publishedOn, content);
 
   ASSERT_TRUE(commentary.GetId() == id);
+  ASSERT_TRUE(commentary.GetTaskId() == taskId);
   ASSERT_TRUE(commentary.GetType() == type);
   ASSERT_TRUE(commentary.GetPublishedOn() == publishedOn);
   ASSERT_TRUE(commentary.GetContent() == content);
@@ -39,6 +41,10 @@ TEST_F(TestModelEntityCommentary, CommentaryGettersSetters)
   unsigned int newId = 2;
   commentary.SetId(newId);
   EXPECT_TRUE(commentary.GetId() == newId);
+
+  unsigned int newTaskId = 3;
+  commentary.SetTaskId(newTaskId);
+  EXPECT_TRUE(commentary.GetTaskId() == newTaskId);
 
   Commentary::Type newType = Commentary::Type::TEXT;
   commentary.SetType(newType);

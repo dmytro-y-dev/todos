@@ -7,7 +7,7 @@ Category::Category(unsigned long id, unsigned long userId, const String& name) :
 {
 }
 
-Category::String Category::GetUserId() const
+unsigned long Category::GetUserId() const
 {
   return m_userId;
 }

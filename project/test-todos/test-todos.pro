@@ -42,7 +42,10 @@ SOURCES += main.cpp \
     ../../model/traits/task/TaskTraits.cpp \
     ../../model/factory/category/CategoryFactory.cpp \
     ../../model/factory/commentary/CommentaryFactory.cpp \
-    ../../model/factory/task/TaskFactory.cpp
+    ../../model/factory/task/TaskFactory.cpp \
+    ../../test/unit/TestModelRepositoryCategoryRepository.cpp \
+    ../../test/unit/TestModelRepositoryCommentaryRepository.cpp \
+    ../../test/unit/TestModelRepositoryTaskRepository.cpp
 
 HEADERS += \
     ../../model/entity/category/Category.h \
