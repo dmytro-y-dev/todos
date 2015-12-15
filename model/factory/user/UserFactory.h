@@ -2,6 +2,7 @@
 #define TODOS_MODEL_FACTORY_USERFACTORY_H
 
 #include <memory>
+#include <vector>
 
 #include <model/entity/user/User.h>
 #include <model/traits/user/UserTraits.h>

@@ -3,23 +3,22 @@
 
 #include <string>
 
+#include <model/entity/IEntity.h>
+
 namespace todos_model_entity {
-  class Category
+  class Category: public IEntity
   {
   public:
     typedef std::string String;
 
   private:
-    unsigned long m_id;
     String m_name;
 
   public:
     Category(unsigned long id, const String& name);
 
-    unsigned long GetId() const;
     String GetName() const;
 
-    void SetId(unsigned int id);
     void SetName(const String& name);
   };
 }

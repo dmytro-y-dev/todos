@@ -5,8 +5,10 @@
 #include <memory>
 #include <QDateTime>
 
+#include <model/entity/IEntity.h>
+
 namespace todos_model_entity {
-  class Commentary
+  class Commentary: public IEntity
   {
   public:
     enum class Type {
@@ -20,7 +22,6 @@ namespace todos_model_entity {
     typedef std::string Content;
 
   private:
-    unsigned long m_id;
     Type m_type;
     DateTime m_publishedOn;
     Content m_content;
@@ -28,12 +29,10 @@ namespace todos_model_entity {
   public:
     Commentary(unsigned long id, Type type, const DateTime& publishedOn, const Content& content);
 
-    unsigned long GetId() const;
     Type GetType() const;
     DateTime GetPublishedOn() const;
     Content GetContent() const;
 
-    void SetId(unsigned int id);
     void SetType(Type type);
     void SetPublishedOn(const DateTime& publishedOn);
     void SetContent(const Content& content);

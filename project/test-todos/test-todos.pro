@@ -36,7 +36,10 @@ SOURCES += main.cpp \
     ../../model/traits/user/UserTraits.cpp \
     ../../model/traits/IEntityTraits.cpp \
     ../../model/entity/IEntity.cpp \
-    ../../model/factory/user/UserFactory.cpp
+    ../../model/factory/user/UserFactory.cpp \
+    ../../model/traits/category/CategoryTraits.cpp \
+    ../../model/traits/commentary/CommentaryTraits.cpp \
+    ../../model/traits/task/TaskTraits.cpp
 
 HEADERS += \
     ../../model/entity/category/Category.h \
@@ -54,5 +57,8 @@ HEADERS += \
     ../../model/factory/user/UserFactory.h \
     ../../model/traits/user/UserTraits.h \
     ../../model/traits/IEntityTraits.h \
-    ../../model/entity/IEntity.h
+    ../../model/entity/IEntity.h \
+    ../../model/traits/category/CategoryTraits.h \
+    ../../model/traits/commentary/CommentaryTraits.h \
+    ../../model/traits/task/TaskTraits.h
 

@@ -4,8 +4,10 @@
 #include <string>
 #include <QDateTime>
 
+#include <model/entity/IEntity.h>
+
 namespace todos_model_entity {
-  class Task
+  class Task: public IEntity
   {
   public:
     enum class Status {
@@ -27,7 +29,6 @@ namespace todos_model_entity {
     typedef std::string String;
 
   private:
-    unsigned long m_id;
     String m_title;
     Priority m_priority;
     DateTime m_dueDate;
@@ -38,14 +39,12 @@ namespace todos_model_entity {
     Task(unsigned long id, const String& title, Priority priority, const DateTime& dueDate,
          const DateTime& reminderDate, Status status);
 
-    unsigned long GetId() const;
     String GetTitle() const;
     Priority GetPriority() const;
     DateTime GetDueDate() const;
     DateTime GetReminderDate() const;
     Status GetStatus() const;
 
-    void SetId(unsigned int id);
     void SetTitle(const String& title);
     void SetPriority(Priority priority);
     void SetDueDate(const DateTime& dueDate);

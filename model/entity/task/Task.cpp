@@ -5,14 +5,9 @@ using todos_model_entity::Task;
 Task::Task(unsigned long id, const Task::String &title,
   Task::Priority priority, const Task::DateTime &dueDate,
   const Task::DateTime &reminderDate, Task::Status status) :
-  m_id(id), m_title(title), m_priority(priority), m_dueDate(dueDate),
+  IEntity(id), m_title(title), m_priority(priority), m_dueDate(dueDate),
   m_reminderDate(reminderDate), m_status(status)
 {
-}
-
-unsigned long Task::GetId() const
-{
-  return m_id;
 }
 
 Task::String Task::GetTitle() const
@@ -38,11 +33,6 @@ Task::DateTime Task::GetReminderDate() const
 Task::Status Task::GetStatus() const
 {
   return m_status;
-}
-
-void Task::SetId(unsigned int id)
-{
-  m_id = id;
 }
 
 void Task::SetTitle(const Task::String &title)
