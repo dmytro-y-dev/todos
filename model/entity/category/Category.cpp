@@ -3,7 +3,7 @@
 using todos_model_entity::Category;
 
 Category::Category(unsigned long id, unsigned long userId, const String& name) :
-  IEntity(id), m_name(name), m_userId(userId)
+  IEntity(id), m_userId(userId), m_name(name)
 {
 }
 
