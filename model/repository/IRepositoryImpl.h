@@ -32,9 +32,6 @@ namespace todos_model_repository {
   template <class Entity, class EntityTraits, class EntityFactory>
   typename IRepository<Entity, EntityTraits, EntityFactory>::EntitySharedPtr IRepository<Entity, EntityTraits, EntityFactory>::FindOneById(Id id)
   {
-    //while (sqlite3_step(stmt) == SQLITE_ROW) {
-    //}
-
     BaseRepository::EntityTraits::FieldsValuesContainer&& values = m_repository.FindOneById(id, EntityTraits());
 
     return EntityFactory::GetInstance().CreateFromFieldsValues(values);

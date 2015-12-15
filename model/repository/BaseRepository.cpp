@@ -71,9 +71,36 @@ BaseRepository::Id BaseRepository::Insert(const EntityTraits::FieldsValuesContai
 
 bool BaseRepository::Update(Id id, const EntityTraits::FieldsValuesContainer& values, const EntityTraits& traits)
 {
-  // TODO : Implement
+  EntityTraits::FieldsNamesContainer&& fields = traits.GetFieldsNames();
 
-  return false;
+  if (values.empty()) {
+    return 0;
+  }
+
+  std::string fieldsString = "";
+
+  for (auto i = fields.begin(), iend = fields.end(); i != iend; ++i) {
+    fieldsString += "`" + *i + "` = ?";
+
+    if ((i + 1) != iend) {
+      fieldsString += ", ";
+    }
+  }
+
+  std::string query = "UPDATE `" + std::string(traits.GetTableName()) + "` SET " + fieldsString + " WHERE `" + traits.GetIdFieldName() + "` = '" + std::to_string(id) + "'";
+
+  sqlite3_stmt* stmt;
+  sqlite3_prepare_v2(m_db.GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
+
+  for (int i = 0, iend = fields.size(); i != iend; ++i) {
+    sqlite3_bind_text(stmt, i + 1, values.at(fields[i]).c_str(), -1, SQLITE_TRANSIENT);
+  }
+
+  bool result = (sqlite3_step(stmt) == SQLITE_DONE);
+
+  sqlite3_finalize(stmt);
+
+  return result;
 }
 
 bool BaseRepository::Delete(BaseRepository::Id id, const EntityTraits& traits)
@@ -122,3 +149,8 @@ void BaseRepository::SetSchema(const BaseRepository::Schema &schema)
 {
   m_db = schema;
 }
+
+
+//while (sqlite3_step(stmt) == SQLITE_ROW) {
+//}
+

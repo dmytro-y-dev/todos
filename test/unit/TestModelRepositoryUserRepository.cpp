@@ -61,7 +61,7 @@ TEST_F(TestModelRepositoryUserRepository, UserRepositoryUpdateOneEntity)
 
   repository.Update(insertId, updatedEntity);
 
-  foundEntity = repository.FindOneById(insertId);
+  foundEntity = repository.FindOneById(updatedEntity.GetId());
   ASSERT_TRUE(foundEntity != nullptr);
   ASSERT_TRUE(foundEntity->GetLogin() == updatedEntity.GetLogin());
 }
