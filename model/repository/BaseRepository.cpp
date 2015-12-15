@@ -78,16 +78,23 @@ bool BaseRepository::Update(Id id, const EntityTraits::FieldsValuesContainer& va
 
 bool BaseRepository::Delete(BaseRepository::Id id, const EntityTraits& traits)
 {
-  // TODO : Implement
+  std::string query = "DELETE FROM `" + std::string(traits.GetTableName()) + "` WHERE `" + traits.GetIdFieldName() + "` = '" + std::to_string(id) + "'";
 
-  return false;
+  sqlite3_stmt* stmt;
+  sqlite3_prepare_v2(GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
+
+  bool result = (sqlite3_step(stmt) == SQLITE_DONE);
+
+  sqlite3_finalize(stmt);
+
+  return result;
 }
 
 BaseRepository::EntityTraits::FieldsValuesContainer BaseRepository::FindOneById(BaseRepository::Id id, const EntityTraits& traits)
 {
   EntityTraits::FieldsValuesContainer values;
 
-  std::string query = "SELECT * FROM `User` WHERE `user_id` = '" + std::to_string(id) + "'";
+  std::string query = "SELECT * FROM `" + std::string(traits.GetTableName()) + "` WHERE `" + traits.GetIdFieldName() + "` = '" + std::to_string(id) + "'";
 
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);

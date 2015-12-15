@@ -74,6 +74,12 @@ TEST_F(TestModelRepositoryUserRepository, UserRepositoryDeleteOneEntity)
   unsigned long insertId = repository.Insert(entity);
   ASSERT_TRUE(insertId != 0);
 
+  UserRepository::EntitySharedPtr foundEntity = repository.FindOneById(insertId);
+  ASSERT_TRUE(foundEntity != nullptr);
+
   unsigned long deletedCount = repository.Delete(insertId);
   ASSERT_TRUE(deletedCount == 1);
+
+  foundEntity = repository.FindOneById(insertId);
+  EXPECT_TRUE(foundEntity == nullptr);
 }
