@@ -30,13 +30,13 @@ Rectangle {
         spacing: logInWindow.height / 80
 
         Text {
-            text: qsTr("Email")
+            text: qsTr("Name")
             color: "#ffffff"
             font.pixelSize: logInWindow.height / 32
         }
 
         CustomLineEdit {
-            id: email
+            id: name
 
             width: logInWindow.width / 2
             height: logInWindow.height / 13
@@ -69,7 +69,7 @@ Rectangle {
         text: qsTr("Log in")
 
         onClicked: {
-            if (coreEngine.logIn(email.text, password.text))
+            if (coreEngine.logIn(name.text, password.text))
                 logInWindow.visible = false
         }
     }

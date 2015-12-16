@@ -45,19 +45,6 @@ Rectangle {
         }
 
         Text {
-            text: qsTr("Email")
-            color: "#ffffff"
-            font.pixelSize: signUpWindow.height / 32
-        }
-
-        CustomLineEdit {
-            id: email
-
-            width: signUpWindow.width / 2
-            height: signUpWindow.height / 13
-        }
-
-        Text {
             text: qsTr("Password")
             color: "#ffffff"
             font.pixelSize: signUpWindow.height / 32
@@ -98,7 +85,7 @@ Rectangle {
         text: qsTr("Sign Up")
 
         onClicked: {
-            if (coreEngine.signUp(nickname.text, email.text, password.text)) {
+            if (coreEngine.signUp(nickname.text, password.text)) {
                 signUpWindow.visible = false
             }
         }

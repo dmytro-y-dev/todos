@@ -1,12 +1,35 @@
 #include "Engine.h"
 
+#include "../model/repository/user/UserRepository.h"
+
 #include <QDebug>
+
+#include <string>
+
+using todos_model_entity::User;
+using todos_model_repository::UserRepository;
 
 using SidebarItemType = SidebarItem::SidebarItemType;
 
+namespace
+{
+	const char* dbFileName = "todos.sqlite3";
+
+	inline const char* to_char_ptr(const QString& str) {
+		std::string stdString = str.toStdString();
+		const char* result = stdString.c_str();
+		return result;
+	}
+}
+
 Engine::Engine(QObject *parent)
 	: QObject(parent)
+	, m_db(nullptr)
 {
+	m_db.Open(dbFileName);
+	m_db.CreateTables();
+
+
 	auto testTaskData = QList<TaskQML *>()
 			<< new TaskQML("Title", 1, "10-10-2015", "Commentary", "Done")
 			<< new TaskQML("Title2", 3, "10-12-2015", "Commentary", "Done")
@@ -30,21 +53,44 @@ Engine::Engine(QObject *parent)
 			<< new SidebarItem(SidebarItemType::SortName, "Sort3")
 			<< new SidebarItem(SidebarItemType::SortName, "Sort4");
 	m_sidebarList.append(testSidebarData);
-
-	m_userName = "Current User";
 }
 
-bool Engine::logIn(const QString &email, const QString &password)
+Engine::~Engine()
 {
-	// TODO logIn
-	qDebug() << "User LogIn email=" << email << " password=" << password;
+	m_db.Close();
+}
+
+bool Engine::logIn(const QString &name, const QString &password)
+{
+	UserRepository repository(m_db);
+
+	auto foundUser = repository.FindOneByLogin(name.toStdString());
+
+	if (foundUser == nullptr || foundUser->GetPassword() != password.toStdString())
+		return false;
+
+	if (m_userName != name) {
+		m_userName = name;
+		userNameChanged();
+	}
+
 	return true;
 }
 
-bool Engine::signUp(const QString &name, const QString &email, const QString &password)
+bool Engine::signUp(const QString &name, const QString &password)
 {
-	// TODO signUp
-	qDebug() << "User SignUp name=" << name << " email=" << email << " password=" << password;
+	UserRepository repository(m_db);
+
+	User newUser(0, to_char_ptr(name), to_char_ptr(password), QDateTime::currentDateTime());
+	unsigned long insertId = repository.Insert(newUser);
+
+	if (insertId == 0)
+		return false;
+
+	auto foundUser = repository.FindOneById(insertId);
+
+	if(foundUser == nullptr || foundUser->GetLogin() != newUser.GetLogin())
+		return false;
 
 	if (m_userName != name) {
 		m_userName = name;

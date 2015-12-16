@@ -8,6 +8,10 @@
 #include "TaskQML.h"
 #include "SidebarItem.h"
 
+#include "../model/schema/Schema.h"
+
+using todos_model_schema::Schema;
+
 class Engine : public QObject
 {
 	Q_OBJECT
@@ -18,12 +22,13 @@ class Engine : public QObject
 
 public:
 	explicit Engine(QObject *parent = 0);
+	~Engine();
 
 	QObjectListModel *taskModel() { return m_taskList.getModel(); }
 	QObjectListModel *sidebarModel() { return m_sidebarList.getModel(); }
 
-	Q_INVOKABLE bool logIn(const QString &email, const QString &password);
-	Q_INVOKABLE bool signUp(const QString &name, const QString &email, const QString &password);
+	Q_INVOKABLE bool logIn(const QString &name, const QString &password);
+	Q_INVOKABLE bool signUp(const QString &name, const QString &password);
 
 	Q_INVOKABLE bool addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary);
 	Q_INVOKABLE bool removeTask(int index);
@@ -40,6 +45,8 @@ private:
 	QQuickList<SidebarItem> m_sidebarList;
 
 	QString m_userName;
+
+	Schema m_db;
 };
 
 #endif // ENGINE_H
