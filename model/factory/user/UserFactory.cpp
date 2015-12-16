@@ -1,5 +1,7 @@
 #include "UserFactory.h"
 
+#include <utility/StringConversions.h>
+
 using todos_model_factory::UserFactory;
 using todos_model_entity::User;
 using todos_model_traits::UserTraits;

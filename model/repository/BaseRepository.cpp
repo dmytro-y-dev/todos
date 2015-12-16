@@ -1,5 +1,7 @@
 #include "BaseRepository.h"
 
+#include <utility/StringConversions.h>
+
 using todos_model_repository::BaseRepository;
 
 BaseRepository::BaseRepository(const Schema &schema) :

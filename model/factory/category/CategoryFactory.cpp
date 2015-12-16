@@ -1,5 +1,7 @@
 #include "CategoryFactory.h"
 
+#include <utility/StringConversions.h>
+
 using todos_model_factory::CategoryFactory;
 using todos_model_entity::Category;
 using todos_model_traits::CategoryTraits;
