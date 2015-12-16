@@ -48,7 +48,9 @@ SOURCES += main.cpp \
     TaskObject.cpp \
     CategotyObject.cpp \
     CommentaryObject.cpp \
-    TypeConverter.cpp
+    TypeConverter.cpp \
+    ../utility/StringConversions.cpp
+
 
 RESOURCES += qml.qrc
 
@@ -90,6 +92,8 @@ HEADERS += \
     TaskObject.h \
     CategotyObject.h \
     CommentaryObject.h \
-    TypeConverter.h
+    TypeConverter.h \
+    ../utility/StringConversions.h
 
-CONFIG += c++14
+CONFIG += c++11
+

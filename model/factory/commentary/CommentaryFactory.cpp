@@ -1,5 +1,7 @@
 #include "CommentaryFactory.h"
 
+#include <utility/StringConversions.h>
+
 using todos_model_factory::CommentaryFactory;
 using todos_model_entity::Commentary;
 using todos_model_traits::CommentaryTraits;

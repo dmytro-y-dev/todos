@@ -1,5 +1,7 @@
 #include "CategoryRepository.h"
 
+#include <utility/StringConversions.h>
+
 using todos_model_entity::Category;
 using todos_model_factory::CategoryFactory;
 using todos_model_repository::CategoryRepository;
