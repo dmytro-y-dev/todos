@@ -105,14 +105,11 @@ bool Engine::addTask(unsigned long categoryId, const QString &title, const QStri
 bool Engine::deleteTask(unsigned long taskId)
 {
 	TaskRepository repository(m_db);
-	auto foundEntity = repository.FindOneById(taskId);
-	ASSERT_TRUE(foundEntity != nullptr);
+	unsigned long deletedCount = repository.Delete(taskId);
+	if (deletedCount == 0)
+		return false;
 
-	unsigned long deletedCount = repository.Delete(insertId);
-	ASSERT_TRUE(deletedCount == 1);
-
-	foundEntity = repository.FindOneById(insertId);
-	EXPECT_TRUE(foundEntity == nullptr);
+	updateTaskList();
 }
 
 bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate, const QString &newStatus)
@@ -196,11 +193,11 @@ void Engine::updateTaskList()
 	TaskRepository repository(m_db);
 
 	m_taskList.clear();
-
+/*
 	auto foundTask = repository.FindAll(m_userId);
-	for (auto category : foundCategory) {
+	for (auto category : foundTask) {
 		m_categoryList.append(new CategotyObject(category.get(), 0));
 	}
-
+*/
 	emit categoryModelChanged();
 }
