@@ -1,13 +1,14 @@
 #include "Engine.h"
 
 #include "../model/repository/user/UserRepository.h"
-
-#include <QDebug>
+#include "../model/repository/category/CategoryRepository.h"
 
 #include <string>
 
 using todos_model_entity::User;
 using todos_model_repository::UserRepository;
+using todos_model_entity::Category;
+using todos_model_repository::CategoryRepository;
 
 using SidebarItemType = SidebarItem::SidebarItemType;
 
@@ -28,23 +29,6 @@ Engine::Engine(QObject *parent)
 {
 	m_db.Open(dbFileName);
 	m_db.CreateTables();
-
-	auto testSidebarData = QList<SidebarItem *>()
-			<< new SidebarItem(SidebarItemType::CategoryName, "Category1")
-			<< new SidebarItem(SidebarItemType::CategoryName, "Category2")
-			<< new SidebarItem(SidebarItemType::CategoryName, "Category3")
-			<< new SidebarItem(SidebarItemType::CategoryName, "Category4")
-			<< new SidebarItem(SidebarItemType::CategoryName, "Category5")
-			<< new SidebarItem(SidebarItemType::FilterName, "Filter1")
-			<< new SidebarItem(SidebarItemType::FilterName, "Filter2")
-			<< new SidebarItem(SidebarItemType::FilterName, "Filter3")
-			<< new SidebarItem(SidebarItemType::FilterName, "Filter4")
-			<< new SidebarItem(SidebarItemType::FilterName, "Filter5")
-			<< new SidebarItem(SidebarItemType::SortName, "Sort1")
-			<< new SidebarItem(SidebarItemType::SortName, "Sort2")
-			<< new SidebarItem(SidebarItemType::SortName, "Sort3")
-			<< new SidebarItem(SidebarItemType::SortName, "Sort4");
-	m_sidebarList.append(testSidebarData);
 }
 
 Engine::~Engine()
@@ -65,6 +49,8 @@ bool Engine::logIn(const QString &name, const QString &password)
 		m_userName = name;
 		userNameChanged();
 	}
+
+	m_userId = foundUser->GetId();
 
 	return true;
 }
@@ -89,12 +75,13 @@ bool Engine::signUp(const QString &name, const QString &password)
 		userNameChanged();
 	}
 
+	m_userId = foundUser->GetId();
+
 	return true;
 }
 
 bool Engine::addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary)
 {
-	//m_taskList.append(new TaskObject(title, priority, dueDate, commentary, "NotDone"));
 
 	emit taskModelChanged();
 
@@ -113,7 +100,65 @@ bool Engine::removeTask(int index)
 	return true;
 }
 
+bool Engine::addCategory(const QString &name)
+{
+	CategoryRepository repository(m_db);
+
+	auto foundCategory = repository.FindAll(m_userId);
+	for (auto category : foundCategory) {
+		if (category->GetName() == name.toStdString())
+			return false;
+	}
+
+	Category newCategory(0, m_userId, name.toStdString());
+	unsigned long insertId = repository.Insert(newCategory);
+	if (insertId == 0)
+		return false;
+
+	auto foundEntity = repository.FindOneById(insertId);
+	if (foundEntity == nullptr)
+		return false;
+
+	m_categoryList.append(CategotyObject(foundEntity.get()));
+
+	emit categoryModelChanged();
+}
+
+bool Engine::deleteCategory(unsigned long categoryId)
+{
+	CategoryRepository repository(m_db);
+
+	repository.Delete(categoryId);
+
+	updateCategoryList();
+}
+
+bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
+{
+	CategoryRepository repository(m_db);
+
+	auto foundEntity = repository.FindOneById(categoryId);
+	foundEntity->SetName(newName.toStdString());
+	repository.Update(categoryId, foundEntity);
+
+	updateCategoryList();
+}
+
 QString Engine::userName() const
 {
 	return m_userName;
+}
+
+void Engine::updateCategoryList()
+{
+	CategoryRepository repository(m_db);
+
+	m_categoryList.clear();
+
+	auto foundCategory = repository.FindAll(m_userId);
+	for (auto category : foundCategory) {
+		m_categoryList.append(CategotyObject(category));
+	}
+
+	emit categoryModelChanged();
 }

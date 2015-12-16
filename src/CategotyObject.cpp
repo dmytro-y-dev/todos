@@ -7,6 +7,13 @@ CategotyObject::CategotyObject(unsigned long id, unsigned long userId, const QSt
 	, m_name(name)
 {}
 
+CategotyObject::CategotyObject(todos_model_entity::Category category, QObject *parent)
+	: QObject(parent)
+	, m_id(category.GetId())
+	, m_userId(category.GetUserId())
+	, m_name(category.GetName())
+{}
+
 CategotyObject::CategotyObject(QObject *parent)
 	: QObject(parent)
 {}

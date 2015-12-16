@@ -3,6 +3,10 @@
 
 #include <QObject>
 
+#include <../model/entity/category/Category.h>
+
+using todos_model_entity::Category;
+
 class CategotyObject : public QObject
 {
 	Q_OBJECT
@@ -12,6 +16,7 @@ class CategotyObject : public QObject
 
 public:
 	Q_INVOKABLE CategotyObject(unsigned long id, unsigned long userId, const QString &name, QObject * parent = 0);
+	Q_INVOKABLE CategotyObject(Category category, QObject * parent = 0);
 	Q_INVOKABLE CategotyObject(QObject * parent = 0);
 
 	unsigned long id() const;
