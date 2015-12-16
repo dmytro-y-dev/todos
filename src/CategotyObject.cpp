@@ -9,9 +9,7 @@ CategotyObject::CategotyObject(unsigned long id, unsigned long userId, const QSt
 
 CategotyObject::CategotyObject(QObject *parent)
 	: QObject(parent)
-{
-
-}
+{}
 
 unsigned long CategotyObject::id() const
 {
