@@ -5,7 +5,7 @@
 
 #include "lib/qobjectlistmodel.h"
 #include "lib/qquicklist.h"
-#include "TaskQML.h"
+#include "TaskObject.h"
 #include "SidebarItem.h"
 
 #include "../model/schema/Schema.h"
@@ -41,7 +41,7 @@ signals:
 	void userNameChanged();
 
 private:
-	QQuickList<TaskQML> m_taskList;
+	QQuickList<TaskObject> m_taskList;
 	QQuickList<SidebarItem> m_sidebarList;
 
 	QString m_userName;

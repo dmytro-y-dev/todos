@@ -45,7 +45,8 @@ SOURCES += main.cpp \
     ../test/unit/TestModelRepositoryCommentaryRepository.cpp \
     ../test/unit/TestModelRepositoryTaskRepository.cpp \
     ../model/repository/task/TaskFilterSettings.cpp \
-    TaskQML.cpp
+    TaskObject.cpp \
+    CategotyObject.cpp
 
 RESOURCES += qml.qrc
 
@@ -84,6 +85,7 @@ HEADERS += \
     ../model/factory/commentary/CommentaryFactory.h \
     ../model/factory/task/TaskFactory.h \
     ../model/repository/task/TaskFilterSettings.h \
-    TaskQML.h
+    TaskObject.h \
+    CategotyObject.h
 
 CONFIG += c++14

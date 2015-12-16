@@ -29,14 +29,6 @@ Engine::Engine(QObject *parent)
 	m_db.Open(dbFileName);
 	m_db.CreateTables();
 
-
-	auto testTaskData = QList<TaskQML *>()
-			<< new TaskQML("Title", 1, "10-10-2015", "Commentary", "Done")
-			<< new TaskQML("Title2", 3, "10-12-2015", "Commentary", "Done")
-			<< new TaskQML("Title3", 1, "10-12-2015", "Commentary", "Done")
-			<< new TaskQML("Title4", 2, "10-11-2015", "Commentary", "Done");
-	m_taskList.append(testTaskData);
-
 	auto testSidebarData = QList<SidebarItem *>()
 			<< new SidebarItem(SidebarItemType::CategoryName, "Category1")
 			<< new SidebarItem(SidebarItemType::CategoryName, "Category2")
@@ -102,7 +94,7 @@ bool Engine::signUp(const QString &name, const QString &password)
 
 bool Engine::addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary)
 {
-	m_taskList.append(new TaskQML(title, priority, dueDate, commentary, "NotDone"));
+	//m_taskList.append(new TaskObject(title, priority, dueDate, commentary, "NotDone"));
 
 	emit taskModelChanged();
 
