@@ -20,6 +20,7 @@ class CommentaryObject : public QObject
 
 public:
 	CommentaryObject(unsigned long id, unsigned long taskId, CommentaryType type, const QDateTime& publishedOn, const Content& content, QObject * parent = 0);
+	CommentaryObject(todos_model_entity::Commentary * commentary, QObject *parent);
 	CommentaryObject(QObject *parent);
 
 	unsigned long id() const;

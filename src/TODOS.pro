@@ -47,7 +47,8 @@ SOURCES += main.cpp \
     ../model/repository/task/TaskFilterSettings.cpp \
     TaskObject.cpp \
     CategotyObject.cpp \
-    CommentaryObject.cpp
+    CommentaryObject.cpp \
+    TypeConverter.cpp
 
 RESOURCES += qml.qrc
 
@@ -88,6 +89,7 @@ HEADERS += \
     ../model/repository/task/TaskFilterSettings.h \
     TaskObject.h \
     CategotyObject.h \
-    CommentaryObject.h
+    CommentaryObject.h \
+    TypeConverter.h
 
 CONFIG += c++14

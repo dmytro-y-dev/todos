@@ -1,7 +1,10 @@
 #include "Engine.h"
 
+#include "TypeConverter.h"
+
 #include "../model/repository/user/UserRepository.h"
 #include "../model/repository/category/CategoryRepository.h"
+#include "../model/repository/task/TaskRepository.h"
 
 #include <string>
 
@@ -9,8 +12,8 @@ using todos_model_entity::User;
 using todos_model_repository::UserRepository;
 using todos_model_entity::Category;
 using todos_model_repository::CategoryRepository;
-
-using SidebarItemType = SidebarItem::SidebarItemType;
+using todos_model_entity::Task;
+using todos_model_repository::TaskRepository;
 
 namespace
 {
@@ -80,24 +83,46 @@ bool Engine::signUp(const QString &name, const QString &password)
 	return true;
 }
 
-bool Engine::addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary)
+bool Engine::addTask(unsigned long categoryId, const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate, const QString &status)
 {
+	TaskRepository repository(m_db);
+
+	Task entity(0, categoryId, title.toStdString() , TypeConverter::toPriority(priority), dueDate, reminderDate, TypeConverter::toStatus(status));
+	unsigned long insertId = repository.Insert(entity);
+	if (insertId == 0)
+		return false;
+
+	auto foundEntity = repository.FindOneById(insertId);
+	if (foundEntity == nullptr)
+		return false;
+
+	m_taskList.append(new TaskObject(foundEntity.get(),0));
 
 	emit taskModelChanged();
-
 	return true;
 }
 
-bool Engine::removeTask(int index)
+bool Engine::deleteTask(unsigned long taskId)
 {
-	if (index < 0 || index >= m_taskList.size())
-		return false;
+	TaskRepository repository(m_db);
+	auto foundEntity = repository.FindOneById(taskId);
+	ASSERT_TRUE(foundEntity != nullptr);
 
-	m_taskList.removeAt(index);
+	unsigned long deletedCount = repository.Delete(insertId);
+	ASSERT_TRUE(deletedCount == 1);
 
-	emit taskModelChanged();
+	foundEntity = repository.FindOneById(insertId);
+	EXPECT_TRUE(foundEntity == nullptr);
+}
 
-	return true;
+bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate, const QString &newStatus)
+{
+
+}
+
+bool Engine::doneTask(unsigned long taskId)
+{
+
 }
 
 bool Engine::addCategory(const QString &name)
@@ -119,9 +144,10 @@ bool Engine::addCategory(const QString &name)
 	if (foundEntity == nullptr)
 		return false;
 
-	m_categoryList.append(CategotyObject(foundEntity.get()));
+	m_categoryList.append(new CategotyObject(foundEntity.get(), 0));
 
 	emit categoryModelChanged();
+	return true;
 }
 
 bool Engine::deleteCategory(unsigned long categoryId)
@@ -131,6 +157,7 @@ bool Engine::deleteCategory(unsigned long categoryId)
 	repository.Delete(categoryId);
 
 	updateCategoryList();
+	return true;
 }
 
 bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
@@ -139,9 +166,10 @@ bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
 
 	auto foundEntity = repository.FindOneById(categoryId);
 	foundEntity->SetName(newName.toStdString());
-	repository.Update(categoryId, foundEntity);
+	repository.Update(categoryId, *foundEntity.get());
 
 	updateCategoryList();
+	return true;
 }
 
 QString Engine::userName() const
@@ -157,7 +185,21 @@ void Engine::updateCategoryList()
 
 	auto foundCategory = repository.FindAll(m_userId);
 	for (auto category : foundCategory) {
-		m_categoryList.append(CategotyObject(category));
+		m_categoryList.append(new CategotyObject(category.get(), 0));
+	}
+
+	emit categoryModelChanged();
+}
+
+void Engine::updateTaskList()
+{
+	TaskRepository repository(m_db);
+
+	m_taskList.clear();
+
+	auto foundTask = repository.FindAll(m_userId);
+	for (auto category : foundCategory) {
+		m_categoryList.append(new CategotyObject(category.get(), 0));
 	}
 
 	emit categoryModelChanged();

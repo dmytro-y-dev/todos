@@ -1,74 +1,26 @@
 #include "TaskObject.h"
-
-namespace
-{
-	const QString csLowPriority     = QString("Low");
-	const QString csNormalPriority  = QString("Normal");
-	const QString csHighPriority    = QString("High");
-	const QString csUnknownPriority = QString("Unknown");
-
-	const QString csCompletedStatus   = QString("Completed");
-	const QString csUncompletedStatus = QString("Uncompleted");
-	const QString csUnknownStatus     = QString("Unknown");
-
-
-	QString toString(Priority priority) {
-		switch (priority) {
-		case Priority::LOW:
-			return csLowPriority;
-		case Priority::NORMAL:
-			return csNormalPriority;
-		case Priority::HIGH:
-			return csHighPriority;
-		default:
-			return csUnknownPriority;
-		}
-	}
-
-	Priority toPriority(const QString &str) {
-		if (str == csLowPriority) {
-			return Priority::LOW;
-		} else if (str == csNormalPriority) {
-			return Priority::NORMAL;
-		} else if (str == csHighPriority) {
-			return Priority::HIGH;
-		} else {
-			return Priority::UNKNOWN;
-		}
-	}
-
-	QString toString(Status status) {
-		switch (status) {
-		case Status::COMPLETED:
-			return csCompletedStatus;
-		case Status::UNCOMPLETED:
-			return csUncompletedStatus;
-		default:
-			return csUnknownStatus;
-		}
-	}
-
-	Status toStatus(const QString &str) {
-		if (str == csCompletedStatus) {
-			return Status::COMPLETED;
-		} else if (str == csUncompletedStatus) {
-			return Status::UNCOMPLETED;
-		} else {
-			return Status::UNKNOWN;
-		}
-	}
-
-}
+#include "TypeConverter.h"
 
 TaskObject::TaskObject(unsigned long id, unsigned long categoryId, const QString &title, Priority priority, const QDateTime &dueDate, const QDateTime &reminderDate, Status status, QObject *parent)
 	: QObject(parent)
 	, m_id(id)
 	, m_categoryId(categoryId)
 	, m_title(title)
-	, m_priority(toString(priority))
+	, m_priority(TypeConverter::toString(priority))
 	, m_dueDate(dueDate)
 	, m_reminderDate(reminderDate)
-	, m_status(toString(status))
+	, m_status(TypeConverter::toString(status))
+{}
+
+TaskObject::TaskObject(todos_model_entity::Task *task, QObject *parent)
+	: QObject(parent)
+	, m_id(task->GetId())
+	, m_categoryId(task->GetCategoryId())
+	, m_title(QString::fromStdString(task->GetTitle()))
+	, m_priority(TypeConverter::toString(task->GetPriority()))
+	, m_dueDate(task->GetDueDate())
+	, m_reminderDate(task->GetReminderDate())
+	, m_status(TypeConverter::toString(task->GetStatus()))
 {}
 
 TaskObject::TaskObject(QObject *parent)

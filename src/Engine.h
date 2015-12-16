@@ -33,8 +33,10 @@ public:
 	Q_INVOKABLE bool logIn(const QString &name, const QString &password);
 	Q_INVOKABLE bool signUp(const QString &name, const QString &password);
 
-	Q_INVOKABLE bool addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary);
-	Q_INVOKABLE bool removeTask(int index);
+	Q_INVOKABLE bool addTask(unsigned long categoryId, const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate,const QString &status);
+	Q_INVOKABLE bool deleteTask(unsigned long taskId);
+	Q_INVOKABLE bool updateTask(unsigned long taskId, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate, const QString &newStatus);
+	Q_INVOKABLE bool doneTask(unsigned long taskId);
 
 	Q_INVOKABLE bool addCategory(const QString &name);
 	Q_INVOKABLE bool deleteCategory(unsigned long categoryId);
@@ -50,6 +52,7 @@ signals:
 
 private:
 	void updateCategoryList();
+	void updateTaskList();
 
 	QQuickList<TaskObject> m_taskList;
 	QQuickList<CategotyObject> m_categoryList;
@@ -57,6 +60,8 @@ private:
 
 	QString m_userName;
 	unsigned long m_userId;
+	unsigned long m_categoryId;
+	unsigned long m_taskId;
 
 	Schema m_db;
 };

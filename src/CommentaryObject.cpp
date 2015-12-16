@@ -1,34 +1,9 @@
 #include "CommentaryObject.h"
+#include "TypeConverter.h"
 
 using CommentaryType = todos_model_entity::Commentary::Type;
 
-namespace
-{
-	const QString csTextType     = QString("TextType");
-	const QString csImagePNGType = QString("ImagePNGType");
-	const QString csUnknownType  = QString("UnknownType");
-
-	QString toString(CommentaryType type) {
-		switch (type) {
-		case CommentaryType::TEXT:
-			return csTextType;
-		case CommentaryType::IMAGE_PNG:
-			return csImagePNGType;
-		default:
-			return csUnknownType;
-		}
-	}
-
-	CommentaryType toType(const QString &str) {
-		if (str == csTextType) {
-			return CommentaryType::TEXT;
-		} else if (str == csImagePNGType) {
-			return CommentaryType::IMAGE_PNG;
-		} else {
-			return CommentaryType::UNKNOWN;
-		}
-	}
-
+namespace {
 	inline QVariant makeContent(const Content &content) {
 		const char* temp = content.c_str();
 		return QVariant(temp);
@@ -39,9 +14,18 @@ CommentaryObject::CommentaryObject(unsigned long id, unsigned long taskId, Comme
 	: QObject(parent)
 	, m_id(id)
 	, m_taskId(taskId)
-	, m_type(toString(type))
+	, m_type(TypeConverter::toString(type))
 	, m_publishedOn(publishedOn)
 	, m_content(makeContent(content))
+{}
+
+CommentaryObject::CommentaryObject(todos_model_entity::Commentary *commentary, QObject *parent)
+	: QObject(parent)
+	, m_id(commentary->GetId())
+	, m_taskId(commentary->GetTaskId())
+	, m_type(TypeConverter::toString(commentary->GetType()))
+	, m_publishedOn(commentary->GetPublishedOn())
+	, m_content(makeContent(commentary->GetContent()))
 {}
 
 CommentaryObject::CommentaryObject(QObject *parent)
