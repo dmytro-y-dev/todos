@@ -91,7 +91,7 @@ TEST_F(TestModelRepositoryTaskRepository, TaskRepositoryFindAll)
 {
   CategoryRepository categoryRepository(m_db);
   Category category1(0, 2, "category1");
-  Category category2(0, 2, "category1");
+  Category category2(0, 2, "category2");
 
   categoryRepository.Insert(category1);
   categoryRepository.Insert(category2);

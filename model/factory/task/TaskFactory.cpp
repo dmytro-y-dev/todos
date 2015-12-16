@@ -12,8 +12,8 @@ TaskFactory::EntitySharedPtr TaskFactory::CreateFromFieldsValues(const TaskFacto
   EntitySharedPtr ptrEntity;
 
   if (AreFieldsFromSameEntity(TaskTraits().GetFieldsNames(), values)) {
-    unsigned int id = std::stoi(values.at(TaskTraits().GetIdFieldName()));
-    unsigned int categoryId = std::stoi(values.at("category_id"));
+    unsigned int id = todos_utility::StringToInt(values.at(TaskTraits().GetIdFieldName()));
+    unsigned int categoryId = todos_utility::StringToInt(values.at("category_id"));
     std::string title = values.at("title");
     Task::Priority priority = StringToPriority(values.at("priority"));
     QDateTime dueDate = QDateTime::fromString(QString::fromStdString(values.at("due_date")));
@@ -30,8 +30,8 @@ TaskFactory::FieldsValuesContainer TaskFactory::RevertToFieldsValues(const TaskF
 {
   FieldsValuesContainer values;
 
-  values.insert(std::make_pair(TaskTraits().GetIdFieldName(), std::to_string(entity.GetId())));
-  values.insert(std::make_pair("category_id",std::to_string(entity.GetCategoryId())));
+  values.insert(std::make_pair(TaskTraits().GetIdFieldName(), todos_utility::IntToString(entity.GetId())));
+  values.insert(std::make_pair("category_id", todos_utility::IntToString(entity.GetCategoryId())));
   values.insert(std::make_pair("title", entity.GetTitle()));
   values.insert(std::make_pair("priority", PriorityToString(entity.GetPriority())));
   values.insert(std::make_pair("due_date", entity.GetDueDate().toString("yyyy-M-d H:m:s").toStdString()));

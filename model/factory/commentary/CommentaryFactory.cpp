@@ -12,8 +12,8 @@ CommentaryFactory::EntitySharedPtr CommentaryFactory::CreateFromFieldsValues(con
   EntitySharedPtr ptrEntity;
 
   if (AreFieldsFromSameEntity(CommentaryTraits().GetFieldsNames(), values)) {
-    unsigned int id = std::stoi(values.at(CommentaryTraits().GetIdFieldName()));
-    unsigned int taskId = std::stoi(values.at("task_id"));
+    unsigned int id = todos_utility::StringToInt(values.at(CommentaryTraits().GetIdFieldName()));
+    unsigned int taskId = todos_utility::StringToInt(values.at("task_id"));
     QDateTime publishedOn = QDateTime::fromString(QString::fromStdString(values.at("published_on")));
     Commentary::Type type = StringToCommentaryType(values.at("type"));
     std::string content = values.at("content");
@@ -28,8 +28,8 @@ CommentaryFactory::FieldsValuesContainer CommentaryFactory::RevertToFieldsValues
 {
   FieldsValuesContainer values;
 
-  values.insert(std::make_pair(CommentaryTraits().GetIdFieldName(), std::to_string(entity.GetId())));
-  values.insert(std::make_pair("task_id", std::to_string(entity.GetTaskId())));
+  values.insert(std::make_pair(CommentaryTraits().GetIdFieldName(), todos_utility::IntToString(entity.GetId())));
+  values.insert(std::make_pair("task_id", todos_utility::IntToString(entity.GetTaskId())));
   values.insert(std::make_pair("content", entity.GetContent()));
   values.insert(std::make_pair("published_on", entity.GetPublishedOn().toString("yyyy-M-d H:m:s").toStdString()));
   values.insert(std::make_pair("type", CommentaryTypeToString(entity.GetType())));

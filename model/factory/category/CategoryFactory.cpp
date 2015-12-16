@@ -12,8 +12,8 @@ CategoryFactory::EntitySharedPtr CategoryFactory::CreateFromFieldsValues(const C
   EntitySharedPtr ptrEntity;
 
   if (AreFieldsFromSameEntity(CategoryTraits().GetFieldsNames(), values)) {
-    unsigned int id = std::stoi(values.at(CategoryTraits().GetIdFieldName()));
-    unsigned int userId = std::stoi(values.at("user_id"));
+    unsigned int id = todos_utility::StringToInt(values.at(CategoryTraits().GetIdFieldName()));
+    unsigned int userId = todos_utility::StringToInt(values.at("user_id"));
     std::string name = values.at("name");
 
     ptrEntity.reset(new Category(id, userId, name));
@@ -26,8 +26,8 @@ CategoryFactory::FieldsValuesContainer CategoryFactory::RevertToFieldsValues(con
 {
   FieldsValuesContainer values;
 
-  values.insert(std::make_pair(CategoryTraits().GetIdFieldName(), std::to_string(entity.GetId())));
-  values.insert(std::make_pair("user_id",std::to_string(entity.GetUserId())));
+  values.insert(std::make_pair(CategoryTraits().GetIdFieldName(), todos_utility::IntToString(entity.GetId())));
+  values.insert(std::make_pair("user_id", todos_utility::IntToString(entity.GetUserId())));
   values.insert(std::make_pair("name", entity.GetName()));
 
   return values;

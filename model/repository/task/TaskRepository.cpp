@@ -15,7 +15,7 @@ TaskRepository::TaskRepository(const Schema &schema) :
 std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAllByCategoryId(unsigned long categoryId)
 {
   std::vector<TaskRepository::EntitySharedPtr> entities;
-  std::string query = "SELECT * FROM `Task` WHERE `category_id` = '" + std::to_string(categoryId) + "' ORDER BY `title`;";
+  std::string query = "SELECT * FROM `Task` WHERE `category_id` = '" + todos_utility::IntToString(categoryId) + "' ORDER BY `title`;";
 
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(GetBaseRepository().GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);

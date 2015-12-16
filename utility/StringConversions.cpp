@@ -1,8 +1,17 @@
 #include "StringConversions.h"
 
+#include <string>
+#include <sstream>
 #include <stdio.h>
 
-int std::stoi(const std::string &str)
+std::string todos_utility::IntToString(int value)
+{
+    std::ostringstream os;
+    os << value;
+    return os.str();
+}
+
+int todos_utility::StringToInt(const std::string &str)
 {
   int i = 0;
   sscanf(str.c_str(), "%d", &i);

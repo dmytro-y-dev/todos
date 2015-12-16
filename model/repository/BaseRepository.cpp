@@ -89,7 +89,7 @@ bool BaseRepository::Update(Id id, const EntityTraits::FieldsValuesContainer& va
     }
   }
 
-  std::string query = "UPDATE `" + std::string(traits.GetTableName()) + "` SET " + fieldsString + " WHERE `" + traits.GetIdFieldName() + "` = '" + std::to_string(id) + "'";
+  std::string query = "UPDATE `" + std::string(traits.GetTableName()) + "` SET " + fieldsString + " WHERE `" + traits.GetIdFieldName() + "` = '" + todos_utility::IntToString(id) + "'";
 
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(m_db.GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
@@ -107,7 +107,7 @@ bool BaseRepository::Update(Id id, const EntityTraits::FieldsValuesContainer& va
 
 bool BaseRepository::Delete(BaseRepository::Id id, const EntityTraits& traits)
 {
-  std::string query = "DELETE FROM `" + std::string(traits.GetTableName()) + "` WHERE `" + traits.GetIdFieldName() + "` = '" + std::to_string(id) + "'";
+  std::string query = "DELETE FROM `" + std::string(traits.GetTableName()) + "` WHERE `" + traits.GetIdFieldName() + "` = '" + todos_utility::IntToString(id) + "'";
 
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
@@ -123,7 +123,7 @@ BaseRepository::EntityTraits::FieldsValuesContainer BaseRepository::FindOneById(
 {
   EntityTraits::FieldsValuesContainer values;
 
-  std::string query = "SELECT * FROM `" + std::string(traits.GetTableName()) + "` WHERE `" + traits.GetIdFieldName() + "` = '" + std::to_string(id) + "'";
+  std::string query = "SELECT * FROM `" + std::string(traits.GetTableName()) + "` WHERE `" + traits.GetIdFieldName() + "` = '" + todos_utility::IntToString(id) + "'";
 
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
