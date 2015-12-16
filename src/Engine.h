@@ -5,7 +5,7 @@
 
 #include "lib/qobjectlistmodel.h"
 #include "lib/qquicklist.h"
-#include "Task.h"
+#include "TaskQML.h"
 #include "SidebarItem.h"
 
 class Engine : public QObject
@@ -36,7 +36,7 @@ signals:
 	void userNameChanged();
 
 private:
-	QQuickList<Task> m_taskList;
+	QQuickList<TaskQML> m_taskList;
 	QQuickList<SidebarItem> m_sidebarList;
 
 	QString m_userName;

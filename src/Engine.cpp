@@ -7,11 +7,11 @@ using SidebarItemType = SidebarItem::SidebarItemType;
 Engine::Engine(QObject *parent)
 	: QObject(parent)
 {
-	auto testTaskData = QList<Task *>()
-			<< new Task("Title", 1, "10-10-2015", "Commentary", "Done")
-			<< new Task("Title2", 3, "10-12-2015", "Commentary", "Done")
-			<< new Task("Title3", 1, "10-12-2015", "Commentary", "Done")
-			<< new Task("Title4", 2, "10-11-2015", "Commentary", "Done");
+	auto testTaskData = QList<TaskQML *>()
+			<< new TaskQML("Title", 1, "10-10-2015", "Commentary", "Done")
+			<< new TaskQML("Title2", 3, "10-12-2015", "Commentary", "Done")
+			<< new TaskQML("Title3", 1, "10-12-2015", "Commentary", "Done")
+			<< new TaskQML("Title4", 2, "10-11-2015", "Commentary", "Done");
 	m_taskList.append(testTaskData);
 
 	auto testSidebarData = QList<SidebarItem *>()
@@ -56,7 +56,7 @@ bool Engine::signUp(const QString &name, const QString &email, const QString &pa
 
 bool Engine::addTask(const QString &title, int priority, const QString &dueDate, const QString &commentary)
 {
-	m_taskList.append(new Task(title, priority, dueDate, commentary, "NotDone"));
+	m_taskList.append(new TaskQML(title, priority, dueDate, commentary, "NotDone"));
 
 	emit taskModelChanged();
 

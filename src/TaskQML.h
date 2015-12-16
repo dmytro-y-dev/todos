@@ -1,9 +1,9 @@
-#ifndef TASK_H
-#define TASK_H
+#ifndef TASKQML_H
+#define TASKQML_H
 
 #include <QObject>
 
-class Task : public QObject
+class TaskQML : public QObject
 {
 	Q_OBJECT
 	Q_PROPERTY(QString title      READ title      WRITE setTitle      NOTIFY titleChanged)
@@ -13,8 +13,8 @@ class Task : public QObject
 	Q_PROPERTY(QString status     READ status     WRITE setStatus     NOTIFY statusChanged)
 
 public:
-	Q_INVOKABLE Task(QString title, int priority, QString dueDate, QString commentary, QString status,  QObject *parent = 0);
-	Q_INVOKABLE Task(QObject * parent = 0);
+	Q_INVOKABLE TaskQML(QString title, int priority, QString dueDate, QString commentary, QString status,  QObject *parent = 0);
+	Q_INVOKABLE TaskQML(QObject * parent = 0);
 
 	QString title() const;
 	void setTitle(const QString &title);
@@ -31,7 +31,7 @@ public:
 	QString status() const;
 	void setStatus(const QString &status);
 
-	Task& operator=(const Task &right);
+	TaskQML& operator=(const TaskQML &right);
 
 signals:
 	void titleChanged();
@@ -47,4 +47,4 @@ private:
 	QString m_commentary;
 	QString m_status;
 };
-#endif // TASK_H
+#endif // TASKQML_H
