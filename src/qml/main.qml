@@ -3,6 +3,8 @@ import QtQuick.Controls 1.2
 
 import TodosEngine 1.0
 
+import "constants.js" as Consts
+
 ApplicationWindow {
     id: main
     visible: true
@@ -13,6 +15,7 @@ ApplicationWindow {
         id: startWindow
         width: screenManager.width
         height: screenManager.height
+        visible: Consts.ShowLogInWindow
         z : 4
     }
 
@@ -28,7 +31,6 @@ ApplicationWindow {
         id: sidebarRectangle
         width: screenManager.width
         height: screenManager.height
-        model: coreEngine.sidebarModel
         z:2
     }
 
@@ -54,5 +56,22 @@ ApplicationWindow {
         height: screenManager.height
         visible: false
         z : 5
+    }
+
+    CategoryListView {
+        id: categoryListView
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        model: coreEngine.categoryModel
+        z : 6
+    }
+
+    CalendarView{
+        id: calendarView
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 7
     }
 }

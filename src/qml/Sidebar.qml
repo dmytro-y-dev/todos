@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQml.Models 2.1
 
+import "components"
 import "constants.js" as Consts
 
 Rectangle {
@@ -9,147 +10,170 @@ Rectangle {
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
 
-    property alias model: sidebarView.model
-
     state: "Hide"
 
-    ListView {
-        id: sidebarView
-        anchors.fill: parent
+    color: Consts.MainColor
 
-        signal sectionClicked(string name)
+    Rectangle {
+        id: header
+        width: sidebar.width
+        height: sidebar.height / 5
+        color: Consts.MainColorDark
 
-        header: sidebarHeader
+        Text {
+            anchors.left: parent.right
+            anchors.leftMargin: -sidebar.width / 1.45
+            anchors.verticalCenter: parent.verticalCenter
 
-        delegate: section
-        section.property: "type"
-        section.criteria: ViewSection.FullString
-        section.delegate: sectionHeading
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
 
-    }
+            text: coreEngine.userName
+            font.bold: true
+            font.family: "Arial"
+            font.pixelSize: 30
+            color: "#eeecec"
+        }
 
-    Component {
-        id: sidebarHeader
-        Rectangle {
-            width: sidebar.width
-            height: sidebar.height / 5
-            color: "#10156a"
+        Image {
+            width: sidebar.width / 8
+            height: width
 
-            Text {
-                anchors.left: parent.right
-                anchors.leftMargin: -sidebar.width / 1.45
-                anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.right
+            anchors.leftMargin: -sidebar.width / 1.04
+            anchors.verticalCenter: parent.verticalCenter
 
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+            source: "qrc:/icons/resources/icons/user_icon.gif"
+        }
 
-                text: coreEngine.userName
-                font.bold: true
-                font.family: "Arial"
-                font.pixelSize: 30
-                color: "#eeecec"
-            }
+        Image {
+            width: sidebar.width / 16
+            height: width
 
-            Image {
-                width: sidebar.width / 8
-                height: width
+            anchors.left: parent.right
+            anchors.leftMargin: -sidebar.width / 6.86
+            anchors.verticalCenter: parent.verticalCenter
 
-                anchors.left: parent.right
-                anchors.leftMargin: -sidebar.width / 1.04
-                anchors.verticalCenter: parent.verticalCenter
+            source: "qrc:/icons/resources/icons/logout_icon.png"
+        }
 
-                source: "qrc:/icons/resources/icons/user_icon.gif"
-            }
-
-            Image {
-                width: sidebar.width / 16
-                height: width
-
-                anchors.left: parent.right
-                anchors.leftMargin: -sidebar.width / 6.86
-                anchors.verticalCenter: parent.verticalCenter
-
-                source: "qrc:/icons/resources/icons/logout_icon.png"
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    sidebar.state = "Hide"
-                }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                sidebar.state = "Hide"
             }
         }
     }
 
-    Component {
-        id: sectionHeading
+    Column {
+        anchors.leftMargin: 50
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        spacing: sidebar.height / 80
 
         Rectangle {
-            id: sectionHeadingRectangle
-            width: sidebar.width
-            height: 100
-            color: Consts.MainColor
+            color: sidebar.color
+            height: sidebar.height / 30
+            width: sidebar.width / 2
+        }
 
+        CustomCheckBox {
+            id: categoryFilter
+            text: "Category filter"
+        }
+
+        TextRectangleItem {
+            id: selectedCategory
+            height: sidebar.height / 15
+            width: sidebar.width / 2
+            text: "-"
+            borderEnable: false
+            color: Consts.MainColorLight
+        }
+
+        Rectangle {
+            color: sidebar.color
+            height: sidebar.height / 30
+            width: sidebar.width / 2
+        }
+
+        CustomCheckBox {
+            id: duedateFilter
+            text: "Due date filter"
+        }
+
+        Row {
+            spacing: sidebar.width / 24
             Text {
-                id: sectionText
-                anchors.right: parent.right
-                anchors.rightMargin: parent.width / 4.8
-                anchors.left: parent.left
-                anchors.leftMargin: parent.width / 20
-                anchors.verticalCenterOffset: 0
-                anchors.verticalCenter: parent.verticalCenter
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-
-                text: section
-                font.bold: true
+                text: qsTr("Upper limit")
                 color: "#ffffff"
-                style: Text.Normal
-                FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
-                font.family: taskFont.name
-                font.pixelSize: parent.height / 2.5
-            }
-
-            Image {
-                id: brImage
-                width: parent.width / 12
-                height: parent.width / 12
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: parent.width / 24
-                source: "qrc:/icons/resources/icons/br_down_icon.png"
-                antialiasing: true
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: sidebarView.sectionClicked(section)
-            }
-        }
-    }
-
-    Component {
-        id: section
-        Rectangle {
-            id: rect
-            width: sidebar.width
-            height: shown ? mainText.height : 0
-            visible: shown
-            property bool shown: true
-
-            Text {
-                id: mainText;
-                text: display.name;
-                FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
-                font.family: taskFont.name
                 font.pixelSize: sidebar.height / 20
             }
-            Connections {
-                target: rect.ListView.view
-                onSectionClicked: if (rect.ListView.section === name) shown = !shown;
+
+            TextRectangleItem {
+                height: sidebar.height / 15
+                width: sidebar.width / 3
+                text: "-"
+                borderEnable: false
+                color: Consts.MainColorLight
             }
         }
+
+        Row {
+            spacing: sidebar.width / 24
+            Text {
+                text: qsTr("Lower limit")
+                color: "#ffffff"
+                font.pixelSize: sidebar.height / 20
+            }
+            TextRectangleItem {
+                height: sidebar.height / 15
+                width: sidebar.width / 3
+                text: "-"
+                borderEnable: false
+                color: Consts.MainColorLight
+            }
+        }
+
+        Rectangle {
+            color: sidebar.color
+            height: sidebar.height / 30
+            width: sidebar.width / 2
+        }
+
+        Text {
+            text: qsTr("Sort by")
+            color: "#ffffff"
+            font.pixelSize: sidebar.height / 20
+        }
+
+        TextRectangleItem {
+            height: sidebar.height / 15
+            width: sidebar.width / 2
+            text: "-"
+            borderEnable: false
+            color: Consts.MainColorLight
+        }
     }
+
+    TileButton {
+        width: parent.width / 2
+        height: parent.height / 10
+
+        anchors.top: parent.top
+        anchors.topMargin: parent.height / 1.16
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenterOffset: parent.width / 4.8
+
+        text: qsTr("Ok")
+
+        onClicked: {      }
+    }
+
+
 
     states: [
         State { name: "Show"; PropertyChanges { target: sidebar; x: 0 } },

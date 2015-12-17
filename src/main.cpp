@@ -8,6 +8,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
+	Q_INIT_RESOURCE(qml);
 
 	QQmlApplicationEngine qmlEngine;
 	qmlRegisterType<ScreenResolutionManager>("TodosEngine", 1, 0, "ScreenResolutionManager");
