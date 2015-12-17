@@ -6,11 +6,12 @@ Rectangle {
     id: namedRectangle
 
     property alias text: rectangleText.text
+    property bool borderEnable: true
 
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight / 8
     color: Consts.MainColor
-    border.width: height / 20
+    border.width: borderEnable ? height / 20 : 0
     border.color: "white"
 
     Text {

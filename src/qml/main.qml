@@ -31,7 +31,6 @@ ApplicationWindow {
         id: sidebarRectangle
         width: screenManager.width
         height: screenManager.height
-        //model: coreEngine.sidebarModel
         z:2
     }
 
@@ -63,7 +62,7 @@ ApplicationWindow {
         id: categoryListView
         width: screenManager.width
         height: screenManager.height
-        visible: true
+        visible: false
         model: coreEngine.categoryModel
         z : 6
     }
@@ -72,7 +71,7 @@ ApplicationWindow {
         id: calendarView
         width: screenManager.width
         height: screenManager.height
-        visible: true
+        visible: false
         z : 7
     }
 }
