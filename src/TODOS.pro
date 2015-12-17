@@ -49,7 +49,8 @@ SOURCES += main.cpp \
     CategotyObject.cpp \
     CommentaryObject.cpp \
     TypeConverter.cpp \
-    ../utility/StringConversions.cpp
+    ../utility/StringConversions.cpp \
+    ../model/repository/task/TaskSortSettings.cpp
 
 
 RESOURCES += qml.qrc
@@ -93,7 +94,8 @@ HEADERS += \
     CategotyObject.h \
     CommentaryObject.h \
     TypeConverter.h \
-    ../utility/StringConversions.h
+    ../utility/StringConversions.h \
+    ../model/repository/task/TaskSortSettings.h
 
 CONFIG += c++11
 

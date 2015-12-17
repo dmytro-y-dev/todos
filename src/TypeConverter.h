@@ -23,8 +23,8 @@ public:
 	static QString toString(CommentaryType type);
 	static CommentaryType toCommentaryType(const QString &str);
 
-	static QString toString(TaskSortSettings sort);
-	static TaskSortSettings toTaskSortSettings(const QString &str);
+	static QString toString(TaskSortSettings::Field field);
+	static TaskSortSettings::Field toTaskSortField(const QString &str);
 };
 
 #endif // TYPECONVERTER_H

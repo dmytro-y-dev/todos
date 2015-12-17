@@ -50,7 +50,7 @@ public:
 	Q_INVOKABLE void enableFilterByDueDate(bool enable);
 	Q_INVOKABLE void setFilterByDueDate(const QDateTime &firstDate, const QDateTime &lastDate);
 
-	Q_INVOKABLE void setSortType(const QString &sortType);
+	Q_INVOKABLE void setSortField(const QString &sortType);
 
 	QString userName() const;
 
@@ -73,7 +73,8 @@ private:
 	unsigned long m_categoryId;
 	unsigned long m_taskId;
 
-	TaskRepository::TaskSortSettings m_taskSortSettings;
+	TaskRepository::TaskSortSettings::Field m_taskSortSettingsField;
+	TaskRepository::TaskSortSettings::Order m_taskSortSettingsOrder;
 	TaskRepository::TaskFilterSettings m_taskFilterSettings;
 
 	Schema m_db;

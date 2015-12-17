@@ -94,7 +94,7 @@ Rectangle {
             Text { text: qsTr("Priority");      font.pixelSize: taskContant.fontSize }
             Text { text: display.priority;      font.pixelSize: taskContant.fontSize }
             Text { text: qsTr("Reminder date"); font.pixelSize: taskContant.fontSize }
-            Text { text: display.dueDate;       font.pixelSize: taskContant.fontSize }
+            Text { text: display.reminderDate;  font.pixelSize: taskContant.fontSize }
             Text { text: qsTr("Due date");      font.pixelSize: taskContant.fontSize }
             Text { text: display.dueDate;       font.pixelSize: taskContant.fontSize }
         }
