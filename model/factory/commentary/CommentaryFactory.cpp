@@ -14,7 +14,7 @@ CommentaryFactory::EntitySharedPtr CommentaryFactory::CreateFromFieldsValues(con
   if (AreFieldsFromSameEntity(CommentaryTraits().GetFieldsNames(), values)) {
     unsigned int id = todos_utility::StringToInt(values.at(CommentaryTraits().GetIdFieldName()));
     unsigned int taskId = todos_utility::StringToInt(values.at("task_id"));
-    QDateTime publishedOn = QDateTime::fromString(QString::fromStdString(values.at("published_on")));
+    QDateTime publishedOn = QDateTime::fromString(QString::fromStdString(values.at("published_on")), "yyyy-M-d H:m:s");
     Commentary::Type type = StringToCommentaryType(values.at("type"));
     std::string content = values.at("content");
 
