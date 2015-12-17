@@ -33,6 +33,24 @@ Engine::Engine(QObject *parent)
 {
 	m_db.Open(dbFileName);
 	m_db.CreateTables();
+
+	if (!logIn("Serg","12345")) {
+		signUp("Serg", "12345");
+
+	addCategory("cat1");
+	addCategory("cat2");
+	addCategory("cat3");
+
+	addTask(m_categoryList.first()->id(), "Task1", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+
+	addTask(m_categoryList.first()->id(), "Task2", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+
+	addTask(m_categoryList.first()->id(), "Task3", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "fack");
+
+	addTask(m_categoryList.first()->id(), "Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	}
+
+
 }
 
 Engine::~Engine()
@@ -55,6 +73,8 @@ bool Engine::logIn(const QString &name, const QString &password)
 	}
 
 	m_userId = foundUser->GetId();
+	updateCategoryList();
+	updateTaskList();
 
 	return true;
 }
