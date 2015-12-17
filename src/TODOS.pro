@@ -13,8 +13,8 @@ SOURCES += main.cpp \
     Engine.cpp \
     lib/qobjectlistmodel.cpp \
     SidebarItem.cpp \
-    ../contrib/sqlite/source/sqlite3.c \
-    ../contrib/googletest/src/gtest-all.cc \
+    #../contrib/sqlite/source/sqlite3.c \
+    #../contrib/googletest/src/gtest-all.cc \
     ../model/entity/category/Category.cpp \
     ../model/entity/task/Task.cpp \
     ../model/entity/user/User.cpp \

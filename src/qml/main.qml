@@ -67,4 +67,12 @@ ApplicationWindow {
         model: coreEngine.categoryModel
         z : 6
     }
+
+    CalendarView{
+        id: calendarView
+        width: screenManager.width
+        height: screenManager.height
+        visible: true
+        z : 7
+    }
 }

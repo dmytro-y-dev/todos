@@ -25,6 +25,7 @@
         <file>qml/components/ContextMenu.qml</file>
         <file>qml/CategoryListView.qml</file>
         <file>qml/components/TextRectangleItem.qml</file>
+        <file>qml/CalendarView.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>
