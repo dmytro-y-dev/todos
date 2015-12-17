@@ -47,7 +47,8 @@ SOURCES += main.cpp \
     ../../test/unit/TestModelRepositoryCommentaryRepository.cpp \
     ../../test/unit/TestModelRepositoryTaskRepository.cpp \
     ../../model/repository/task/TaskFilterSettings.cpp \
-    ../../utility/StringConversions.cpp
+    ../../utility/StringConversions.cpp \
+    ../../model/repository/task/TaskSortSettings.cpp
 
 HEADERS += \
     ../../model/entity/category/Category.h \
@@ -73,5 +74,6 @@ HEADERS += \
     ../../model/factory/commentary/CommentaryFactory.h \
     ../../model/factory/task/TaskFactory.h \
     ../../model/repository/task/TaskFilterSettings.h \
-    ../../utility/StringConversions.h
+    ../../utility/StringConversions.h \
+    ../../model/repository/task/TaskSortSettings.h
 

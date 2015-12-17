@@ -90,8 +90,8 @@ TEST_F(TestModelRepositoryTaskRepository, TaskRepositoryDeleteOneEntity)
 TEST_F(TestModelRepositoryTaskRepository, TaskRepositoryFindAll)
 {
   CategoryRepository categoryRepository(m_db);
-  Category category1(0, 2, "category1");
-  Category category2(0, 2, "category2");
+  Category category1(0, 1, "category1");
+  Category category2(0, 1, "category2");
 
   categoryRepository.Insert(category1);
   categoryRepository.Insert(category2);
@@ -107,22 +107,34 @@ TEST_F(TestModelRepositoryTaskRepository, TaskRepositoryFindAll)
   repository.Insert(entity3);
   repository.Insert(entity4);
 
+  TaskRepository::TaskSortSettings sortSettings1(TaskRepository::TaskSortSettings::Field::TITLE, TaskRepository::TaskSortSettings::Order::ASC);
+  TaskRepository::TaskSortSettings sortSettings1Desc(TaskRepository::TaskSortSettings::Field::TITLE, TaskRepository::TaskSortSettings::Order::DESC);
+  TaskRepository::TaskSortSettings sortSettings2(TaskRepository::TaskSortSettings::Field::NONE, TaskRepository::TaskSortSettings::Order::NONE);
+
   TaskRepository::TaskFilterSettings filters1;
   filters1.EnableFilterByDueDate();
   filters1.SetDueDateLowerLimit(QDateTime(QDate(2012, 12, 14), QTime(12, 12)));
   filters1.SetDueDateUpperLimit(QDateTime(QDate(2014, 12, 14), QTime(12, 12)));
 
-  std::vector<std::shared_ptr<Task> > foundEntities1 = repository.FindAll(TaskRepository::TaskSortSettings::TITLE, filters1);
+  std::vector<std::shared_ptr<Task> > foundEntities1 = repository.FindAll(1, sortSettings1, filters1);
 
-  EXPECT_TRUE(foundEntities1.size() == 2);
+  ASSERT_TRUE(foundEntities1.size() == 2);
+  EXPECT_TRUE(foundEntities1[0]->GetTitle() == "task2");
+  EXPECT_TRUE(foundEntities1[1]->GetTitle() == "task3");
+
+  std::vector<std::shared_ptr<Task> > foundEntities2 = repository.FindAll(1, sortSettings1Desc, filters1);
+
+  ASSERT_TRUE(foundEntities2.size() == 2);
+  EXPECT_TRUE(foundEntities2[0]->GetTitle() == "task3");
+  EXPECT_TRUE(foundEntities2[1]->GetTitle() == "task2");
 
   TaskRepository::TaskFilterSettings filters2;
   filters2.EnableFilterByCategory();
   filters2.SetCategory("category1");
 
-  std::vector<std::shared_ptr<Task> > foundEntities2 = repository.FindAll(TaskRepository::TaskSortSettings::TITLE, filters2);
+  std::vector<std::shared_ptr<Task> > foundEntities3 = repository.FindAll(1, sortSettings1, filters2);
 
-  EXPECT_TRUE(foundEntities2.size() == 3);
+  EXPECT_TRUE(foundEntities3.size() == 3);
 
   TaskRepository::TaskFilterSettings filters3;
   filters3.EnableFilterByCategory();
@@ -131,9 +143,9 @@ TEST_F(TestModelRepositoryTaskRepository, TaskRepositoryFindAll)
   filters3.SetDueDateLowerLimit(QDateTime(QDate(2012, 12, 14), QTime(12, 12)));
   filters3.SetDueDateUpperLimit(QDateTime(QDate(2014, 12, 14), QTime(12, 12)));
 
-  std::vector<std::shared_ptr<Task> > foundEntities3 = repository.FindAll(TaskRepository::TaskSortSettings::NONE, filters3);
+  std::vector<std::shared_ptr<Task> > foundEntities4 = repository.FindAll(1, sortSettings2, filters3);
 
-  EXPECT_TRUE(foundEntities3.size() == 2);
+  EXPECT_TRUE(foundEntities4.size() == 2);
 }
 
 TEST_F(TestModelRepositoryTaskRepository, TaskRepositoryFindAllByCategoryId)

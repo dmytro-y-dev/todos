@@ -8,27 +8,20 @@
 #include <model/factory/task/TaskFactory.h>
 
 #include "TaskFilterSettings.h"
+#include "TaskSortSettings.h"
 
 namespace todos_model_repository {
   class TaskRepository: public IRepository<todos_model_entity::Task, todos_model_traits::TaskTraits, todos_model_factory::TaskFactory>
   {
   public:
-    enum class TaskSortSettings
-    {
-      NONE = 0,
-
-      DUE_DATE = 1,
-      PRIORITY = 2,
-      TITLE = 3
-    };
-
+    typedef todos_model_repository::TaskSortSettings TaskSortSettings;
     typedef todos_model_repository::TaskFilterSettings TaskFilterSettings;
 
   public:
     TaskRepository(const Schema& schema);
 
     std::vector<EntitySharedPtr> FindAllByCategoryId(unsigned long categoryId);
-    std::vector<EntitySharedPtr> FindAll(TaskSortSettings sort, const TaskFilterSettings& filters);
+    std::vector<EntitySharedPtr> FindAll(unsigned long userId, TaskSortSettings sort, const TaskFilterSettings& filters);
   };
 }
 

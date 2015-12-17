@@ -40,25 +40,38 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAllByCategoryId
 }
 
 
-std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskSortSettings sort, const TaskFilterSettings &filters)
+std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(unsigned long userId, TaskSortSettings sort, const TaskFilterSettings &filters)
 {
   // Prepare sorting part of SQL script
 
   std::string orderBy = "";
 
-  switch (sort)
+  switch (sort.GetField())
   {
-  case TaskSortSettings::DUE_DATE:
+  case TaskSortSettings::Field::DUE_DATE:
     orderBy = "ORDER BY `due_date`" ;
     break;
-  case TaskSortSettings::TITLE:
+  case TaskSortSettings::Field::TITLE:
     orderBy = "ORDER BY `title`" ;
     break;
-  case TaskSortSettings::PRIORITY:
+  case TaskSortSettings::Field::PRIORITY:
     orderBy = "ORDER BY `priority`" ;
     break;
   default:
     orderBy = "ORDER BY `title`" ;
+    break;
+  }
+
+  switch (sort.GetOrder())
+  {
+  case TaskSortSettings::Order::ASC:
+    orderBy += " ASC" ;
+    break;
+  case TaskSortSettings::Order::DESC:
+    orderBy += " DESC" ;
+    break;
+  default:
+    orderBy += " ASC" ;
     break;
   }
 
@@ -67,7 +80,7 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskSortSet
   std::string filterBy = "";
 
   if (filters.IsFilterByCategory()) {
-    filterBy += "INNER JOIN `Category` ON `Category`.`category_id` = `Task`.`category_id` WHERE `Category`.`name` = ?";
+    filterBy += "AND `Category`.`name` = ?";
 
     if (filters.IsFilterByDueDate()) {
       filterBy += " AND ";
@@ -76,7 +89,7 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskSortSet
 
   if (filters.IsFilterByDueDate()) {
     if (!filters.IsFilterByCategory()) {
-      filterBy += "WHERE ";
+      filterBy += "AND ";
     }
 
     filterBy += " `Task`.`due_date` > '" + filters.GetDueDateLowerLimit().toString("yyyy-M-d H:m:s").toStdString() +
@@ -85,7 +98,8 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(TaskSortSet
 
   // Concat SQL script
 
-  std::string query = "SELECT * FROM `Task` " + filterBy + " " + orderBy + ";";
+  std::string query = "SELECT * FROM `Task` INNER JOIN `Category` ON `Category`.`category_id` = `Task`.`category_id` "
+      "WHERE `Category`.`user_id` = '" + todos_utility::IntToString(userId) + "' " + filterBy + " " + orderBy + ";";
 
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(GetBaseRepository().GetSchema().GetDatabaseHandle(), query.c_str(), -1, &stmt, NULL);
