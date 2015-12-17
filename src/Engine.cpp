@@ -28,7 +28,8 @@ namespace
 
 Engine::Engine(QObject *parent)
 	: QObject(parent)
-	, m_taskSortSettings(TaskRepository::TaskSortSettings::NONE)
+	, m_taskSortSettingsField(TaskRepository::TaskSortSettings::Field::TITLE)
+	, m_taskSortSettingsOrder(TaskRepository::TaskSortSettings::Order::ASC)
 	, m_db(nullptr)
 {
 	m_db.Open(dbFileName);
@@ -236,9 +237,9 @@ void Engine::setFilterByDueDate(const QDateTime &firstDate, const QDateTime &las
 	m_taskFilterSettings.SetDueDateUpperLimit(lastDate);
 }
 
-void Engine::setSortType(const QString &sortType)
+void Engine::setSortField(const QString &sortField)
 {
-	m_taskSortSettings = TypeConverter::toTaskSortSettings(sortType);
+	m_taskSortSettingsField = TypeConverter::toTaskSortField(sortField);
 }
 
 QString Engine::userName() const
@@ -266,10 +267,10 @@ void Engine::updateTaskList()
 
 	m_taskList.clear();
 
-	auto foundTask = repository.FindAll(m_taskSortSettings, m_taskFilterSettings);
+/*	auto foundTask = repository.FindAll(m_userId,TaskRepository::TaskSortSettings(m_taskSortSettingsField, m_taskSortSettingsOrder), m_taskFilterSettings);
 	for (auto category : foundTask) {
 		m_taskList.append(new TaskObject(category.get(), 0));
 	}
-
+*/
 	emit taskModelChanged();
 }

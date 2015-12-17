@@ -94,29 +94,29 @@ CommentaryType TypeConverter::toCommentaryType(const QString &str)
 	}
 }
 
-QString TypeConverter::toString(TaskSortSettings sortType)
+QString TypeConverter::toString(TaskSortSettings::Field field)
 {
-	switch (sortType) {
-	case TaskSortSettings::DUE_DATE:
+	switch (field) {
+	case TaskSortSettings::Field::DUE_DATE:
 		return csDueDateSort;
-	case TaskSortSettings::PRIORITY:
+	case TaskSortSettings::Field::PRIORITY:
 		return csPrioritySort;
-	case TaskSortSettings::TITLE:
+	case TaskSortSettings::Field::TITLE:
 		return csTitleSort;
 	default:
 		return csNoneSort;
 	}
 }
 
-TaskSortSettings TypeConverter::toTaskSortSettings(const QString &str)
+TaskSortSettings::Field TypeConverter::toTaskSortField(const QString &str)
 {
 	if (str == csDueDateSort) {
-		return TaskSortSettings::DUE_DATE;
+		return TaskSortSettings::Field::DUE_DATE;
 	} else if (str == csPrioritySort) {
-		return TaskSortSettings::PRIORITY;
+		return TaskSortSettings::Field::PRIORITY;
 	} else if (str == csTitleSort) {
-		return TaskSortSettings::TITLE;
+		return TaskSortSettings::Field::TITLE;
 	} else {
-		return TaskSortSettings::NONE;
+		return TaskSortSettings::Field::NONE;
 	}
 }
