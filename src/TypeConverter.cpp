@@ -14,6 +14,11 @@ namespace
 	const QString csTextType     = QString("TextType");
 	const QString csImagePNGType = QString("ImagePNGType");
 	const QString csUnknownType  = QString("UnknownType");
+
+	const QString csNoneSort = QString("None");
+	const QString csDueDateSort = QString("Due date");
+	const QString csPrioritySort = QString("Priority");
+	const QString csTitleSort = QString("Title");
 }
 
 QString TypeConverter::toString(Priority priority)
@@ -86,5 +91,32 @@ CommentaryType TypeConverter::toCommentaryType(const QString &str)
 		return CommentaryType::IMAGE_PNG;
 	} else {
 		return CommentaryType::UNKNOWN;
+	}
+}
+
+QString TypeConverter::toString(TaskSortSettings sortType)
+{
+	switch (sortType) {
+	case TaskSortSettings::DUE_DATE:
+		return csDueDateSort;
+	case TaskSortSettings::PRIORITY:
+		return csPrioritySort;
+	case TaskSortSettings::TITLE:
+		return csTitleSort;
+	default:
+		return csNoneSort;
+	}
+}
+
+TaskSortSettings TypeConverter::toTaskSortSettings(const QString &str)
+{
+	if (str == csDueDateSort) {
+		return TaskSortSettings::DUE_DATE;
+	} else if (str == csPrioritySort) {
+		return TaskSortSettings::PRIORITY;
+	} else if (str == csTitleSort) {
+		return TaskSortSettings::TITLE;
+	} else {
+		return TaskSortSettings::NONE;
 	}
 }

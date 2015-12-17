@@ -10,8 +10,11 @@
 #include "CommentaryObject.h"
 
 #include "../model/schema/Schema.h"
+#include "../model/repository/task/TaskRepository.h"
+#include "../model/repository/task/TaskFilterSettings.h"
 
 using todos_model_schema::Schema;
+using todos_model_repository::TaskRepository;
 
 class Engine : public QObject
 {
@@ -42,6 +45,13 @@ public:
 	Q_INVOKABLE bool deleteCategory(unsigned long categoryId);
 	Q_INVOKABLE bool updateCategory(unsigned long categoryId, const QString &newName);
 
+	Q_INVOKABLE void enableFilterByCategoty(bool enable);
+	Q_INVOKABLE void setFilterByCategoty(const QString &categoryName);
+	Q_INVOKABLE void enableFilterByDueDate(bool enable);
+	Q_INVOKABLE void setFilterByDueDate(const QDateTime &firstDate, const QDateTime &lastDate);
+
+	Q_INVOKABLE void setSortType(const QString &sortType);
+
 	QString userName() const;
 
 signals:
@@ -62,6 +72,9 @@ private:
 	unsigned long m_userId;
 	unsigned long m_categoryId;
 	unsigned long m_taskId;
+
+	TaskRepository::TaskSortSettings m_taskSortSettings;
+	TaskRepository::TaskFilterSettings m_taskFilterSettings;
 
 	Schema m_db;
 };

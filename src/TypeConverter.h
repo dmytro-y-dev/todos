@@ -3,10 +3,13 @@
 
 #include <../model/entity/task/Task.h>
 #include <../model/entity/commentary/Commentary.h>
+#include <../model/repository/task/TaskFilterSettings.h>
+#include <../model/repository/task/TaskRepository.h>
 
-using Priority       = todos_model_entity::Task::Priority;
-using Status         = todos_model_entity::Task::Status;
-using CommentaryType = todos_model_entity::Commentary::Type;
+using Priority         = todos_model_entity::Task::Priority;
+using Status           = todos_model_entity::Task::Status;
+using CommentaryType   = todos_model_entity::Commentary::Type;
+using TaskSortSettings = todos_model_repository::TaskRepository::TaskSortSettings;
 
 class TypeConverter
 {
@@ -19,6 +22,9 @@ public:
 
 	static QString toString(CommentaryType type);
 	static CommentaryType toCommentaryType(const QString &str);
+
+	static QString toString(TaskSortSettings sort);
+	static TaskSortSettings toTaskSortSettings(const QString &str);
 };
 
 #endif // TYPECONVERTER_H

@@ -28,6 +28,7 @@ namespace
 
 Engine::Engine(QObject *parent)
 	: QObject(parent)
+	, m_taskSortSettings(TaskRepository::TaskSortSettings::NONE)
 	, m_db(nullptr)
 {
 	m_db.Open(dbFileName);
@@ -110,16 +111,41 @@ bool Engine::deleteTask(unsigned long taskId)
 		return false;
 
 	updateTaskList();
+	return true;
 }
 
 bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate, const QString &newStatus)
 {
+	TaskRepository repository(m_db);
+	TaskRepository::EntitySharedPtr foundEntity = repository.FindOneById(taskId);
+	if (foundEntity == nullptr)
+		return false;
 
+	foundEntity->SetTitle(newTitle.toStdString());
+	foundEntity->SetPriority(TypeConverter::toPriority(newPriority));
+	foundEntity->SetDueDate(newDueDate);
+	foundEntity->SetReminderDate(newReminderDate);
+	foundEntity->SetStatus(TypeConverter::toStatus(newStatus));
+
+	repository.Update(taskId, *foundEntity.get());
+
+	updateTaskList();
+	return true;
 }
 
 bool Engine::doneTask(unsigned long taskId)
 {
+	TaskRepository repository(m_db);
+	TaskRepository::EntitySharedPtr foundEntity = repository.FindOneById(taskId);
+	if (foundEntity == nullptr)
+		return false;
 
+	foundEntity->SetStatus(Task::Status::COMPLETED);
+
+	repository.Update(taskId, *foundEntity.get());
+
+	updateTaskList();
+	return true;
 }
 
 bool Engine::addCategory(const QString &name)
@@ -169,6 +195,32 @@ bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
 	return true;
 }
 
+void Engine::enableFilterByCategoty(bool enable)
+{
+	m_taskFilterSettings.EnableFilterByCategory(enable);
+}
+
+void Engine::setFilterByCategoty(const QString &categoryName)
+{
+	m_taskFilterSettings.SetCategory(categoryName.toStdString());
+}
+
+void Engine::enableFilterByDueDate(bool enable)
+{
+	m_taskFilterSettings.EnableFilterByCategory(enable);
+}
+
+void Engine::setFilterByDueDate(const QDateTime &firstDate, const QDateTime &lastDate)
+{
+	m_taskFilterSettings.SetDueDateLowerLimit(firstDate);
+	m_taskFilterSettings.SetDueDateUpperLimit(lastDate);
+}
+
+void Engine::setSortType(const QString &sortType)
+{
+	m_taskSortSettings = TypeConverter::toTaskSortSettings(sortType);
+}
+
 QString Engine::userName() const
 {
 	return m_userName;
@@ -193,11 +245,11 @@ void Engine::updateTaskList()
 	TaskRepository repository(m_db);
 
 	m_taskList.clear();
-/*
-	auto foundTask = repository.FindAll(m_userId);
+
+	auto foundTask = repository.FindAll(m_taskSortSettings, m_taskFilterSettings);
 	for (auto category : foundTask) {
-		m_categoryList.append(new CategotyObject(category.get(), 0));
+		m_taskList.append(new TaskObject(category.get(), 0));
 	}
-*/
-	emit categoryModelChanged();
+
+	emit taskModelChanged();
 }
