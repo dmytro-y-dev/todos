@@ -49,7 +49,7 @@ Engine::Engine(QObject *parent)
 
 	addTask(m_categoryList.first()->id(), "Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
 	}
-
+	addTask(m_categoryList.first()->id(), "Taskw", TypeConverter::toString(Priority::HIGH), QDateTime(QDate(2015, 12, 14), QTime(12, 12)), QDateTime(QDate(2015, 12, 13), QTime(12, 12)), TypeConverter::toString(Status::UNCOMPLETED));
 
 }
 
