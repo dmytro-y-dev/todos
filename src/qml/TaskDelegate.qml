@@ -30,8 +30,7 @@ Rectangle {
 
     Connections{
         target: dashboard
-        onClearCelection :
-        {
+        onClearSelection: {
             selected = false
         }
     }

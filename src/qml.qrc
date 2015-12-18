@@ -27,6 +27,7 @@
         <file>qml/components/TextRectangleItem.qml</file>
         <file>qml/CalendarView.qml</file>
         <file>qml/components/CustomCheckBox.qml</file>
+        <file>qml/CategoryEditWindow.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>

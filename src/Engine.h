@@ -47,8 +47,10 @@ public:
 	Q_INVOKABLE QDateTime getTaskReminderDateByIndex(int index);
 
 	Q_INVOKABLE bool addCategory(const QString &name);
-	Q_INVOKABLE bool deleteCategory(unsigned long categoryId);
-	Q_INVOKABLE bool updateCategory(unsigned long categoryId, const QString &newName);
+	Q_INVOKABLE bool deleteCategory(int categoryIndex);
+	Q_INVOKABLE bool updateCategory(int categoryIndex, const QString &newName);
+
+	Q_INVOKABLE QString getCategoryNameByIndex(int index);
 
 	Q_INVOKABLE void enableFilterByCategoty(bool enable);
 	Q_INVOKABLE void setFilterByCategoty(const QString &categoryName);

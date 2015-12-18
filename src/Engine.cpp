@@ -240,9 +240,14 @@ bool Engine::addCategory(const QString &name)
 	return true;
 }
 
-bool Engine::deleteCategory(unsigned long categoryId)
+bool Engine::deleteCategory(int categoryIndex)
 {
 	CategoryRepository repository(m_db);
+
+	if (categoryIndex < 0 || categoryIndex >= m_categoryList.size())
+		return false;
+
+	auto categoryId = m_categoryList.at(categoryIndex)->id();
 
 	repository.Delete(categoryId);
 
@@ -250,9 +255,14 @@ bool Engine::deleteCategory(unsigned long categoryId)
 	return true;
 }
 
-bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
+bool Engine::updateCategory(int categoryIndex, const QString &newName)
 {
 	CategoryRepository repository(m_db);
+
+	if (categoryIndex < 0 || categoryIndex >= m_categoryList.size())
+		return false;
+
+	auto categoryId = m_categoryList.at(categoryIndex)->id();
 
 	auto foundEntity = repository.FindOneById(categoryId);
 	foundEntity->SetName(newName.toStdString());
@@ -260,6 +270,14 @@ bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
 
 	updateCategoryList();
 	return true;
+}
+
+QString Engine::getCategoryNameByIndex(int index)
+{
+	if (index < 0 || index >= m_categoryList.size())
+		return QString();
+
+	return m_categoryList.at(index)->name();
 }
 
 void Engine::enableFilterByCategoty(bool enable)

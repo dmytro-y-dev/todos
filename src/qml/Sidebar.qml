@@ -9,6 +9,7 @@ Rectangle {
 
     property var upperDueDateFilet: Date()
     property var lowerDueDateFilet: Date()
+    property alias categoryName: selectedCategory.text
 
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
@@ -59,13 +60,6 @@ Rectangle {
 
             source: "qrc:/icons/resources/icons/logout_icon.png"
         }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                sidebar.state = "Hide"
-            }
-        }
     }
 
     Column {
@@ -92,9 +86,13 @@ Rectangle {
             id: selectedCategory
             height: sidebar.height / 15
             width: sidebar.width / 2
-            text: "-"
+            text: ""
             borderEnable: false
             color: Consts.MainColorLight
+
+            onClicked: {
+                categoryListView.visible = true
+            }
         }
 
         Rectangle {
@@ -187,7 +185,9 @@ Rectangle {
 
         text: qsTr("Ok")
 
-        onClicked: {      }
+        onClicked: {
+            sidebar.state = "Hide"
+        }
     }
 
 

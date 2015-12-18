@@ -5,6 +5,8 @@ import "../constants.js" as Consts
 Rectangle {
     id: contextMenu
 
+    property bool showCompleteButton: true
+
     signal completeTaskClicked()
     signal editTaskClicked()
     signal deleteTaskClicked()
@@ -20,10 +22,11 @@ Rectangle {
         anchors.fill: parent
 
         MouseArea {
-            height: contextMenu.height
-            width: contextMenu.width / 3
+            height: showCompleteButton ? contextMenu.height : 0
+            width: showCompleteButton ? contextMenu.width / 3 : 0
             Image {
                 anchors.centerIn: parent
+                visible: showCompleteButton
                 source: "qrc:/icons/resources/icons/checkmark_icon.png"
             }
             onClicked: { completeTaskClicked() }
@@ -31,7 +34,7 @@ Rectangle {
 
         MouseArea {
             height: contextMenu.height
-            width: contextMenu.width / 3
+            width: showCompleteButton ? contextMenu.width / 3 : contextMenu.width / 2
             Image {
                 anchors.centerIn: parent
                 source: "qrc:/icons/resources/icons/pencil_icon.png"
@@ -41,7 +44,7 @@ Rectangle {
 
         MouseArea {
             height: contextMenu.height
-            width: contextMenu.width / 3
+            width: showCompleteButton ? contextMenu.width / 3 : contextMenu.width / 2
             Image {
                 anchors.centerIn: parent
                 source: "qrc:/icons/resources/icons/delete_icon.png"

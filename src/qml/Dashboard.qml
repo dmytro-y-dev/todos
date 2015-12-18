@@ -13,7 +13,7 @@ Item {
 
     property alias model: dashboardView.model
     property int selectedTaskIndex: -1
-    signal clearCelection()
+    signal clearSelection()
 
     state: "Default"
 
@@ -104,14 +104,14 @@ Item {
                 hideContantHeight: dashboard.height / 8
 
                 onTaskClicked: {
-                    clearCelection()
+                    dashboard.clearSelection()
                     if(dashboard.state != "Default")
                         dashboard.state = "Default"
 
                 }
 
                 onTaskPressedAndHold: {
-                    clearCelection()
+                    dashboard.clearSelection()
                     selectedTaskIndex = index
                     dashboard.state = "Context"
 

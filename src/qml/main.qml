@@ -74,4 +74,12 @@ ApplicationWindow {
         visible: false
         z : 7
     }
+
+    CategoryEditWindow {
+        id: categoryEditWindow
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 7
+    }
 }
