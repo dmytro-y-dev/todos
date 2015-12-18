@@ -15,6 +15,11 @@ Item {
     property int selectedTaskIndex: -1
     signal clearSelection()
 
+    property bool sortByIncrease: true
+    onSortByIncreaseChanged: {
+
+    }
+
     state: "Default"
 
     states: [
@@ -67,16 +72,24 @@ Item {
             }
 
             Rectangle {
-                width: parent.width / 25
+                width: parent.width / 15
                 height: width
                 color: "#00000000"
                 anchors.right: parent.right
-                anchors.rightMargin: 50
+                anchors.rightMargin: 40
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
+                    id: sortIcon
                     anchors.fill: parent
-                    source: "qrc:/icons/resources/icons/zoom_icon.png"
+                    source: "qrc:/icons/resources/icons/indent_increase_icon.png"
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        sortByIncrease = !sortByIncrease
+                        sortIcon.source = sortByIncrease ? "qrc:/icons/resources/icons/indent_increase_icon.png" : "qrc:/icons/resources/icons/indent_decrease_icon.png"
+                    }
                 }
             }
 

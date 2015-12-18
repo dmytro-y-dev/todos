@@ -8,6 +8,8 @@
         <file>resources/icons/checkmark_icon.png</file>
         <file>resources/icons/delete_icon.png</file>
         <file>resources/icons/pencil_icon.png</file>
+        <file>resources/icons/indent_decrease_icon.png</file>
+        <file>resources/icons/indent_increase_icon.png</file>
     </qresource>
     <qresource prefix="/qml">
         <file>qml/main.qml</file>
