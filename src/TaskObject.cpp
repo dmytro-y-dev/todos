@@ -23,6 +23,17 @@ TaskObject::TaskObject(todos_model_entity::Task *task, QObject *parent)
 	, m_status(TypeConverter::toString(task->GetStatus()))
 {}
 
+TaskObject::TaskObject(const TaskObject &other)
+	: QObject(other.parent())
+	, m_id(other.id())
+	, m_categoryId(other.categoryId())
+	, m_title(other.title())
+	, m_priority(other.priority())
+	, m_dueDate(other.dueDate())
+	, m_reminderDate(other.reminderDate())
+	, m_status(other.status())
+{}
+
 TaskObject::TaskObject(QObject *parent)
 	: QObject(parent)
 {}

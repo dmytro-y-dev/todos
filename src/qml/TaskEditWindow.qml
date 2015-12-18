@@ -6,12 +6,10 @@ import "components"
 Rectangle {
     id: taskEditWindow
 
-    property alias taskName: name.text
-    property alias taskPriority: priority.text
-    property alias taskRemainderDate: remainderDate.text
-    property alias taskDueDate: dueDate.text
-
-    signal taskEdited(string name, int priority, string reainderDate, string dueDate)
+    property alias  taskName: name.text
+    property string taskPriority: "Low"
+    property var    taskRemainderDate: Date()
+    property var    taskDueDate: Date()
 
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight
@@ -53,6 +51,8 @@ Rectangle {
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: taskEditWindow.taskName
         }
 
         Text {
@@ -61,11 +61,15 @@ Rectangle {
             font.pixelSize: parent.labelFontSize
         }
 
-        CustomLineEdit {
+        TextRectangleItem {
             id: priority
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: taskEditWindow.taskPriority
+            borderEnable: false
+            color: Consts.MainColorLight
         }
 
         Text {
@@ -74,11 +78,15 @@ Rectangle {
             font.pixelSize: parent.labelFontSize
         }
 
-        CustomLineEdit {
+        TextRectangleItem {
             id: remainderDate
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: taskEditWindow.taskRemainderDate
+            borderEnable: false
+            color: Consts.MainColorLight
         }
 
         Text {
@@ -87,11 +95,15 @@ Rectangle {
             font.pixelSize: parent.labelFontSize
         }
 
-        CustomLineEdit {
+        TextRectangleItem {
             id: dueDate
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: taskEditWindow.taskRemainderDate
+            borderEnable: false
+            color: Consts.MainColorLight
         }
     }
 
@@ -120,7 +132,7 @@ Rectangle {
 
             onClicked: {
                 taskEditWindow.visible = false
-                taskEdited(taskName, taskPriority, taskRemainderDate, taskDueDate)
+                coreEngine.updateTask(dashboard.selectedTaskIndex, taskName, taskPriority, taskDueDate, taskRemainderDate)
             }
         }
 

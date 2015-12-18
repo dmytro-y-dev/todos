@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import TodosEngine 1.0
+
 import "constants.js" as Consts
 import "components"
 
@@ -10,6 +12,8 @@ Item {
     height: Consts.ScreenHeight
 
     property alias model: dashboardView.model
+    property int selectedTaskIndex: -1
+    signal clearCelection()
 
     state: "Default"
 
@@ -100,13 +104,17 @@ Item {
                 hideContantHeight: dashboard.height / 8
 
                 onTaskClicked: {
+                    clearCelection()
                     if(dashboard.state != "Default")
                         dashboard.state = "Default"
 
                 }
 
                 onTaskPressedAndHold: {
+                    clearCelection()
+                    selectedTaskIndex = index
                     dashboard.state = "Context"
+
                 }
             }
         }
@@ -135,12 +143,24 @@ Item {
         anchors.bottom: parent.bottom;
         anchors.bottomMargin: 20;
 
+        onCompleteTaskClicked: {
+            coreEngine.doneTask(selectedTaskIndex)
+            selectedTaskIndex = -1
+            dashboard.state = "Default"
+        }
+
         onEditTaskClicked: {
+            dashboard.state = "Default"
+            taskEditWindow.taskName = coreEngine.getTaskTitleByIndex(selectedTaskIndex)
+            taskEditWindow.taskPriority = coreEngine.getTaskPriorityByIndex(selectedTaskIndex)
+            taskEditWindow.taskDueDate = coreEngine.getTaskDueDateByIndex(selectedTaskIndex)
+            taskEditWindow.taskRemainderDate = coreEngine.getTaskReminderDateByIndex(selectedTaskIndex)
             taskEditWindow.visible = true
         }
 
         onDeleteTaskClicked: {
-            coreEngine.removeTask(0)
+            coreEngine.deleteTask(selectedTaskIndex)
+            selectedTaskIndex = -1
             dashboard.state = "Default"
         }
     }

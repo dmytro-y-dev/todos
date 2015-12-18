@@ -50,8 +50,6 @@ Engine::Engine(QObject *parent)
 
 	addTask(m_categoryList.first()->id(), "Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
 	}
-	addTask(m_categoryList.first()->id(), "Taskw", TypeConverter::toString(Priority::HIGH), QDateTime(QDate(2015, 12, 14), QTime(12, 12)), QDateTime(QDate(2015, 12, 13), QTime(12, 12)), TypeConverter::toString(Status::UNCOMPLETED));
-
 }
 
 Engine::~Engine()
@@ -124,8 +122,13 @@ bool Engine::addTask(unsigned long categoryId, const QString &title, const QStri
 	return true;
 }
 
-bool Engine::deleteTask(unsigned long taskId)
+bool Engine::deleteTask(int index)
 {
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	auto taskId = m_taskList.at(index)->id();
+
 	TaskRepository repository(m_db);
 	unsigned long deletedCount = repository.Delete(taskId);
 	if (deletedCount == 0)
@@ -135,8 +138,13 @@ bool Engine::deleteTask(unsigned long taskId)
 	return true;
 }
 
-bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate, const QString &newStatus)
+bool Engine::updateTask(int index, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate)
 {
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	auto taskId = m_taskList.at(index)->id();
+
 	TaskRepository repository(m_db);
 	TaskRepository::EntitySharedPtr foundEntity = repository.FindOneById(taskId);
 	if (foundEntity == nullptr)
@@ -146,7 +154,6 @@ bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QSt
 	foundEntity->SetPriority(TypeConverter::toPriority(newPriority));
 	foundEntity->SetDueDate(newDueDate);
 	foundEntity->SetReminderDate(newReminderDate);
-	foundEntity->SetStatus(TypeConverter::toStatus(newStatus));
 
 	repository.Update(taskId, *foundEntity.get());
 
@@ -154,8 +161,13 @@ bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QSt
 	return true;
 }
 
-bool Engine::doneTask(unsigned long taskId)
+bool Engine::doneTask(int index)
 {
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	auto taskId = m_taskList.at(index)->id();
+
 	TaskRepository repository(m_db);
 	TaskRepository::EntitySharedPtr foundEntity = repository.FindOneById(taskId);
 	if (foundEntity == nullptr)
@@ -167,6 +179,38 @@ bool Engine::doneTask(unsigned long taskId)
 
 	updateTaskList();
 	return true;
+}
+
+QString Engine::getTaskTitleByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QString();
+
+	return m_taskList.at(index)->title();
+}
+
+QString Engine::getTaskPriorityByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QString();
+
+	return m_taskList.at(index)->priority();
+}
+
+QDateTime Engine::getTaskDueDateByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QDateTime();
+
+	return m_taskList.at(index)->dueDate();
+}
+
+QDateTime Engine::getTaskReminderDateByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QDateTime();
+
+	return m_taskList.at(index)->reminderDate();
 }
 
 bool Engine::addCategory(const QString &name)
@@ -267,10 +311,10 @@ void Engine::updateTaskList()
 
 	m_taskList.clear();
 
-/*	auto foundTask = repository.FindAll(m_userId,TaskRepository::TaskSortSettings(m_taskSortSettingsField, m_taskSortSettingsOrder), m_taskFilterSettings);
+	auto foundTask = repository.FindAll(m_userId,TaskRepository::TaskSortSettings(m_taskSortSettingsField, m_taskSortSettingsOrder), m_taskFilterSettings);
 	for (auto category : foundTask) {
 		m_taskList.append(new TaskObject(category.get(), 0));
 	}
-*/
+
 	emit taskModelChanged();
 }

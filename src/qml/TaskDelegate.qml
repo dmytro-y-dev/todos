@@ -12,13 +12,28 @@ Rectangle {
     property int hideContantHeight: Consts.ScreenHeight / 8
     property int defaultnFontPixelSize: hideContantHeight / 4
 
-    signal taskClicked()
-    signal taskPressedAndHold()
+    property bool selected: false
+    property alias color: titleRectangle.color
+
+    signal taskClicked(int index)
+    signal taskPressedAndHold(int index)
 
     width: Consts.ScreenWidth
     height: showContantHeight
 
     state : "HideContant"
+
+    onSelectedChanged: {
+        color = selected ? Consts.MainColorDark : Consts.MainColor
+    }
+
+    Connections{
+        target: dashboard
+        onClearCelection :
+        {
+            selected = false
+        }
+    }
 
     Rectangle {
         id: titleRectangle
@@ -64,10 +79,11 @@ Rectangle {
             onClicked: {
                 if (dashboard.state == "Default")
                     task.state = task.state == "HideContant" ? "ShowContant" : "HideContant"
-                taskClicked()
+                taskClicked(model.index)
             }
             onPressAndHold: {
-                taskPressedAndHold()
+                taskPressedAndHold(model.index)
+                task.selected = true
             }
         }
     }
@@ -91,12 +107,14 @@ Rectangle {
 
             spacing: 10
 
-            Text { text: qsTr("Priority");      font.pixelSize: taskContant.fontSize }
-            Text { text: display.priority;      font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Reminder date"); font.pixelSize: taskContant.fontSize }
-            Text { text: display.reminderDate;  font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Due date");      font.pixelSize: taskContant.fontSize }
-            Text { text: display.dueDate;       font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Priority");                          font.pixelSize: taskContant.fontSize }
+            Text { text: display.priority;                          font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Reminder date");                     font.pixelSize: taskContant.fontSize }
+            Text { text: display.reminderDate.toLocaleDateString(); font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Due date");                          font.pixelSize: taskContant.fontSize }
+            Text { text: display.dueDate.toLocaleDateString();      font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Status");                            font.pixelSize: taskContant.fontSize }
+            Text { text: display.status;                            font.pixelSize: taskContant.fontSize }
         }
     }
     states: [

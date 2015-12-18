@@ -7,6 +7,7 @@ Rectangle {
 
     property bool hideCharacter: false
     property alias text: input.text
+    property alias font: input.font
 
     width: 240
     height: 62
@@ -18,10 +19,14 @@ Rectangle {
         id: input
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
 
         text: qsTr("")
         color: "#ffffff"
-        font.pixelSize: customLineEdit.height / 1.5
+        FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
+        font.family: taskFont.name
+        font.bold: true
+        font.pixelSize: customLineEdit.height / 2
 
         clip: true
 
