@@ -36,7 +36,7 @@ public:
 	Q_INVOKABLE bool logIn(const QString &name, const QString &password);
 	Q_INVOKABLE bool signUp(const QString &name, const QString &password);
 
-	Q_INVOKABLE bool addTask(unsigned long categoryId, const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate,const QString &status);
+	Q_INVOKABLE bool addTask(const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate, const QString &status);
 	Q_INVOKABLE bool deleteTask(int index);
 	Q_INVOKABLE bool updateTask(int index, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate);
 	Q_INVOKABLE bool doneTask(int index);

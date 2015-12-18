@@ -28,7 +28,7 @@ ApplicationWindow {
     }
 
     Sidebar {
-        id: sidebarRectangle
+        id: sidebar
         width: screenManager.width
         height: screenManager.height
         z:2

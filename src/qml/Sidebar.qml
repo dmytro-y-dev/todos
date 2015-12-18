@@ -7,6 +7,9 @@ import "constants.js" as Consts
 Rectangle {
     id: sidebar
 
+    property var upperDueDateFilet: Date()
+    property var lowerDueDateFilet: Date()
+
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
 
@@ -114,11 +117,18 @@ Rectangle {
             }
 
             TextRectangleItem {
+                id: upperDueDateFilterText
                 height: sidebar.height / 15
                 width: sidebar.width / 3
-                text: "-"
                 borderEnable: false
                 color: Consts.MainColorLight
+
+                text: Qt.formatDate(upperDueDateFilet, "dd.MM.yyyy")
+
+                onClicked: {
+                    calendarView.visible = true
+                    calendarView.editor = "filterUpperLimit"
+                }
             }
         }
 
@@ -130,11 +140,18 @@ Rectangle {
                 font.pixelSize: sidebar.height / 20
             }
             TextRectangleItem {
+                id: lowerDueDateFilterText
                 height: sidebar.height / 15
                 width: sidebar.width / 3
-                text: "-"
                 borderEnable: false
                 color: Consts.MainColorLight
+
+                text: Qt.formatDate(lowerDueDateFilet, "dd.MM.yyyy")
+
+                onClicked: {
+                    calendarView.visible = true
+                    calendarView.editor = "filterLowerLimit"
+                }
             }
         }
 

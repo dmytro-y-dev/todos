@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQml.Models 2.1
+import QtQml 2.2
 
 import "constants.js" as Consts
 
@@ -107,14 +108,14 @@ Rectangle {
 
             spacing: 10
 
-            Text { text: qsTr("Priority");                          font.pixelSize: taskContant.fontSize }
-            Text { text: display.priority;                          font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Reminder date");                     font.pixelSize: taskContant.fontSize }
-            Text { text: display.reminderDate.toLocaleDateString(); font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Due date");                          font.pixelSize: taskContant.fontSize }
-            Text { text: display.dueDate.toLocaleDateString();      font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Status");                            font.pixelSize: taskContant.fontSize }
-            Text { text: display.status;                            font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Priority");                                  font.pixelSize: taskContant.fontSize }
+            Text { text: display.priority;                                  font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Reminder date");                             font.pixelSize: taskContant.fontSize }
+            Text { text: Qt.formatDate(display.reminderDate, "dd.MM.yyyy"); font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Due date");                                  font.pixelSize: taskContant.fontSize }
+            Text { text: Qt.formatDate(display.dueDate, "dd.MM.yyyy");      font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Status");                                    font.pixelSize: taskContant.fontSize }
+            Text { text: display.status;                                    font.pixelSize: taskContant.fontSize }
         }
     }
     states: [

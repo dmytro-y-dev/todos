@@ -10,7 +10,9 @@ Rectangle {
 
     property alias date: calendar.selectedDate
 
-    signal okButtonClicked()
+    property string editor: "none"
+
+    signal okButtonClicked(var date)
     signal cancelButtonClicked();
 
     width: Consts.ScreenWidth
@@ -68,7 +70,16 @@ Rectangle {
 
             onClicked: {
                 calendarView.visible = false
-                okButtonClicked()
+                okButtonClicked(date)
+                if (editor == "taskEditDueDate") {
+                    taskEditWindow.taskDueDate = calendar.selectedDate
+                } else if (editor == "taskEditReminderDate") {
+                    taskEditWindow.taskRemainderDate = calendar.selectedDate
+                } else if (editor == "filterUpperLimit") {
+                    sidebar.upperDueDateFilet = calendar.selectedDate
+                } else if (editor == "filterLowerLimit") {
+                    sidebar.lowerDueDateFilet = calendar.selectedDate
+                }
             }
         }
     }

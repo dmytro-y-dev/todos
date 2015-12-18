@@ -62,7 +62,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { sidebarRectangle.state = "Show" }
+                    onClicked: { sidebar.state = "Show" }
                 }
             }
 
@@ -130,7 +130,8 @@ Item {
         anchors.rightMargin: 20
 
         onClicked: {
-            coreEngine.addTask("NewTask", 1, "yesterday", "lol :D");
+            taskEditWindow.action = "create"
+            taskEditWindow.visible = true
         }
     }
 
@@ -151,6 +152,7 @@ Item {
 
         onEditTaskClicked: {
             dashboard.state = "Default"
+            taskEditWindow.action = "edit"
             taskEditWindow.taskName = coreEngine.getTaskTitleByIndex(selectedTaskIndex)
             taskEditWindow.taskPriority = coreEngine.getTaskPriorityByIndex(selectedTaskIndex)
             taskEditWindow.taskDueDate = coreEngine.getTaskDueDateByIndex(selectedTaskIndex)

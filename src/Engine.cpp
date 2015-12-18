@@ -42,14 +42,16 @@ Engine::Engine(QObject *parent)
 	addCategory("cat2");
 	addCategory("cat3");
 
-	addTask(m_categoryList.first()->id(), "Task1", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	addTask("Task1", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
 
-	addTask(m_categoryList.first()->id(), "Task2", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	addTask("Task2", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
 
-	addTask(m_categoryList.first()->id(), "Task3", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "fack");
+	addTask("Task3", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "fack");
 
-	addTask(m_categoryList.first()->id(), "Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	addTask("Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
 	}
+	updateCategoryList();
+	m_categoryId = m_categoryList.first()->id();
 }
 
 Engine::~Engine()
@@ -103,11 +105,11 @@ bool Engine::signUp(const QString &name, const QString &password)
 	return true;
 }
 
-bool Engine::addTask(unsigned long categoryId, const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate, const QString &status)
+bool Engine::addTask(const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate, const QString &status)
 {
 	TaskRepository repository(m_db);
 
-	Task entity(0, categoryId, title.toStdString() , TypeConverter::toPriority(priority), dueDate, reminderDate, TypeConverter::toStatus(status));
+	Task entity(0, m_categoryId, title.toStdString() , TypeConverter::toPriority(priority), dueDate, reminderDate, TypeConverter::toStatus(status));
 	unsigned long insertId = repository.Insert(entity);
 	if (insertId == 0)
 		return false;
