@@ -82,8 +82,17 @@ ApplicationWindow {
         visible: false
         z : 7
     }
+
     SortByListView {
         id: sortByListView
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 8
+    }
+
+    PriorityListView {
+        id: priorityListView
         width: screenManager.width
         height: screenManager.height
         visible: false

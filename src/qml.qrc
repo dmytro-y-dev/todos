@@ -29,6 +29,7 @@
         <file>qml/components/CustomCheckBox.qml</file>
         <file>qml/CategoryEditWindow.qml</file>
         <file>qml/SortByListView.qml</file>
+        <file>qml/PriorityListView.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>

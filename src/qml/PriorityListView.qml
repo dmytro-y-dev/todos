@@ -4,48 +4,44 @@ import "constants.js" as Consts
 import "components"
 
 Rectangle {
-    id: sortByListView
+    id: priorityListView
 
     color: Consts.MainColor
 
     ListView {
         id: view
 
-        signal clearSelection()
-
         anchors.fill : parent
 
         header: TextRectangleItem{
-            width: categoryListView.width
-            height: categoryListView.height / 7
+            width: priorityListView.width
+            height: priorityListView.height / 7
             color: Consts.MainColorDark
-            text: "Sort by"
+            text: "Priority"
         }
 
         model: ListModel {
-            id: sortModel
+            id: priorityModel
 
-            ListElement { name: "Due date" }
-            ListElement { name: "Priority" }
-            ListElement { name: "Title"    }
+            ListElement { name: "High" }
+            ListElement { name: "Normal" }
+            ListElement { name: "Low"    }
         }
 
         delegate: Component {
             TextRectangleItem {
                 id: delegate
-                width: categoryListView.width
-                height: categoryListView.height / 8
+                width: priorityListView.width
+                height: priorityListView.height / 8
                 text: name
                 borderEnable: false
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        sidebar.sortName = name
-                        sortByListView.visible = false
+                        taskEditWindow.taskPriority = name
+                        priorityListView.visible = false
                     }
-
-
                 }
             }
         }

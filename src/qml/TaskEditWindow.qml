@@ -8,7 +8,7 @@ Rectangle {
     id: taskEditWindow
 
     property alias  taskName: name.text
-    property string taskPriority: "Low"
+    property alias  taskPriority: priority.text
     property var    taskRemainderDate: Date()
     property var    taskDueDate: Date()
 
@@ -81,9 +81,13 @@ Rectangle {
             width: parent.lineEditWidth
             height: parent.lineEditHeight
 
-            text: taskEditWindow.taskPriority
+            text: "Low"
             borderEnable: false
             color: Consts.MainColorLight
+
+            onClicked: {
+                priorityListView.visible = true
+            }
         }
 
         Text {
