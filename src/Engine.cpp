@@ -35,20 +35,31 @@ Engine::Engine(QObject *parent)
 	m_db.Open(dbFileName);
 	m_db.CreateTables();
 
-	if (!logIn("Serg","12345")) {
-		signUp("Serg", "12345");
+	if (!logIn("TEST_USER","12345")) {
+		signUp("TEST_USER", "12345");
 
-	addCategory("cat1");
-	addCategory("cat2");
-	addCategory("cat3");
+	addCategory("Category1");
+	addCategory("Category2");
+	addCategory("Category3");
 
-	addTask("Task1", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	m_categoryId = m_categoryList.at(0)->id();
 
-	addTask("Task2", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	addTask("Task1", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
 
-	addTask("Task3", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "fack");
+	addTask("Task2", "Normal", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
 
-	addTask("Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	m_categoryId = m_categoryList.at(1)->id();
+
+	addTask("Task3", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+
+	addTask("Task4", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
+	m_categoryId = m_categoryList.at(2)->id();
+
+	addTask("Task5", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+
+	addTask("Task6", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
 	}
 	updateCategoryList();
 	m_categoryId = m_categoryList.first()->id();
@@ -304,6 +315,7 @@ void Engine::setFilterByDueDate(const QDateTime &firstDate, const QDateTime &las
 void Engine::setSortField(const QString &sortField)
 {
 	m_taskSortSettingsField = TypeConverter::toTaskSortField(sortField);
+	updateTaskList();
 }
 
 QString Engine::userName() const

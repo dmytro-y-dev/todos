@@ -10,6 +10,11 @@ Rectangle {
     property var upperDueDateFilet: Date()
     property var lowerDueDateFilet: Date()
     property alias categoryName: selectedCategory.text
+    property alias sortName: sortByText.text
+
+    onSortNameChanged: {
+        coreEngine.setSortField(sortName)
+    }
 
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
@@ -166,11 +171,16 @@ Rectangle {
         }
 
         TextRectangleItem {
+            id: sortByText
             height: sidebar.height / 15
             width: sidebar.width / 2
-            text: "-"
             borderEnable: false
+            text: "Title"
             color: Consts.MainColorLight
+
+            onClicked: {
+                sortByListView.visible = true
+            }
         }
     }
 

@@ -28,6 +28,7 @@
         <file>qml/CalendarView.qml</file>
         <file>qml/components/CustomCheckBox.qml</file>
         <file>qml/CategoryEditWindow.qml</file>
+        <file>qml/SortByListView.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>resources/fonts/GoodDog.otf</file>
