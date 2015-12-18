@@ -28,7 +28,7 @@ ApplicationWindow {
     }
 
     Sidebar {
-        id: sidebarRectangle
+        id: sidebar
         width: screenManager.width
         height: screenManager.height
         z:2
@@ -74,4 +74,29 @@ ApplicationWindow {
         visible: false
         z : 7
     }
+
+    CategoryEditWindow {
+        id: categoryEditWindow
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 7
+    }
+
+    SortByListView {
+        id: sortByListView
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 8
+    }
+
+    PriorityListView {
+        id: priorityListView
+        width: screenManager.width
+        height: screenManager.height
+        visible: false
+        z : 8
+    }
+
 }

@@ -35,23 +35,34 @@ Engine::Engine(QObject *parent)
 	m_db.Open(dbFileName);
 	m_db.CreateTables();
 
-	if (!logIn("Serg","12345")) {
-		signUp("Serg", "12345");
+	if (!logIn("TEST_USER","12345")) {
+		signUp("TEST_USER", "12345");
 
-	addCategory("cat1");
-	addCategory("cat2");
-	addCategory("cat3");
+	addCategory("Category1");
+	addCategory("Category2");
+	addCategory("Category3");
 
-	addTask(m_categoryList.first()->id(), "Task1", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	m_categoryId = m_categoryList.at(0)->id();
 
-	addTask(m_categoryList.first()->id(), "Task2", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	addTask("Task1", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
 
-	addTask(m_categoryList.first()->id(), "Task3", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "fack");
+	addTask("Task2", "Normal", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
 
-	addTask(m_categoryList.first()->id(), "Task4", "no", QDateTime::currentDateTime(), QDateTime::currentDateTime(),"fack");
+	m_categoryId = m_categoryList.at(1)->id();
+
+	addTask("Task3", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+
+	addTask("Task4", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
+	m_categoryId = m_categoryList.at(2)->id();
+
+	addTask("Task5", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+
+	addTask("Task6", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
 	}
-	addTask(m_categoryList.first()->id(), "Taskw", TypeConverter::toString(Priority::HIGH), QDateTime(QDate(2015, 12, 14), QTime(12, 12)), QDateTime(QDate(2015, 12, 13), QTime(12, 12)), TypeConverter::toString(Status::UNCOMPLETED));
-
+	updateCategoryList();
+	m_categoryId = m_categoryList.first()->id();
 }
 
 Engine::~Engine()
@@ -105,11 +116,11 @@ bool Engine::signUp(const QString &name, const QString &password)
 	return true;
 }
 
-bool Engine::addTask(unsigned long categoryId, const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate, const QString &status)
+bool Engine::addTask(const QString &title, const QString &priority, const QDateTime &dueDate, const QDateTime &reminderDate, const QString &status)
 {
 	TaskRepository repository(m_db);
 
-	Task entity(0, categoryId, title.toStdString() , TypeConverter::toPriority(priority), dueDate, reminderDate, TypeConverter::toStatus(status));
+	Task entity(0, m_categoryId, title.toStdString() , TypeConverter::toPriority(priority), dueDate, reminderDate, TypeConverter::toStatus(status));
 	unsigned long insertId = repository.Insert(entity);
 	if (insertId == 0)
 		return false;
@@ -124,8 +135,13 @@ bool Engine::addTask(unsigned long categoryId, const QString &title, const QStri
 	return true;
 }
 
-bool Engine::deleteTask(unsigned long taskId)
+bool Engine::deleteTask(int index)
 {
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	auto taskId = m_taskList.at(index)->id();
+
 	TaskRepository repository(m_db);
 	unsigned long deletedCount = repository.Delete(taskId);
 	if (deletedCount == 0)
@@ -135,8 +151,13 @@ bool Engine::deleteTask(unsigned long taskId)
 	return true;
 }
 
-bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate, const QString &newStatus)
+bool Engine::updateTask(int index, const QString &newTitle, const QString &newPriority, const QDateTime &newDueDate, const QDateTime &newReminderDate)
 {
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	auto taskId = m_taskList.at(index)->id();
+
 	TaskRepository repository(m_db);
 	TaskRepository::EntitySharedPtr foundEntity = repository.FindOneById(taskId);
 	if (foundEntity == nullptr)
@@ -146,7 +167,6 @@ bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QSt
 	foundEntity->SetPriority(TypeConverter::toPriority(newPriority));
 	foundEntity->SetDueDate(newDueDate);
 	foundEntity->SetReminderDate(newReminderDate);
-	foundEntity->SetStatus(TypeConverter::toStatus(newStatus));
 
 	repository.Update(taskId, *foundEntity.get());
 
@@ -154,8 +174,13 @@ bool Engine::updateTask(unsigned long taskId, const QString &newTitle, const QSt
 	return true;
 }
 
-bool Engine::doneTask(unsigned long taskId)
+bool Engine::doneTask(int index)
 {
+	if (index < 0 || index >= m_taskList.size())
+		return false;
+
+	auto taskId = m_taskList.at(index)->id();
+
 	TaskRepository repository(m_db);
 	TaskRepository::EntitySharedPtr foundEntity = repository.FindOneById(taskId);
 	if (foundEntity == nullptr)
@@ -167,6 +192,38 @@ bool Engine::doneTask(unsigned long taskId)
 
 	updateTaskList();
 	return true;
+}
+
+QString Engine::getTaskTitleByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QString();
+
+	return m_taskList.at(index)->title();
+}
+
+QString Engine::getTaskPriorityByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QString();
+
+	return m_taskList.at(index)->priority();
+}
+
+QDateTime Engine::getTaskDueDateByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QDateTime();
+
+	return m_taskList.at(index)->dueDate();
+}
+
+QDateTime Engine::getTaskReminderDateByIndex(int index)
+{
+	if (index < 0 || index >= m_taskList.size())
+		return QDateTime();
+
+	return m_taskList.at(index)->reminderDate();
 }
 
 bool Engine::addCategory(const QString &name)
@@ -194,9 +251,14 @@ bool Engine::addCategory(const QString &name)
 	return true;
 }
 
-bool Engine::deleteCategory(unsigned long categoryId)
+bool Engine::deleteCategory(int categoryIndex)
 {
 	CategoryRepository repository(m_db);
+
+	if (categoryIndex < 0 || categoryIndex >= m_categoryList.size())
+		return false;
+
+	auto categoryId = m_categoryList.at(categoryIndex)->id();
 
 	repository.Delete(categoryId);
 
@@ -204,9 +266,14 @@ bool Engine::deleteCategory(unsigned long categoryId)
 	return true;
 }
 
-bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
+bool Engine::updateCategory(int categoryIndex, const QString &newName)
 {
 	CategoryRepository repository(m_db);
+
+	if (categoryIndex < 0 || categoryIndex >= m_categoryList.size())
+		return false;
+
+	auto categoryId = m_categoryList.at(categoryIndex)->id();
 
 	auto foundEntity = repository.FindOneById(categoryId);
 	foundEntity->SetName(newName.toStdString());
@@ -214,6 +281,14 @@ bool Engine::updateCategory(unsigned long categoryId, const QString &newName)
 
 	updateCategoryList();
 	return true;
+}
+
+QString Engine::getCategoryNameByIndex(int index)
+{
+	if (index < 0 || index >= m_categoryList.size())
+		return QString();
+
+	return m_categoryList.at(index)->name();
 }
 
 void Engine::enableFilterByCategoty(bool enable)
@@ -240,6 +315,7 @@ void Engine::setFilterByDueDate(const QDateTime &firstDate, const QDateTime &las
 void Engine::setSortField(const QString &sortField)
 {
 	m_taskSortSettingsField = TypeConverter::toTaskSortField(sortField);
+	updateTaskList();
 }
 
 QString Engine::userName() const
@@ -267,10 +343,10 @@ void Engine::updateTaskList()
 
 	m_taskList.clear();
 
-/*	auto foundTask = repository.FindAll(m_userId,TaskRepository::TaskSortSettings(m_taskSortSettingsField, m_taskSortSettingsOrder), m_taskFilterSettings);
+	auto foundTask = repository.FindAll(m_userId,TaskRepository::TaskSortSettings(m_taskSortSettingsField, m_taskSortSettingsOrder), m_taskFilterSettings);
 	for (auto category : foundTask) {
 		m_taskList.append(new TaskObject(category.get(), 0));
 	}
-*/
+
 	emit taskModelChanged();
 }

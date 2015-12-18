@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml 2.2
 
 import "constants.js" as Consts
 import "components"
@@ -6,17 +7,26 @@ import "components"
 Rectangle {
     id: taskEditWindow
 
-    property alias taskName: name.text
-    property alias taskPriority: priority.text
-    property alias taskRemainderDate: remainderDate.text
-    property alias taskDueDate: dueDate.text
+    property alias  taskName: name.text
+    property alias  taskPriority: priority.text
+    property var    taskRemainderDate: Date()
+    property var    taskDueDate: Date()
 
-    signal taskEdited(string name, int priority, string reainderDate, string dueDate)
+    property string action: "create"
 
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight
 
     color: Consts.MainColor
+
+
+    function setRemainderDate(rDate){
+        taskRemainderDate = rDate
+    }
+    function setDueDate(dDate){
+        taskDueDate = rDate
+    }
+
 
     Text {
         anchors.top: taskEditWindow.top
@@ -46,6 +56,7 @@ Rectangle {
             text: qsTr("Name")
             color: "white"
             font.pixelSize: parent.labelFontSize
+            verticalAlignment: Text.AlignVCenter
         }
 
         CustomLineEdit {
@@ -53,45 +64,76 @@ Rectangle {
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: taskEditWindow.taskName
         }
 
         Text {
             text: qsTr("Priority")
             color: "white"
             font.pixelSize: parent.labelFontSize
+            verticalAlignment: Text.AlignVCenter
         }
 
-        CustomLineEdit {
+        TextRectangleItem {
             id: priority
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: "Low"
+            borderEnable: false
+            color: Consts.MainColorLight
+
+            onClicked: {
+                priorityListView.visible = true
+            }
         }
 
         Text {
             text: qsTr("Reminder date")
             color: "white"
             font.pixelSize: parent.labelFontSize
+            verticalAlignment: Text.AlignVCenter
         }
 
-        CustomLineEdit {
+        TextRectangleItem {
             id: remainderDate
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: Qt.formatDate(taskEditWindow.taskRemainderDate, "dd.MM.yyyy")
+            borderEnable: false
+            color: Consts.MainColorLight
+
+            onClicked: {
+                calendarView.visible = true
+                calendarView.editor = "taskEditReminderDate"
+            }
         }
 
         Text {
             text: qsTr("Due date")
             color: "white"
             font.pixelSize: parent.labelFontSize
+            verticalAlignment: Text.AlignVCenter
         }
 
-        CustomLineEdit {
+        TextRectangleItem {
             id: dueDate
 
             width: parent.lineEditWidth
             height: parent.lineEditHeight
+
+            text: Qt.formatDate(taskEditWindow.taskDueDate, "dd.MM.yyyy")
+            borderEnable: false
+            color: Consts.MainColorLight
+
+            onClicked: {
+                calendarView.visible = true
+                calendarView.editor = "taskEditDueDate"
+            }
         }
     }
 
@@ -120,7 +162,11 @@ Rectangle {
 
             onClicked: {
                 taskEditWindow.visible = false
-                taskEdited(taskName, taskPriority, taskRemainderDate, taskDueDate)
+                if (action == "create") {
+                    coreEngine.addTask(taskName, taskPriority, taskDueDate, taskRemainderDate, "Uncompleted")
+                } else {
+                    coreEngine.updateTask(dashboard.selectedTaskIndex, taskName, taskPriority, taskDueDate, taskRemainderDate)
+                }
             }
         }
 

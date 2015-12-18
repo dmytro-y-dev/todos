@@ -23,6 +23,7 @@ public:
 	Q_INVOKABLE TaskObject(unsigned long id, unsigned long categoryId, const QString& title, Priority priority, const QDateTime& dueDate,
 						   const QDateTime& reminderDate, Status status, QObject *parent = 0);
 	Q_INVOKABLE TaskObject(todos_model_entity::Task * task ,QObject * parent = 0);
+	Q_INVOKABLE TaskObject(const TaskObject& other);
 	Q_INVOKABLE TaskObject(QObject * parent = 0);
 
 	TaskObject& operator=(const TaskObject &right);

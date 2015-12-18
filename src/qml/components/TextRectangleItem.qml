@@ -7,6 +7,7 @@ Rectangle {
 
     property alias text: rectangleText.text
     property bool borderEnable: true
+    signal clicked()
 
     width: Consts.ScreenWidth
     height: Consts.ScreenHeight / 8
@@ -29,6 +30,12 @@ Rectangle {
         FontLoader {id: taskFont; source: "qrc:/fonts/resources/fonts/GoodDog.otf"}
         font.family: taskFont.name
         font.bold: true
-        font.pixelSize: parent.height / 2.5
+        font.pixelSize: parent.height / 2
+    }
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            namedRectangle.clicked()
+        }
     }
 }

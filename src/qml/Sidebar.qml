@@ -7,6 +7,15 @@ import "constants.js" as Consts
 Rectangle {
     id: sidebar
 
+    property var upperDueDateFilet: Date()
+    property var lowerDueDateFilet: Date()
+    property alias categoryName: selectedCategory.text
+    property alias sortName: sortByText.text
+
+    onSortNameChanged: {
+        coreEngine.setSortField(sortName)
+    }
+
     height: Consts.ScreenHeight
     width: Consts.ScreenWidth
 
@@ -56,13 +65,6 @@ Rectangle {
 
             source: "qrc:/icons/resources/icons/logout_icon.png"
         }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                sidebar.state = "Hide"
-            }
-        }
     }
 
     Column {
@@ -89,9 +91,13 @@ Rectangle {
             id: selectedCategory
             height: sidebar.height / 15
             width: sidebar.width / 2
-            text: "-"
+            text: ""
             borderEnable: false
             color: Consts.MainColorLight
+
+            onClicked: {
+                categoryListView.visible = true
+            }
         }
 
         Rectangle {
@@ -114,11 +120,18 @@ Rectangle {
             }
 
             TextRectangleItem {
+                id: upperDueDateFilterText
                 height: sidebar.height / 15
                 width: sidebar.width / 3
-                text: "-"
                 borderEnable: false
                 color: Consts.MainColorLight
+
+                text: Qt.formatDate(upperDueDateFilet, "dd.MM.yyyy")
+
+                onClicked: {
+                    calendarView.visible = true
+                    calendarView.editor = "filterUpperLimit"
+                }
             }
         }
 
@@ -130,11 +143,18 @@ Rectangle {
                 font.pixelSize: sidebar.height / 20
             }
             TextRectangleItem {
+                id: lowerDueDateFilterText
                 height: sidebar.height / 15
                 width: sidebar.width / 3
-                text: "-"
                 borderEnable: false
                 color: Consts.MainColorLight
+
+                text: Qt.formatDate(lowerDueDateFilet, "dd.MM.yyyy")
+
+                onClicked: {
+                    calendarView.visible = true
+                    calendarView.editor = "filterLowerLimit"
+                }
             }
         }
 
@@ -151,11 +171,16 @@ Rectangle {
         }
 
         TextRectangleItem {
+            id: sortByText
             height: sidebar.height / 15
             width: sidebar.width / 2
-            text: "-"
             borderEnable: false
+            text: "Title"
             color: Consts.MainColorLight
+
+            onClicked: {
+                sortByListView.visible = true
+            }
         }
     }
 
@@ -170,7 +195,9 @@ Rectangle {
 
         text: qsTr("Ok")
 
-        onClicked: {      }
+        onClicked: {
+            sidebar.state = "Hide"
+        }
     }
 
 

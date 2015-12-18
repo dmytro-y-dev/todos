@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import TodosEngine 1.0
+
 import "constants.js" as Consts
 import "components"
 
@@ -10,6 +12,13 @@ Item {
     height: Consts.ScreenHeight
 
     property alias model: dashboardView.model
+    property int selectedTaskIndex: -1
+    signal clearSelection()
+
+    property bool sortByIncrease: true
+    onSortByIncreaseChanged: {
+
+    }
 
     state: "Default"
 
@@ -58,21 +67,29 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { sidebarRectangle.state = "Show" }
+                    onClicked: { sidebar.state = "Show" }
                 }
             }
 
             Rectangle {
-                width: parent.width / 25
+                width: parent.width / 15
                 height: width
                 color: "#00000000"
                 anchors.right: parent.right
-                anchors.rightMargin: 50
+                anchors.rightMargin: 40
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
+                    id: sortIcon
                     anchors.fill: parent
-                    source: "qrc:/icons/resources/icons/zoom_icon.png"
+                    source: "qrc:/icons/resources/icons/indent_increase_icon.png"
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        sortByIncrease = !sortByIncrease
+                        sortIcon.source = sortByIncrease ? "qrc:/icons/resources/icons/indent_increase_icon.png" : "qrc:/icons/resources/icons/indent_decrease_icon.png"
+                    }
                 }
             }
 
@@ -100,13 +117,17 @@ Item {
                 hideContantHeight: dashboard.height / 8
 
                 onTaskClicked: {
+                    dashboard.clearSelection()
                     if(dashboard.state != "Default")
                         dashboard.state = "Default"
 
                 }
 
                 onTaskPressedAndHold: {
+                    dashboard.clearSelection()
+                    selectedTaskIndex = index
                     dashboard.state = "Context"
+
                 }
             }
         }
@@ -122,7 +143,8 @@ Item {
         anchors.rightMargin: 20
 
         onClicked: {
-            coreEngine.addTask("NewTask", 1, "yesterday", "lol :D");
+            taskEditWindow.action = "create"
+            taskEditWindow.visible = true
         }
     }
 
@@ -135,12 +157,25 @@ Item {
         anchors.bottom: parent.bottom;
         anchors.bottomMargin: 20;
 
+        onCompleteTaskClicked: {
+            coreEngine.doneTask(selectedTaskIndex)
+            selectedTaskIndex = -1
+            dashboard.state = "Default"
+        }
+
         onEditTaskClicked: {
+            dashboard.state = "Default"
+            taskEditWindow.action = "edit"
+            taskEditWindow.taskName = coreEngine.getTaskTitleByIndex(selectedTaskIndex)
+            taskEditWindow.taskPriority = coreEngine.getTaskPriorityByIndex(selectedTaskIndex)
+            taskEditWindow.taskDueDate = coreEngine.getTaskDueDateByIndex(selectedTaskIndex)
+            taskEditWindow.taskRemainderDate = coreEngine.getTaskReminderDateByIndex(selectedTaskIndex)
             taskEditWindow.visible = true
         }
 
         onDeleteTaskClicked: {
-            coreEngine.removeTask(0)
+            coreEngine.deleteTask(selectedTaskIndex)
+            selectedTaskIndex = -1
             dashboard.state = "Default"
         }
     }
