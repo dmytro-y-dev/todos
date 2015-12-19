@@ -43,9 +43,9 @@ TaskFactory::FieldsValuesContainer TaskFactory::RevertToFieldsValues(const TaskF
 
 TaskFactory::TaskFactory()
 {
-  m_priorityMapping.push_back(std::make_pair("low", Task::Priority::LOW));
-  m_priorityMapping.push_back(std::make_pair("normal", Task::Priority::NORMAL));
-  m_priorityMapping.push_back(std::make_pair("high", Task::Priority::HIGH));
+  m_priorityMapping.push_back(std::make_pair("1-low", Task::Priority::LOW));
+  m_priorityMapping.push_back(std::make_pair("2-normal", Task::Priority::NORMAL));
+  m_priorityMapping.push_back(std::make_pair("3-high", Task::Priority::HIGH));
 
   m_statusMapping.push_back(std::make_pair("uncompleted", Task::Status::UNCOMPLETED));
   m_statusMapping.push_back(std::make_pair("completed", Task::Status::COMPLETED));

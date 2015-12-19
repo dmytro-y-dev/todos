@@ -76,4 +76,3 @@ HEADERS += \
     ../../model/repository/task/TaskFilterSettings.h \
     ../../utility/StringConversions.h \
     ../../model/repository/task/TaskSortSettings.h
-
