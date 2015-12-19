@@ -33,3 +33,4 @@ The application has login and sign up screens, so different users can login from
 
 ![Applications diagram](https://cloud.githubusercontent.com/assets/11299836/11456223/0fa78ad8-968b-11e5-81be-29cf98ce4100.jpg "Applications diagram")
 
+[![TODOS test](http://i.grab.la/05c13-6f67b0e4-75e3-4993-b058-c4e4e1c478b2.png)](https://www.youtube.com/watch?v=jxAKdwKtg8o&feature=youtu.be)
