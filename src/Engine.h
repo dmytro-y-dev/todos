@@ -71,6 +71,8 @@ private:
 	void updateCategoryList();
 	void updateTaskList();
 
+	void initializeTestData();
+
 	QQuickList<TaskObject> m_taskList;
 	QQuickList<CategotyObject> m_categoryList;
 	QQuickList<CommentaryObject> m_commentaryList;

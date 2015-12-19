@@ -35,34 +35,7 @@ Engine::Engine(QObject *parent)
 	m_db.Open(dbFileName);
 	m_db.CreateTables();
 
-	if (!logIn("TEST_USER","12345")) {
-		signUp("TEST_USER", "12345");
-
-	addCategory("Category1");
-	addCategory("Category2");
-	addCategory("Category3");
-
-	m_categoryId = m_categoryList.at(0)->id();
-
-	addTask("Task1", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
-
-	addTask("Task2", "Normal", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
-
-	m_categoryId = m_categoryList.at(1)->id();
-
-	addTask("Task3", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
-
-	addTask("Task4", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
-
-	m_categoryId = m_categoryList.at(2)->id();
-
-	addTask("Task5", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
-
-	addTask("Task6", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
-
-	}
-	updateCategoryList();
-	m_categoryId = m_categoryList.first()->id();
+	initializeTestData();
 }
 
 Engine::~Engine()
@@ -349,4 +322,50 @@ void Engine::updateTaskList()
 	}
 
 	emit taskModelChanged();
+}
+
+void Engine::initializeTestData()
+{
+	if (!logIn("TEST_USER","12345")) {
+		signUp("TEST_USER", "12345");
+
+	addCategory("Category1");
+	addCategory("Category2");
+	addCategory("Category3");
+	addCategory("Category4");
+	addCategory("Category5");
+
+	m_categoryId = m_categoryList.at(0)->id();
+
+	addTask("Task1_1", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+	addTask("Task2_1", "Normal", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+	addTask("Task3_1", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+	addTask("Task4_1", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
+	m_categoryId = m_categoryList.at(1)->id();
+
+	addTask("Task1_2", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+	addTask("Task2_2", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+	addTask("Task3_2", "Normal", QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+	addTask("Task4_2", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+
+	m_categoryId = m_categoryList.at(2)->id();
+
+	addTask("Task1_3", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+	addTask("Task2_3", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
+	m_categoryId = m_categoryList.at(3)->id();
+
+	addTask("Task1_4", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+	addTask("Task2_4", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
+	m_categoryId = m_categoryList.at(4)->id();
+
+	addTask("Task1_5", "Low",    QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Completed");
+	addTask("Task2_5", "High",   QDateTime::currentDateTime(), QDateTime::currentDateTime(), "Uncompleted");
+
+	}
+
+	updateCategoryList();
+	m_categoryId = m_categoryList.first()->id();
 }
