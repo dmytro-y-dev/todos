@@ -92,8 +92,8 @@ std::vector<TaskRepository::EntitySharedPtr> TaskRepository::FindAll(unsigned lo
       filterBy += "AND ";
     }
 
-    filterBy += " `Task`.`due_date` > '" + filters.GetDueDateLowerLimit().toString("yyyy-M-d H:m:s").toStdString() +
-      "' AND `Task`.`due_date` < '" + filters.GetDueDateUpperLimit().toString("yyyy-M-d H:m:s").toStdString() + "'";
+    filterBy += " `Task`.`due_date` > '" + todos_utility::QDateTimeToString(filters.GetDueDateLowerLimit()) +
+      "' AND `Task`.`due_date` < '" + todos_utility::QDateTimeToString(filters.GetDueDateUpperLimit()) + "'";
   }
 
   // Concat SQL script

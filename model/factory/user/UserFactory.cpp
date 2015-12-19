@@ -15,7 +15,7 @@ UserFactory::EntitySharedPtr UserFactory::CreateFromFieldsValues(const UserFacto
     unsigned int id = todos_utility::StringToInt(values.at(UserTraits().GetIdFieldName()));
     std::string login = values.at("login");
     std::string password = values.at("password");
-    QDateTime signedUpOn = QDateTime::fromString(QString::fromStdString(values.at("signedup_on")), "yyyy-M-d H:m:s");
+    QDateTime signedUpOn = todos_utility::StringToQDateTime(values.at("signedup_on"));
 
     ptrEntity.reset(new User(id, login, password, signedUpOn));
   }
@@ -30,7 +30,7 @@ UserFactory::FieldsValuesContainer UserFactory::RevertToFieldsValues(const UserF
   values.insert(std::make_pair(UserTraits().GetIdFieldName(), todos_utility::IntToString(entity.GetId())));
   values.insert(std::make_pair("login", entity.GetLogin()));
   values.insert(std::make_pair("password", entity.GetPassword()));
-  values.insert(std::make_pair("signedup_on", entity.GetSignedUpOn().toString("yyyy-M-d H:m:s").toStdString()));
+  values.insert(std::make_pair("signedup_on", todos_utility::QDateTimeToString(entity.GetSignedUpOn())));
 
   return values;
 }
