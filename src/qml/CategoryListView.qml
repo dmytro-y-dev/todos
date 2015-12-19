@@ -41,7 +41,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        sidebar.categoryName = parent.text
+                        sidebar.filterCategoryName = parent.text
                         categoryListView.visible = false
                         view.clearSelection()
                         selectedTaskIndex = model.index

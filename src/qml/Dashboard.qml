@@ -13,6 +13,8 @@ Item {
 
     property alias model: dashboardView.model
     property int selectedTaskIndex: -1
+    property string headerText: coreEngine.dashboardHeaderText
+
     signal clearSelection()
 
     property bool sortByIncrease: true
@@ -94,9 +96,9 @@ Item {
             }
 
             Text {
-                id: text2
+                id: dashboardHeaderText
                 color: "#f1eeee"
-                text: qsTr("BEST Category")
+                text: dashboard.headerText
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.left: parent.left

@@ -85,6 +85,8 @@ bool Engine::signUp(const QString &name, const QString &password)
 	}
 
 	m_userId = foundUser->GetId();
+	updateCategoryList();
+	updateTaskList();
 
 	return true;
 }
@@ -267,11 +269,14 @@ QString Engine::getCategoryNameByIndex(int index)
 void Engine::enableFilterByCategoty(bool enable)
 {
 	m_taskFilterSettings.EnableFilterByCategory(enable);
+	emit dashboardHeaderTextChanged();
 }
 
 void Engine::setFilterByCategoty(const QString &categoryName)
 {
 	m_taskFilterSettings.SetCategory(categoryName.toStdString());
+	m_categoryName = categoryName;
+	emit dashboardHeaderTextChanged();
 }
 
 void Engine::enableFilterByDueDate(bool enable)
@@ -279,10 +284,10 @@ void Engine::enableFilterByDueDate(bool enable)
 	m_taskFilterSettings.EnableFilterByCategory(enable);
 }
 
-void Engine::setFilterByDueDate(const QDateTime &firstDate, const QDateTime &lastDate)
+void Engine::setFilterByDueDate(const QDateTime &lowerLimit, const QDateTime &upperLimit)
 {
-	m_taskFilterSettings.SetDueDateLowerLimit(firstDate);
-	m_taskFilterSettings.SetDueDateUpperLimit(lastDate);
+	m_taskFilterSettings.SetDueDateLowerLimit(lowerLimit);
+	m_taskFilterSettings.SetDueDateUpperLimit(upperLimit);
 }
 
 void Engine::setSortField(const QString &sortField)
@@ -294,6 +299,15 @@ void Engine::setSortField(const QString &sortField)
 QString Engine::userName() const
 {
 	return m_userName;
+}
+
+QString Engine::dashboardHeaderText() const
+{
+	if (m_taskFilterSettings.IsFilterByCategory()) {
+		return m_categoryName;
+	}
+
+	return "All category";
 }
 
 void Engine::updateCategoryList()
@@ -326,8 +340,8 @@ void Engine::updateTaskList()
 
 void Engine::initializeTestData()
 {
-	if (!logIn("TEST_USER","12345")) {
-		signUp("TEST_USER", "12345");
+	if (!logIn("TEST", "12345")) {
+		signUp("TEST", "12345");
 
 	addCategory("Category1");
 	addCategory("Category2");

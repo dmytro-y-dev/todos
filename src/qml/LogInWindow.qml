@@ -38,6 +38,8 @@ Rectangle {
         CustomLineEdit {
             id: name
 
+            text: "TEST"
+
             width: logInWindow.width / 2
             height: logInWindow.height / 13
         }
@@ -50,6 +52,8 @@ Rectangle {
 
         CustomLineEdit {
             id: password
+
+            text: "12345"
 
             width: logInWindow.width / 2
             height: logInWindow.height / 13

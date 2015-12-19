@@ -7,6 +7,7 @@ Rectangle {
 
     property alias text: rectangleText.text
     property bool borderEnable: true
+    property alias textVisible: rectangleText.visible
     signal clicked()
 
     width: Consts.ScreenWidth
