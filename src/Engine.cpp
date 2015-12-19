@@ -14,6 +14,7 @@ using todos_model_entity::Category;
 using todos_model_repository::CategoryRepository;
 using todos_model_entity::Task;
 using todos_model_repository::TaskRepository;
+using SortOrder = TaskRepository::TaskSortSettings::Order;
 
 namespace
 {
@@ -276,6 +277,12 @@ void Engine::setFilterByCategoty(const QString &categoryName)
 {
 	m_taskFilterSettings.SetCategory(categoryName.toStdString());
 	m_categoryName = categoryName;
+	for(auto category : m_categoryList) {
+		if (category->name() == categoryName) {
+			m_categoryId = category->id();
+		}
+	}
+
 	emit dashboardHeaderTextChanged();
 }
 
@@ -336,6 +343,12 @@ void Engine::updateTaskList()
 	}
 
 	emit taskModelChanged();
+}
+
+void Engine::changeSortOrder()
+{
+	m_taskSortSettingsOrder = m_taskSortSettingsOrder == SortOrder::ASC ? SortOrder::DESC : SortOrder::ASC;
+	updateTaskList();
 }
 
 void Engine::initializeTestData()

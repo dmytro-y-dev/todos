@@ -29,8 +29,8 @@ Rectangle {
         coreEngine.enableFilterByDueDate(dueDateFilterEnabled)
         upperDueDateFilterText.color = dueDateFilterEnabled ? Consts.MainColorLight : Consts.MainColorDark
         lowerDueDateFilterText.color = dueDateFilterEnabled ? Consts.MainColorLight : Consts.MainColorDark
-        upperDueDateFilterText.textVisible = categoryFilterEnabled
-        upperDueDateFilterText.textVisible = categoryFilterEnabled
+        upperDueDateFilterText.textVisible = dueDateFilterEnabled
+        lowerDueDateFilterText.textVisible = dueDateFilterEnabled
     }
 
     function applyFilrets() {
@@ -93,6 +93,7 @@ Rectangle {
         }
 
         Image {
+            id: logoutImage
             width: sidebar.width / 16
             height: width
 
@@ -101,6 +102,18 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
 
             source: "qrc:/icons/resources/icons/logout_icon.png"
+        }
+
+        MouseArea {
+            id: logoutButton
+            anchors.top : logoutImage.top
+            anchors.left : logoutImage.left
+            anchors.right: logoutImage.right
+            anchors.bottom:  logoutImage.bottom
+
+            onClicked: {
+                startWindow.visible = true
+            }
         }
     }
 

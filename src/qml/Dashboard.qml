@@ -91,6 +91,7 @@ Item {
                     onClicked: {
                         sortByIncrease = !sortByIncrease
                         sortIcon.source = sortByIncrease ? "qrc:/icons/resources/icons/indent_increase_icon.png" : "qrc:/icons/resources/icons/indent_decrease_icon.png"
+                        coreEngine.changeSortOrder();
                     }
                 }
             }
@@ -146,6 +147,10 @@ Item {
 
         onClicked: {
             taskEditWindow.action = "create"
+            taskEditWindow.taskName = "New task"
+            taskEditWindow.taskPriority = "High"
+            taskEditWindow.taskDueDate = new Date()
+            taskEditWindow.taskRemainderDate = new Date()
             taskEditWindow.visible = true
         }
     }

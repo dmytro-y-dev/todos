@@ -63,6 +63,8 @@ public:
 	Q_INVOKABLE void updateCategoryList();
 	Q_INVOKABLE void updateTaskList();
 
+	Q_INVOKABLE void changeSortOrder();
+
 	QString userName() const;
 	QString dashboardHeaderText() const;
 
