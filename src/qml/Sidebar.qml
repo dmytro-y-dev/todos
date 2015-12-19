@@ -7,13 +7,50 @@ import "constants.js" as Consts
 Rectangle {
     id: sidebar
 
-    property var upperDueDateFilet: Date()
-    property var lowerDueDateFilet: Date()
-    property alias categoryName: selectedCategory.text
+    property var upperDueDateFilter: Date()
+    property var lowerDueDateFilter: Date()
+    property alias filterCategoryName: selectedCategory.text
     property alias sortName: sortByText.text
+
+    property bool categoryFilterEnabled: false
+    property bool dueDateFilterEnabled: false
 
     onSortNameChanged: {
         coreEngine.setSortField(sortName)
+    }
+
+    onCategoryFilterEnabledChanged: {
+        coreEngine.enableFilterByCategoty(categoryFilterEnabled)
+        selectedCategory.color = categoryFilterEnabled ? Consts.MainColorLight : Consts.MainColorDark
+        selectedCategory.textVisible = categoryFilterEnabled
+    }
+
+    onDueDateFilterEnabledChanged: {
+        coreEngine.enableFilterByDueDate(dueDateFilterEnabled)
+        upperDueDateFilterText.color = dueDateFilterEnabled ? Consts.MainColorLight : Consts.MainColorDark
+        lowerDueDateFilterText.color = dueDateFilterEnabled ? Consts.MainColorLight : Consts.MainColorDark
+        upperDueDateFilterText.textVisible = dueDateFilterEnabled
+        lowerDueDateFilterText.textVisible = dueDateFilterEnabled
+    }
+
+    function applyFilrets() {
+        if (categoryFilterEnabled) {
+            if (filterCategoryName == "") {
+                return false;
+            } else {
+                coreEngine.setFilterByCategoty(filterCategoryName);
+            }
+        }
+
+        if (dueDateFilterEnabled) {
+            if (upperDueDateFilterText.text == "" || lowerDueDateFilterText.text == ""){
+                return false;
+            } else {
+                coreEngine.setFilterByDueDate(lowerDueDateFilter, upperDueDateFilter);
+            }
+        }
+
+        return true;
     }
 
     height: Consts.ScreenHeight
@@ -56,6 +93,7 @@ Rectangle {
         }
 
         Image {
+            id: logoutImage
             width: sidebar.width / 16
             height: width
 
@@ -64,6 +102,18 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
 
             source: "qrc:/icons/resources/icons/logout_icon.png"
+        }
+
+        MouseArea {
+            id: logoutButton
+            anchors.top : logoutImage.top
+            anchors.left : logoutImage.left
+            anchors.right: logoutImage.right
+            anchors.bottom:  logoutImage.bottom
+
+            onClicked: {
+                startWindow.visible = true
+            }
         }
     }
 
@@ -85,6 +135,10 @@ Rectangle {
         CustomCheckBox {
             id: categoryFilter
             text: "Category filter"
+            checked: false
+            onCheckedChanged: {
+                categoryFilterEnabled = checked
+            }
         }
 
         TextRectangleItem {
@@ -93,10 +147,12 @@ Rectangle {
             width: sidebar.width / 2
             text: ""
             borderEnable: false
-            color: Consts.MainColorLight
+            color: Consts.MainColorDark
 
             onClicked: {
-                categoryListView.visible = true
+                if (categoryFilterEnabled) {
+                    categoryListView.visible = true
+                }
             }
         }
 
@@ -109,29 +165,9 @@ Rectangle {
         CustomCheckBox {
             id: duedateFilter
             text: "Due date filter"
-        }
-
-        Row {
-            spacing: sidebar.width / 24
-            Text {
-                text: qsTr("Upper limit")
-                color: "#ffffff"
-                font.pixelSize: sidebar.height / 20
-            }
-
-            TextRectangleItem {
-                id: upperDueDateFilterText
-                height: sidebar.height / 15
-                width: sidebar.width / 3
-                borderEnable: false
-                color: Consts.MainColorLight
-
-                text: Qt.formatDate(upperDueDateFilet, "dd.MM.yyyy")
-
-                onClicked: {
-                    calendarView.visible = true
-                    calendarView.editor = "filterUpperLimit"
-                }
+            checked: false
+            onCheckedChanged: {
+                dueDateFilterEnabled = checked
             }
         }
 
@@ -147,13 +183,41 @@ Rectangle {
                 height: sidebar.height / 15
                 width: sidebar.width / 3
                 borderEnable: false
-                color: Consts.MainColorLight
+                color: Consts.MainColorDark
 
-                text: Qt.formatDate(lowerDueDateFilet, "dd.MM.yyyy")
+                text: Qt.formatDate(lowerDueDateFilter, "dd.MM.yyyy")
 
                 onClicked: {
-                    calendarView.visible = true
-                    calendarView.editor = "filterLowerLimit"
+                    if (dueDateFilterEnabled) {
+                        calendarView.visible = true
+                        calendarView.editor = "filterLowerLimit"
+                    }
+                }
+            }
+        }
+
+        Row {
+            spacing: sidebar.width / 24
+            Text {
+                text: qsTr("Upper limit")
+                color: "#ffffff"
+                font.pixelSize: sidebar.height / 20
+            }
+
+            TextRectangleItem {
+                id: upperDueDateFilterText
+                height: sidebar.height / 15
+                width: sidebar.width / 3
+                borderEnable: false
+                color: Consts.MainColorDark
+
+                text: Qt.formatDate(upperDueDateFilter, "dd.MM.yyyy")
+
+                onClicked: {
+                    if (dueDateFilterEnabled) {
+                        calendarView.visible = true
+                        calendarView.editor = "filterUpperLimit"
+                    }
                 }
             }
         }
@@ -196,7 +260,10 @@ Rectangle {
         text: qsTr("Ok")
 
         onClicked: {
-            sidebar.state = "Hide"
+            if (applyFilrets()) {
+                coreEngine.updateTaskList()
+                sidebar.state = "Hide"
+            }
         }
     }
 

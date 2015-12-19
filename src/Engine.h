@@ -24,6 +24,7 @@ class Engine : public QObject
 	Q_PROPERTY(QObjectListModel * categoryModel   READ categoryModel   NOTIFY categoryModelChanged)
 	Q_PROPERTY(QObjectListModel * commentaryModel READ commentaryModel NOTIFY commentaryModelChanged)
 	Q_PROPERTY(QString userName READ userName NOTIFY userNameChanged)
+	Q_PROPERTY(QString dashboardHeaderText READ dashboardHeaderText NOTIFY dashboardHeaderTextChanged)
 
 public:
 	explicit Engine(QObject *parent = 0);
@@ -55,27 +56,35 @@ public:
 	Q_INVOKABLE void enableFilterByCategoty(bool enable);
 	Q_INVOKABLE void setFilterByCategoty(const QString &categoryName);
 	Q_INVOKABLE void enableFilterByDueDate(bool enable);
-	Q_INVOKABLE void setFilterByDueDate(const QDateTime &firstDate, const QDateTime &lastDate);
+	Q_INVOKABLE void setFilterByDueDate(const QDateTime &lowerLimit, const QDateTime &upperLimit);
 
 	Q_INVOKABLE void setSortField(const QString &sortType);
 
+	Q_INVOKABLE void updateCategoryList();
+	Q_INVOKABLE void updateTaskList();
+
+	Q_INVOKABLE void changeSortOrder();
+
 	QString userName() const;
+	QString dashboardHeaderText() const;
 
 signals:
 	void taskModelChanged();
 	void categoryModelChanged();
 	void commentaryModelChanged();
 	void userNameChanged();
+	void dashboardHeaderTextChanged();
 
 private:
-	void updateCategoryList();
-	void updateTaskList();
+	void initializeTestData();
 
 	QQuickList<TaskObject> m_taskList;
 	QQuickList<CategotyObject> m_categoryList;
 	QQuickList<CommentaryObject> m_commentaryList;
 
 	QString m_userName;
+	QString m_categoryName;
+
 	unsigned long m_userId;
 	unsigned long m_categoryId;
 	unsigned long m_taskId;

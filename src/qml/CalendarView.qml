@@ -76,9 +76,9 @@ Rectangle {
                 } else if (editor == "taskEditReminderDate") {
                     taskEditWindow.taskRemainderDate = calendar.selectedDate
                 } else if (editor == "filterUpperLimit") {
-                    sidebar.upperDueDateFilet = calendar.selectedDate
+                    sidebar.upperDueDateFilter = calendar.selectedDate
                 } else if (editor == "filterLowerLimit") {
-                    sidebar.lowerDueDateFilet = calendar.selectedDate
+                    sidebar.lowerDueDateFilter = calendar.selectedDate
                 }
             }
         }

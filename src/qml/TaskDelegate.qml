@@ -107,14 +107,14 @@ Rectangle {
 
             spacing: 10
 
-            Text { text: qsTr("Priority");                                  font.pixelSize: taskContant.fontSize }
-            Text { text: display.priority;                                  font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Reminder date");                             font.pixelSize: taskContant.fontSize }
-            Text { text: Qt.formatDate(display.reminderDate, "dd.MM.yyyy"); font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Due date");                                  font.pixelSize: taskContant.fontSize }
-            Text { text: Qt.formatDate(display.dueDate, "dd.MM.yyyy");      font.pixelSize: taskContant.fontSize }
-            Text { text: qsTr("Status");                                    font.pixelSize: taskContant.fontSize }
-            Text { text: display.status;                                    font.pixelSize: taskContant.fontSize }
+            Text { text: qsTr("Priority");                                  font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: display.priority;                                  font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: qsTr("Reminder date");                             font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: Qt.formatDate(display.reminderDate, "dd.MM.yyyy"); font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: qsTr("Due date");                                  font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: Qt.formatDate(display.dueDate, "dd.MM.yyyy");      font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: qsTr("Status");                                    font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
+            Text { text: display.status;                                    font.pixelSize: taskContant.fontSize; visible: dashboard.state != "HideContant" }
         }
     }
     states: [

@@ -19,7 +19,7 @@ Rectangle {
         anchors.fill: parent
 
         text: tileButton.text
-        font.pointSize: parent.height / 2.67
+        font.pointSize: parent.height / 4
         color: "#ffffff"
 
         verticalAlignment: Text.AlignVCenter
