@@ -23,14 +23,20 @@ The application has login and sign up screens, so different users can login from
 
 `todos` contains next screens:
 
-1. Login screen
-2. Signup screen
-3. Dashboard screen
-4. Sort configuration screen
-5. Filters configuration screen
-6. Google Calendar import screen
-7. Task editor screen
+1. Start screeen
+![Start screeen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-33.png "Start screeen")
+2. Login screen
+![Login screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-12.png "Login screen")
+3. Signup screen
+![Signup screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-08.png "Signup screen")
+4. Dashboard screen
+![Dashboard screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-24-48.png "Dashboard screen")
+5. Sidebar
+![Sidebar](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-25-34.png "Sidebar")
+6. Task editor screen
+![Task editor screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-54.png "Task editor screen")
 
-![Applications diagram](https://cloud.githubusercontent.com/assets/11299836/11456223/0fa78ad8-968b-11e5-81be-29cf98ce4100.jpg "Applications diagram")
+
+![Applications diagram](https://github.com/metamaker/todos/blob/master/screenshots/Diagram.png "Applications diagram")
 
 [![TODOS test](http://i.grab.la/05c13-6f67b0e4-75e3-4993-b058-c4e4e1c478b2.png)](https://www.youtube.com/watch?v=jxAKdwKtg8o&feature=youtu.be)
