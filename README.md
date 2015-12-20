@@ -49,7 +49,12 @@ Task editor screen
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-54.png" width="200">
 
+### Applications diagram
 
+      
 ![Applications diagram](https://github.com/metamaker/todos/blob/master/screenshots/Diagram.png "Applications diagram")
 
-[![TODOS test](http://i.grab.la/05c13-6f67b0e4-75e3-4993-b058-c4e4e1c478b2.png)](https://www.youtube.com/watch?v=jxAKdwKtg8o&feature=youtu.be)
+### Demo
+
+     
+[![Demo](http://i.grab.la/05c13-6f67b0e4-75e3-4993-b058-c4e4e1c478b2.png)](https://www.youtube.com/watch?v=jxAKdwKtg8o&feature=youtu.be)
