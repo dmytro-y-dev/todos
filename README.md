@@ -25,27 +25,27 @@ The application has login and sign up screens, so different users can login from
 
 
 
-1. Start screeen
+Start screeen
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-33.png" width="200">
 
-2. Login screen
+Login screen
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-12.png" width="200">
 
-3. Signup screen
+Signup screen
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-08.png" width="200">
 
-4. Dashboard screen
+Dashboard screen
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-24-48.png" width="200">
 
-5. Sidebar
+Sidebar
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-25-34.png" width="200">
 
-6. Task editor screen
+Task editor screen
 
 <img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-54.png" width="200">
 
