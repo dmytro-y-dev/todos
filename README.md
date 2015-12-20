@@ -23,18 +23,31 @@ The application has login and sign up screens, so different users can login from
 
 `todos` contains next screens:
 
+
+
 1. Start screeen
-![Start screeen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-33.png "Start screeen")
+
+<img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-33.png" width="200">
+
 2. Login screen
-![Login screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-12.png "Login screen")
+
+<img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-22-12.png" width="200">
+
 3. Signup screen
-![Signup screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-08.png "Signup screen")
+
+<img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-08.png" width="200">
+
 4. Dashboard screen
-![Dashboard screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-24-48.png "Dashboard screen")
+
+<img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-24-48.png" width="200">
+
 5. Sidebar
-![Sidebar](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-25-34.png "Sidebar")
+
+<img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-25-34.png" width="200">
+
 6. Task editor screen
-![Task editor screen](https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-54.png "Task editor screen")
+
+<img src="https://github.com/metamaker/todos/blob/master/screenshots/Screenshot_2015-12-19-16-26-54.png" width="200">
 
 
 ![Applications diagram](https://github.com/metamaker/todos/blob/master/screenshots/Diagram.png "Applications diagram")
