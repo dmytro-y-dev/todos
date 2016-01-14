@@ -58,3 +58,12 @@ Task editor screen
 
      
 [![Demo](http://i.grab.la/05c13-6f67b0e4-75e3-4993-b058-c4e4e1c478b2.png)](https://www.youtube.com/watch?v=jxAKdwKtg8o&feature=youtu.be)
+
+
+### Profiling
+
+<img src="http://i.grab.la/0610e-468b6c96-ac5b-4719-a3cc-6372c6d4440b.png">
+
+<img src="http://i.grab.la/0610e-208b9d77-de37-4962-9251-1472cbb63b61.png">
+
+<img src="http://i.grab.la/0610e-ca80f068-1d71-4211-8306-10c9cfabc1f4.png">
