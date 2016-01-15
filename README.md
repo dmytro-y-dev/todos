@@ -74,4 +74,4 @@ Task editor screen
 
 <img src="http://s020.radikal.ru/i709/1601/99/afbc228dbf8f.png">
 
-<img src="http://s015.radikal.ru/i333/1601/de/54a0b1daf7c8.png>
+<img src="http://s015.radikal.ru/i333/1601/de/54a0b1daf7c8.png">
