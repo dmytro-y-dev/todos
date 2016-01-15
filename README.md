@@ -67,3 +67,11 @@ Task editor screen
 <img src="http://i.grab.la/0610e-208b9d77-de37-4962-9251-1472cbb63b61.png">
 
 <img src="http://i.grab.la/0610e-ca80f068-1d71-4211-8306-10c9cfabc1f4.png">
+
+<img src="http://s011.radikal.ru/i318/1601/c0/54375b5388cf.png">
+
+<img src="http://s019.radikal.ru/i611/1601/70/d5c4681f875d.png">
+
+<img src="http://s020.radikal.ru/i709/1601/99/afbc228dbf8f.png">
+
+<img src="http://s015.radikal.ru/i333/1601/de/54a0b1daf7c8.png>
